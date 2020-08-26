@@ -1,5 +1,6 @@
 # vitanova 
-# is an application written in python3, width the help of the Django web framework and Mariadb as backend.
+is an application written in python3,
+with the help of the Django web framework and Mariadb as DB backend.
 
 # Install For Development
 
