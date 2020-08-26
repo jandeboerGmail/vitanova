@@ -1,0 +1,231 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"def",
+				"default"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "contacts/models.py",
+			"settings":
+			{
+				"buffer_size": 6017,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/jan/vitanova",
+		"/Volumes/jan/vitanova/contacts"
+	],
+	"file_history":
+	[
+		"/Volumes/jan/vitanova/contacts/admin.py",
+		"/Volumes/jan/vitanova/vitanova/urls.py",
+		"/Volumes/jan/vitanova/contacts/models.py",
+		"/Volumes/jan/vitanova/vitanova/settings.py",
+		"/Volumes/jan/vitanova/contacts/views.py",
+		"/Volumes/jan/vitanova/contacts/urls.py",
+		"/Volumes/jan/vitanova/fanclub/models.py",
+		"/Volumes/jan/vitanova/Data/Gegevens voor Jan de Boer",
+		"/Volumes/jan/mysite/mysite/settings.py",
+		"/Volumes/jan/mysite/polls/views.py",
+		"/Volumes/jan/mysite/polls/urls.py",
+		"/Users/jan/Dropbox/Web Overig/BF7/htaccess_backup_org",
+		"/Users/jan/Dropbox/Web Overig/BF7/htaccess_backup",
+		"/Users/jan/Dropbox/Web backups/KK/joomla_update.php",
+		"/Users/jan/Dropbox/Web backups/BF7/htaccess",
+		"/Users/jan/Dropbox/Web Overig/htaccess/htaccess.txt",
+		"/Users/jan/Dropbox/Web backups/KK/error_log",
+		"/Users/jan/Dropbox/Web Overig/Koja koi/htaccess_org",
+		"/Users/jan/Desktop/20181201_energie_standen"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "contacts/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6017,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4376,
+								4376
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1422.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "vitanova.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 246.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,210 @@
+
+
+Gegevens voor Jan de Boer
+
+Zalen:
+- id
+- naam
+- contact - >beheerder (-> contacts)
+- postcode
+- adress (straat + nummer + extra )
+- plaats
+- telefoon
+- mobiel
+- datum/tijd ingevoerd
+- datum/tijd update
+
+Catering:
+- id
+- naam
+- contact - > eigenaar (-> contacts)
+- datum/tijd ingevoerd
+- datum/tijd update
+
+Bands:
+- id
+- naam
+- soort
+- contact - >  (-> contacts)
+- Aantal leden 
+- datum/tijd ingevoerd
+- datum/tijd update
+
+
+Evenementen:
+- id
+- naam
+- waar (zaal)
+- wie (band)
+- wanneer (datum)
+- Gage
+- Wijze van betaling
+- Soort overeenkomst
+- Bank rekening nr.
+- Entree prijs
+- Via voorverkoop
+- Volgende data
+- Datum boekingen
+- Optie gedig tot
+- Aanvang / Einde
+- Zaal open
+- Beheerder
+- Memo
+- JPG
+- Vergunning vereist?
+- Vergunning aangevraagd?
+- Vergunning verleend op
+- Resultaat
+- Max zitplaatsen
+- 440V kracht stroom
+- Hulp nodig bij installeren
+- Foto's
+- History (artiesten)
+- Huur of eigen instrumenten
+- Incl. geluidstechnicus
+- Aantal auto's (Band)
+- Pauze muziek (Band)
+- datum/tijd ingevoerd
+- datum/tijd update
+
+Contacts (Personen):
+- id
+- voornaam
+- achternaamn
+- postcode
+- adress (straat + nummer + extra )
+- plaats
+- telefoon
+- mobiel
+- email
+- soort (lid, ere-lid, artiest, catering, contact)
+- memo (optionele informatie)
+- status (actief, nieuw, te verwijderen)
+- datum/tijd ingevoerd
+- datum/tijd update
+
+
+Fanclub:
+- id
+- naam
+- aantal leden
+- contact - >  (-> contacts)
+- datum/tijd ingevoerd
+- datum/tijd update
+
+Financiele zaken:
+Data evenement:
+Instrument:
+Artiesten:
+
+
+
+--------------------------------------------------------------
+
+Zalen:
+Oosterkerk, Huiskamer van Hoorn
+Beheerder Truus Ammeraal
+06 – 1417 9444
+Grote Oost 58 – 60
+1621    BX  Hoorn                                                                                               
+0229 – 21909
+
+
+Het Huis Verloren
+Eigenaar Christiaan Mulder Kerkstraat 10b
+1621 CW HOORN Tel: 0229-210608 info@huisverloren.nl
+
+Partycentrum De Witte Valk 
+Eigenaar Daphne
+06 – 20678838
+Dorpsstraat 175 1689 GB Zwaag Tel.: 0229 – 261 473 E-mail: info@dewittevalk.nl
+
+Catering:
+Dapur Jomy
+Eigenaar Amy Foss
+0653134683 / 0648606828
+
+Toko2Walk
+Eigenaar Cici
+0622606222
+
+Bands:
+
+Black Wings
+Blackmail
+Blue Velvet
+Brapa							
+CheckPoint
+Cliff and his Loney Stars
+De Stoel
+Dixie Aces (Trio)
+
+Band leden: (kunnen tevens ook contact persoon zijn, diverse instrument bespelen enz.)
+Eddy Chatalin           / Crazy Rockers
+Erlo van der Hoeven / Streetrollers
+
+Instrument:
+
+
+Artiesten:
+Duo Rudy & Cici		06 – 2260 6222
+Dewi Mass zangeres (krontjong en dangdut)
+Ab Eisendoorn
+Danny Vera
+
+Evenementen:
+Kumpulan
+Acara
+Rock & Roll Gala
+Country line Dance Partycentrum
+Angloon Optreden
+Iets anders
+
+Contact personen:
+
+Contact adressen:
+
+Post adressen:
+
+Personen:
+
+Fanclub:
+Aantal leden
+Verwachte Fan¨s
+
+Financiele zaken:
+Gage
+Wijze van betaling
+Soort overeenkomst
+Bank rekening nr.
+Entree prijs
+Via voorverkoop
+Volgende data
+
+Data evenement:
+Datum evenement
+Datum boekingen
+Optie gedig tot
+Aanvang / Einde
+Zaal open
+Beheerder
+In te vullen tekst 01
+In te vullen tekst 02
+In te vullen JPGt 01
+In te vullen JPGt 02
+
+Diverse eisen:
+Eisen Brandweer
+Vergunning vereist?
+Vergunning aangevraagd?
+Vergunning verleend op
+Resusltaat
+Max zitplaatsen
+440V kracht stroom
+Hulp nodig bij installeren
+Foto's
+History (artiesten)
+Huur of eigen instrumenten
+Incl. geluidstechnicus
+Aantal auto's (Band)
+Pauze muziek (Band)
