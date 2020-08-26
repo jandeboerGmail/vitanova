@@ -81,7 +81,7 @@ class Band(models.Model):
 	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1) 
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	memo = models.TextField(blank = True)
-	#image = models.ImageField()
+	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
 
