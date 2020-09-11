@@ -1,5 +1,6 @@
 *.pyc
 media/*
+nohup.out
 .*DS_Store
 */.*DS_Store
 */__pycache__/*.pyc

@@ -18,31 +18,41 @@ class Page(models.Model):
 	def __str__(self): # For Python 2, use __unicode__ too 
 		return self.title
 
+
 class Contact(models.Model):
 
 	class Soorten(models.IntegerChoices):
-		lid = 0
-		erelid = 1
-		artiest = 2
-		catering = 3
-		contact = 4
+		contact =0
+		lid = 1
+		donateur = 2
+		erelid = 3
+		artiest = 4
+		catering = 5
 
 	class Status(models.IntegerChoices):
 		new = 0
 		actief	= 1
 		verwijderen = 2
 
+	class Soortlid(models.IntegerChoices):
+		normaal = 0
+		brons	= 1
+		zilver = 2
+		goud = 3
+
 	naam = models.CharField(max_length=50,blank = False)
-	emailadress = models.EmailField(max_length=254,blank = False)
-	postcode = models.CharField(max_length=6,blank = False)
-	adress = models.CharField(max_length=50,blank = False)
-	plaats = models.CharField(max_length=50,blank = False)
-	telefoon = models.DecimalField(max_digits=11,decimal_places = 0,default = 0)
-	mobiel = models.DecimalField(max_digits=11,decimal_places = 0,default = 0)
-	emailadress = models.EmailField(max_length=254,blank = False)
-	soort = models.IntegerField(choices=Soorten.choices,default=4)
+	#group = models.ManyToManyField('Band',through = 'BandLeden')
+	adres = models.CharField(max_length=50,blank = True)
+	postcode = models.CharField(max_length=6,blank = True)
+	plaats = models.CharField(max_length=50,blank = True)
+	telefoon = models.CharField(max_length=16,blank = True)
+	mobiel = models.CharField(max_length=16,blank = True)
+	emailadress = models.EmailField(max_length=254,blank = True)
+	soort = models.IntegerField(choices=Soorten.choices,default=0)
+	soort_lid = models.IntegerField(choices=Soortlid.choices,default=0)
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	status = models.IntegerField(choices=Status.choices,default=0)
+	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	memo = models.TextField(blank = True)
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
 	datum_updated = models.DateTimeField(default=timezone.now, blank =False) 
@@ -50,8 +60,44 @@ class Contact(models.Model):
 	def __str__(self): # For Python 2, use __unicode__ too 
 		return self.naam
 
+class Band(models.Model):
+
+	class Overeenkomst(models.IntegerChoices):
+		gage = 0
+		zzp = 1
+		artiest = 2
+		buro  = 3
+
+	class Instrumenten(models.IntegerChoices):
+		eigen = 0
+		huur = 1
+
+	naam = models.CharField(max_length=50,blank = False,unique=True)
+	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	#leden  = models.ManyToManyField('Contact',through = 'BandLeden')
+	soort = models.CharField(max_length=50,blank=True)
+	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1)
+	genre = models.CharField(max_length=30,blank=True)
+	instrumenten = models.IntegerField(choices=Instrumenten.choices,default=0) 
+	technicus =  models.BooleanField(blank=False,default = True)
+	aantal_autos = models.DecimalField(max_digits=2,decimal_places = 0,default = 0)
+	soort = models.IntegerField(choices=Overeenkomst.choices,default=0)
+	bedrag =  models.DecimalField(max_digits=2,decimal_places = 0,default = 0)
+	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
+	website = models.URLField(max_length=200,blank=True)
+	memo = models.TextField(blank = True)
+	image = models.ImageField(upload_to ='media',null=True,blank=True)
+	#image2 = models.ImageField(upload_to ='media',null=True,blank=True)
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
+
+	def __str__(self): # For Python 2, use __unicode__ too 
+		return self.naam
+
+
 class Fanclub(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)
+	website = models.CharField(max_length=50,blank=True)
 	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1) 
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	datum_inserted = models.DateTimeField(default=timezone.now,blank=False)
@@ -66,22 +112,14 @@ class Zaal(models.Model):
 	postcode = models.CharField(max_length=6,blank = False)
 	adress = models.CharField(max_length=50,blank = False)
 	plaats = models.CharField(max_length=50,blank = False)
-	telefoon = models.DecimalField(max_digits=11,decimal_places = 0,default = 0)
+	telefoon = models.CharField(max_length=16,blank = True)
+	website = models.CharField(max_length=50,blank=True)
+	volt440 =  models.BooleanField(blank=False,default=False)
+	hulp_nodig = models.BooleanField(blank=False,default=False)
+	vergunning_vereist = models.BooleanField(blank=False,default=False)
+	vergunning_aaangevraagd = models.BooleanField(blank=False,default=False)
+	vergunning_datum = models.DateField(default=timezone.now)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
-
-	def __str__(self): # For Python 2, use __unicode__ too 
-		return self.naam
-
-class Band(models.Model):
-	naam = models.CharField(max_length=50,blank = False,unique=True)
-	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
-	soort = models.CharField(max_length=50,blank=True)
-	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1) 
-	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
-	memo = models.TextField(blank = True)
-	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
 
@@ -90,9 +128,11 @@ class Band(models.Model):
 
 class Cateraar(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)
+	website = models.URLField(max_length=200,blank=True)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	soort = models.CharField(max_length=50,blank=True)
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
+	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
@@ -100,41 +140,26 @@ class Cateraar(models.Model):
 	def __str__(self): # For Python 2, use __unicode__ too 
 		return self.naam
 
+class BandLeden(models.Model):
+	lid = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	band = models.ForeignKey(Band,on_delete=models.CASCADE)
+
 class Evenement(models.Model):
-
-	class Betalingen(models.IntegerChoices):
-		bank = 0
-		cash = 1
-
-	class Instrumenten(models.IntegerChoices):
-		eigen = 0
-		huur = 1
-
 	naam = models.CharField(max_length=50,blank = False,unique=True)
 	datum = models.DateTimeField(default=timezone.now, blank=False) 
 	aanvang = models.TimeField(auto_now=False)
 	einde = models.TimeField(auto_now=False)
 	zaal_open = models.TimeField(auto_now=False)
 	locatie = models.ForeignKey(Zaal,on_delete=models.CASCADE)
-	#catering = models.ForeignKey(Cateraar,on_delete=models.CASCADE)
-	#catering_prijs = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
+	catering = models.ForeignKey(Cateraar,on_delete=models.CASCADE,default = ' ')
+	catering_prijs = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
 	band = models.ForeignKey(Band,on_delete=models.CASCADE)
-	gage = models.DecimalField(max_digits=4,decimal_places = 0,default = 0)
-	betaling =  models.IntegerField(choices=Betalingen.choices,default=0)
-	soort_overeenkomst = models.CharField(max_length=50,blank=True)
 	thema = models.CharField(max_length=50,blank=False)
 	entree_prijs = models.DecimalField(max_digits=6,decimal_places = 2,default = 0,blank=False)
 	voorverkoop_prijs = models.DecimalField(max_digits=6,decimal_places = 2,default = 0,blank=False)
 	beheerder = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	zitplaatsen = models.DecimalField(max_digits=8,decimal_places = 0,default = 0)
-	vergunning_vereist = models.BooleanField(blank=False)
-	vergunning_aaangevraagd = models.BooleanField(blank=False)
-	vergunning_datum = models.DateField(blank=True)
-	volt440 =  models.BooleanField(blank=False)
-	hulp_nodig = models.BooleanField(blank=False)
-	huur = models.IntegerField(choices=Instrumenten.choices,default=0)
-	technicus =  models.BooleanField(blank=False)
-	aantal_autos = models.DecimalField(max_digits=2,decimal_places = 0,default = 0)
+	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
