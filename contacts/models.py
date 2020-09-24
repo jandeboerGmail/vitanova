@@ -5,7 +5,7 @@ from django.utils import timezone
 class Category(models.Model):
 	name = models.CharField(max_length=128, unique=True)
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.name
 
 class Page(models.Model):
@@ -15,7 +15,7 @@ class Page(models.Model):
 	views = models.IntegerField(default=0)
 
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.title
 
 
@@ -28,6 +28,10 @@ class Contact(models.Model):
 		erelid = 3
 		artiest = 4
 		catering = 5
+		art_buro = 6
+		bandleider = 7
+		technicus = 8
+		beheerder = 9
 
 	class Status(models.IntegerChoices):
 		new = 0
@@ -35,7 +39,7 @@ class Contact(models.Model):
 		verwijderen = 2
 
 	class Soortlid(models.IntegerChoices):
-		normaal = 0
+		blanco = 0
 		brons	= 1
 		zilver = 2
 		goud = 3
@@ -54,10 +58,10 @@ class Contact(models.Model):
 	status = models.IntegerField(choices=Status.choices,default=0)
 	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	memo = models.TextField(blank = True)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank =False) 
-	
-	def __str__(self): # For Python 2, use __unicode__ too 
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank =False)
+
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
 class Band(models.Model):
@@ -78,36 +82,37 @@ class Band(models.Model):
 	soort = models.CharField(max_length=50,blank=True)
 	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1)
 	genre = models.CharField(max_length=30,blank=True)
-	instrumenten = models.IntegerField(choices=Instrumenten.choices,default=0) 
+	instrumenten = models.IntegerField(choices=Instrumenten.choices,default=0)
 	technicus =  models.BooleanField(blank=False,default = True)
 	aantal_autos = models.DecimalField(max_digits=2,decimal_places = 0,default = 0)
 	soort = models.IntegerField(choices=Overeenkomst.choices,default=0)
-	bedrag =  models.DecimalField(max_digits=2,decimal_places = 0,default = 0)
+	bedrag =  models.DecimalField(max_digits=6,decimal_places = 2,default = 0)
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
 	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	#image2 = models.ImageField(upload_to ='media',null=True,blank=True)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
-
 
 class Fanclub(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)
 	website = models.CharField(max_length=50,blank=True)
-	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1) 
+	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	memo = models.TextField(blank = True)
 	datum_inserted = models.DateTimeField(default=timezone.now,blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now,blank=False)
-	
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
 class Zaal(models.Model):
+	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	naam = models.CharField(max_length=50,blank = False,unique=True)
 	postcode = models.CharField(max_length=6,blank = False)
 	adress = models.CharField(max_length=50,blank = False)
@@ -119,11 +124,10 @@ class Zaal(models.Model):
 	vergunning_vereist = models.BooleanField(blank=False,default=False)
 	vergunning_aaangevraagd = models.BooleanField(blank=False,default=False)
 	vergunning_datum = models.DateField(default=timezone.now)
-	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
 class Cateraar(models.Model):
@@ -131,13 +135,14 @@ class Cateraar(models.Model):
 	website = models.URLField(max_length=200,blank=True)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	soort = models.CharField(max_length=50,blank=True)
+	catering_prijs = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
 class BandLeden(models.Model):
@@ -146,13 +151,12 @@ class BandLeden(models.Model):
 
 class Evenement(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)
-	datum = models.DateTimeField(default=timezone.now, blank=False) 
+	datum = models.DateTimeField(default=timezone.now, blank=False)
 	aanvang = models.TimeField(auto_now=False)
 	einde = models.TimeField(auto_now=False)
 	zaal_open = models.TimeField(auto_now=False)
 	locatie = models.ForeignKey(Zaal,on_delete=models.CASCADE)
 	catering = models.ForeignKey(Cateraar,on_delete=models.CASCADE,default = ' ')
-	catering_prijs = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
 	band = models.ForeignKey(Band,on_delete=models.CASCADE)
 	thema = models.CharField(max_length=50,blank=False)
 	entree_prijs = models.DecimalField(max_digits=6,decimal_places = 2,default = 0,blank=False)
@@ -161,8 +165,8 @@ class Evenement(models.Model):
 	zitplaatsen = models.DecimalField(max_digits=8,decimal_places = 0,default = 0)
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
-	datum_inserted = models.DateTimeField(default=timezone.now, blank=False) 
-	datum_updated = models.DateTimeField(default=timezone.now, blank=False) 
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
 
-	def __str__(self): # For Python 2, use __unicode__ too 
+	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam

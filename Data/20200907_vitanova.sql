@@ -26,16 +26,16 @@ SET time_zone = "+00:00";
 -- Dumping data for table `contacts_band`
 --
 
-INSERT INTO `contacts_band` (`id`, `naam`, `aantal_leden`, `instrumenten`, `technicus`, `aantal_autos`, `soort`, `bedrag`, `rekening_nr`, `website`, `memo`, `image1`, `image2`, `datum_inserted`, `datum_updated`) VALUES
-(1, 'The Magic Tones', '5', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-19 15:45:07.000000', '2020-08-19 15:45:07.000000',
-(2, 'De Stoel', '5', 0, 0, '0', 50, '0', 'NL', '', 'Nog contact opnemen', NULL, NULL, '2020-08-19 20:36:57.000000', '2020-08-19 20:36:57.000000'),
+INSERT INTO `contacts_band` (`id`, `naam`, `aantal_leden`, `instrumenten`, `technicus`, `aantal_autos`, `soort`, `betaling`, `rekening_nr`, `website`, `memo`, `image1`, `image2`, `datum_inserted`, `datum_updated`, `contact_id`) VALUES
+(1, 'The Magic Tones', '5', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-19 15:45:07.000000', '2020-08-19 15:45:07.000000', 5),
+(2, 'De Stoel', '5', 0, 0, '0', 50, '0', 'NL', '', 'Nog contact opnemen', NULL, NULL, '2020-08-19 20:36:57.000000', '2020-08-19 20:36:57.000000', 14),
 (3, 'The Rocking Players', '6', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-20 22:16:12.000000', '2020-08-20 22:16:12.000000', 3),
 (4, 'Blackmail', '3', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-22 19:31:24.000000', '2020-08-22 19:31:24.000000', 15),
 (5, 'The Street Rollers', '5', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-22 19:22:02.000000', '2020-08-22 19:22:02.000000', 16),
 (6, 'Wipe Out Selection', '5', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-22 19:45:00.000000', '2020-08-22 19:45:00.000000', 17),
 (8, 'The Mordants', '6', 0, 0, '0', 50, '0', 'NL', '', '', NULL, NULL, '2020-08-24 16:15:54.000000', '2020-08-24 16:15:54.000000', 20),
 (9, 'Hot News', '6', 0, 0, '0', 0, '0', 'NL', '', '', NULL, NULL, '2020-08-25 12:40:40.000000', '2020-08-25 12:40:40.000000', 22),
-(10, 'Java Guitars Unlimited', '4', 0, 0, '0', 0, '0', 'NL', 'http://www.javaguitars.nl', '', '', '', '2020-08-25 12:51:24.000000', '2020-08-25 12:51:24.000000',),
+(10, 'Java Guitars Unlimited', '4', 0, 0, '0', 0, '0', 'NL', 'http://www.javaguitars.nl', '', '', '', '2020-08-25 12:51:24.000000', '2020-08-25 12:51:24.000000', 23),
 (11, 'Keep on Rocking', '4', 0, 0, '0', 0, '0', 'NL', 'http://www.keeponrocking.nl', '', '', '', '2020-08-25 13:06:52.000000', '2020-08-25 13:06:52.000000', 24);
 
 --
@@ -53,7 +53,7 @@ INSERT INTO `contacts_cateraar` (`id`, `naam`, `soort`, `rekening_nr`, `website`
 -- Dumping data for table `contacts_contact`
 --
 
-INSERT INTO `contacts_contact` (`id`, `naam`, `postcode`, `adres`, `plaats`, `telefoon`, `mobiel`, `emailadress`, `soort`, `soort_lid`, `rekening_nr`, `status`, `image`, `memo`, `datum_inserted`, `datum_updated`) VALUES
+INSERT INTO `contacts_contact` (`id`, `naam`, `postcode`, `adress`, `plaats`, `telefoon`, `mobiel`, `emailadress`, `soort`, `soort_lid`, `rekening_nr`, `status`, `image`, `memo`, `datum_inserted`, `datum_updated`) VALUES
 (2, 'Jan Jansen', '1625DE', 'Hoofdstraat 1', 'Hoorn', '61234512345', '61234512345', 'janjansen@vitanova.org', 4, 0, 'NL', 0, NULL, 'Dit is het eerste Lid', '2020-08-19 14:11:37.000000', '2020-08-19 14:11:37.000000'),
 (3, 'Jorgen van der Hoeven', 'xxxxyy', 'onbekend', 'onbekend', '1235678911', '611711287', 'j.verhoeven2@chello.nl', 4, 0, 'NL', 0, NULL, 'Dit is de tweede', '2020-08-19 14:16:20.000000', '2020-08-19 14:16:20.000000'),
 (4, 'Clif Jansen', '1000BD', 'Damstraat 6 , 2 Hoog', 'Amsterdam', '0', '0', 'clifjansen@vitanova.nl', 4, 0, 'NL', 1, NULL, 'Oprichter van de Fanclub \"Cliff and his Loanstars', '2020-08-19 14:23:40.000000', '2020-08-19 14:23:40.000000'),
