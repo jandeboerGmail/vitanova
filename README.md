@@ -22,6 +22,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver <servername:port>
 
+
 # Docker 
 docker  build -t vitaova . 
 docker images
