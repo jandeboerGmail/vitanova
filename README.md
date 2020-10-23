@@ -1,6 +1,8 @@
 # vitanova 
+
 is an application written in python3,
-with the help of the Django web framework and Mariadb as DB backend.
+with the help of the Django web framework and Mariadb as DB backend 
+running in a Docker container
 
 # Install For Development
 
@@ -24,6 +26,7 @@ python manage.py runserver <servername:port>
 
 
 # Docker 
+
 docker  build -t vitaova . 
 docker images
 docker run -d -t -p 8000:8000 <container-id>
