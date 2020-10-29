@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+<hr>
+<h2>Bands</h2>
+  <hr>
+  <div>
+    {% if bands %}
+    <ol>
+      {% for band in bands %}
+      <li>{{band.naam}} </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <strong>There are no bands present.</strong>
+    {% endif %}
+   </div
+{% endblock %}

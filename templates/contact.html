@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+<hr>
+<h2>Contacten</h2>
+<hr>
+<div>
+  {% if contacts %}
+  <ol>
+    {% for contact in contacts %}
+    <li>{{contact.naam}} &#9; {{contact.adres}} &#9; {{contact.postcode}} &#9;  {{contact.plaats}}</li>
+    {% endfor %}
+  </ol>
+  {% else %}
+    <strong>There are no contacts present.</strong>
+  {% endif %}
+ </div>
+
+{% endblock %}
+
