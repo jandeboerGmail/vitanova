@@ -1,6 +1,8 @@
 # vitanova 
+
 is an application written in python3,
-with the help of the Django web framework and Mariadb as DB backend.
+with the help of the Django web framework and Mariadb as DB backend 
+running in a Docker container
 
 # Install For Development
 
@@ -16,9 +18,18 @@ sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
 
 Mysql/Mariadb server
 
-# Bulding/Testing
+# Building/Running/Testing
 
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver <servername:port>
 
+
+# Docker 
+
+docker  build -t vitaova . 
+docker images
+docker run -d -t -p 8000:8000 <container-id>
+docker ps
+docker logs -f <container-id>
+docker exec -it <container-id> /bin/bash : to get a bash shell in the container.
