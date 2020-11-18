@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+<hr>
+<h2>Fanclub</h2>
+  <hr>
+  <div>
+    {% if fanclubs %}
+    <ol>
+      {% for fanclub in fanclubs %}
+      <li>{{fanclub.naam}} </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <strong>There are no fanclub(s) present.</strong>
+    {% endif %}
+   </div
+{% endblock %}

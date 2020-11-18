@@ -1,0 +1,29 @@
+<div class='col-12 col-md-10 mb-3 mx-auto'>
+    <div class='card {% if not contact.name %} border border-warning text-dark 
+   {% endif %}'>
+       <div class='card-body'>
+           {% if contact.image %}
+               <a href="{{ contact.get_absolute_url }}">
+                       <img src="{{ contact.image.url }}" class='card-img-top' />
+               </a>
+           {% endif %}
+           <h5 class='card-title'>{{ contact.name }}</h5>
+           <p class='card-text'>
+               <small class='text-muted'>{{ contact.name }}</small>
+               {% if truncate %}
+                   {{ contact.content|linebreaks|truncatewords:30 }}
+               {% else %}
+                   {{ contact.content|linebreaks }}
+               {% endif %}
+           </p>
+   
+           {% if not detail %}
+               {% if not contact.name %} Draft {% endif %}
+               <a href="{{ contact.get_absolute_url }}">View</a>
+           
+           {% endif %}
+       </div>
+   
+    </div>
+</div>
+   
