@@ -13,3 +13,14 @@ class BandPostModelForm(forms.ModelForm):
         fields = ['naam','contact','soort','aantal_leden','genre','instrumenten','technicus','aantal_autos',
         'bedrag','rekening_nr','website','memo','image'] 
 
+class FanclubPostModelForm(forms.ModelForm):
+    class Meta:
+        model = Fanclub
+        fields = ['naam','website','aantal_leden','contact','memo']
+
+
+class ZaalPostModelForm(forms.ModelForm):
+    class Meta:
+        model = Zaal
+        fields = ['naam','contact','postcode','adress','plaats','telefoon','website','volt440'],
+        'hulp_nodig','vergunning_vereist','vergunning_aangevraag','vergunning_datum']
