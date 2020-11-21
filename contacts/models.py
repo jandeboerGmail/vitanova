@@ -172,7 +172,6 @@ class Zaal(models.Model):
 
 class Cateraar(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)
-	website = models.URLField(max_length=200,blank=True)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	soort = models.CharField(max_length=50,blank=True)
 	catering_prijs = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
