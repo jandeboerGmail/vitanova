@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'vitanova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vitanova',
+        'NAME': 'vitanova_dev',
         'USER': 'django',
         'PASSWORD': 'Django2020Pwd!',
         'HOST': '192.168.1.10',
@@ -93,6 +93,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+
+LOGIN_URL = '/admin/login'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -27,9 +27,10 @@ python manage.py runserver <servername:port>
 
 # Docker 
 
-docker  build -t vitaova . 
+docker build -t vitaova . 
 docker images
-docker run -d -t -p 8000:8000 <container-id>
-docker ps
+docker run -d -it -p 8000:8000 --name vit<addmm> <container-id>
+docker ps`
 docker logs -f <container-id>
 docker exec -it <container-id> /bin/bash : to get a bash shell in the container.
+docker container prune (remove all sttopped contaners)

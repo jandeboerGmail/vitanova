@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 class Category(models.Model):
@@ -17,7 +18,6 @@ class Page(models.Model):
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.title
-
 
 class Contact(models.Model):
 
@@ -45,6 +45,7 @@ class Contact(models.Model):
 		goud = 3
 
 	naam = models.CharField(max_length=50,blank = False)
+	voornaam = models.CharField(max_length=20,blank = True)
 	#group = models.ManyToManyField('Band',through = 'BandLeden')
 	adres = models.CharField(max_length=50,blank = True)
 	postcode = models.CharField(max_length=6,blank = True)
@@ -58,11 +59,23 @@ class Contact(models.Model):
 	status = models.IntegerField(choices=Status.choices,default=0)
 	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	memo = models.TextField(blank = True)
+	#band = models.ManyToManyField(Band)
+	#evenement = models.ManyToManyField('models.Evenement')
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank =False)
 
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam)
+		self.datum_updated = timezone.now()
+		super(Contact, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'contacts'
+
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
+
 
 class Band(models.Model):
 
@@ -92,8 +105,17 @@ class Band(models.Model):
 	memo = models.TextField(blank = True)
 	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	#image2 = models.ImageField(upload_to ='media',null=True,blank=True)
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		super(Band, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'bands'
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -104,9 +126,17 @@ class Fanclub(models.Model):
 	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1)
 	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	memo = models.TextField(blank = True)
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now,blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now,blank=False)
 
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		super(Fanclub, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'fanclubs'
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -122,10 +152,20 @@ class Zaal(models.Model):
 	volt440 =  models.BooleanField(blank=False,default=False)
 	hulp_nodig = models.BooleanField(blank=False,default=False)
 	vergunning_vereist = models.BooleanField(blank=False,default=False)
-	vergunning_aaangevraagd = models.BooleanField(blank=False,default=False)
+	vergunning_aangevraagd = models.BooleanField(blank=False,default=False)
 	vergunning_datum = models.DateField(default=timezone.now)
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		self.vergunning_datum = timezone.now()
+		super(Zaal, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'zalen'
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -139,8 +179,17 @@ class Cateraar(models.Model):
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		super(Cateraar, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'cateraars'
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -155,18 +204,28 @@ class Evenement(models.Model):
 	aanvang = models.TimeField(auto_now=False)
 	einde = models.TimeField(auto_now=False)
 	zaal_open = models.TimeField(auto_now=False)
+	beheerder = models.ForeignKey(Contact,on_delete=models.CASCADE)
 	locatie = models.ForeignKey(Zaal,on_delete=models.CASCADE)
 	catering = models.ForeignKey(Cateraar,on_delete=models.CASCADE,default = ' ')
 	band = models.ForeignKey(Band,on_delete=models.CASCADE)
 	thema = models.CharField(max_length=50,blank=False)
 	entree_prijs = models.DecimalField(max_digits=6,decimal_places = 2,default = 0,blank=False)
 	voorverkoop_prijs = models.DecimalField(max_digits=6,decimal_places = 2,default = 0,blank=False)
-	beheerder = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	opbrengst = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
 	zitplaatsen = models.DecimalField(max_digits=8,decimal_places = 0,default = 0)
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
+	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		super(Evenement, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'evenementen'
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam

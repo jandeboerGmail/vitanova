@@ -12,3 +12,4 @@ class BandPostModelForm(forms.ModelForm):
         model = Band
         fields = ['naam','contact','soort','aantal_leden','genre','instrumenten','technicus','aantal_autos',
         'bedrag','rekening_nr','website','memo','image'] 
+
