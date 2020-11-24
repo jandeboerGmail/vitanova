@@ -7,23 +7,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!--- <link rel="stylesheet"  href="{% static 'css/main.css' type='text/css' %}"> -->
+    <!--Bootstrap CSS --> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-      h1 {text-align: center;color: #4733ff;}
-      p {color: #111111;}
-      div {color: #111111;}
+    <link rel="stylesheet"  href="{% static 'css/main.css' type='text/css' %}">
 
-      </style>
-    <title>{% block head_title %}{% endblock %} Vitanova</title>
+   <!-- <title>{% block head_title %}{% endblock %} Vitanova</title> -->
+   <!---<link rel="stylesheet" type="text/css" href='/home/jan/vitanova/contacts/css/main.css'> -->
+   <style type="text/css">
+    h1, h2, h3 {
+      color:blue;
+      
+    }
+    li {
+      color:blue;
+    }
+    h1 {
+      text-align: center;
+    }
+    nav-index, nav-link {
+      color:blue;
+    }
+   .nav-bar {
+      color:green;
+    }
+</style>
+
   </head>
   <body>
     {% include 'navbar.html' %}
     <div class='container-fluid'>
          {% block content %}
-            {% endblock %}
+         {% endblock %}
     </div>
-
     {% include 'js.html' %}
   </body>
   <hr>

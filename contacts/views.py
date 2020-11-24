@@ -20,6 +20,10 @@ def about(request):
     context  = {}
     return render(request,'about.html',context )
 
+def todo(request):
+    context  = {}
+    return render(request,'todo.html',context )
+
 #def index(request):
 #	return HttpResponse("Hello world. You're at the contacts index.")
 # Contact
@@ -31,20 +35,22 @@ def index(request):
     return render(request,'index.html',contact_dict )
 
 @login_required
-def index_contact(request):
+def indexContact(request):
     contact_list = Contact.objects.order_by('naam')
     contact_dict  = {'contacts' : contact_list}
-    return render(request,'index_contact.html',contact_dict )
+    return render(request,'indexContact.html',contact_dict )
 
-def index_band(request):
+@login_required
+def indexBand(request):
     band_list = Band.objects.order_by('naam')
     content  = {'bands' : band_list}
-    return render(request,'index_band.html',content )
+    return render(request,'indexBand.html',content )
 
-def index_fanclub(request):
+@login_required
+def indexFanclub(request):
     fanclub_list = Fanclub.objects.order_by('naam')
     content  = {'fanclubs' : fanclub_list}
-    return render(request,'index_fanclub.html',content )
+    return render(request,'indexFanclub.html',content )
     
 def contact(request):
     contact_list = Contact.objects.order_by('naam')
@@ -80,7 +86,8 @@ def band_post_create_view(request):
         context = {'form' : form}
         return render(request,template_name,context)
 
-def sc_naam (request):
+# Zoek Contact
+def scNaam (request):
     query = request.GET.get('q','')
     if query:
         qset = (
@@ -89,27 +96,82 @@ def sc_naam (request):
         results = Contact.objects.filter(qset).distinct()
     else:
         results = []
-    return render(request,"search.html", {
+    return render(request,"searchContact.html", {
         "results": results,
         "query": query
     }) 
     
-def sc_adres (request):
+def scVoorNaam (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(adres__icontains=query)         
+            Q(voornaan__icontains=query)         
         )       
         results = Contact.objects.filter(qset).distinct()
     else:
         results = []
-    return render(request,"search.html", {
+    return render(request,"searchContact.html", {
         "results": results,
         "query": query
     }) 
 
-# bandd
+def scPostcode(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(postcode__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct()
+    else:
+        results = []
+    return render(request,"searchContact.html", {
+        "results": results,
+        "query": query
+    }) 
 
+def scPlaats(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(plaats__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct()
+    else:
+        results = []
+    return render(request,"searchContact.html", {
+        "results": results,
+        "query": query
+    }) 
+
+def scSoortLid(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(soort_lid__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct()
+    else:
+        results = []
+    return render(request,"searchContact.html", {
+        "results": results,
+        "query": query
+    })
+
+def scSoort(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(soort__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct()
+    else:
+        results = []
+    return render(request,"searchContact.html", {
+        "results": results,
+        "query": query
+    }) 
+
+# band
 def band(request):
     band_list = Band.objects.order_by('naam')
     content  = {'bands' : band_list}

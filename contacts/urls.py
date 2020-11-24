@@ -5,18 +5,23 @@ urlpatterns = [
 
 	path('time/',views.current_datetime,name='current_datetime'),	
 	path('about/',views.about,name='about'),
+	path('todo/',views.todo,name='todo'),
 
 #index	
 	path('',views.index,name='index'),
-	path('index_contact',views.index_contact,name='index_contact'),
-	path('index_band',views.index_band,name='index_band'),
-	path('index_fanclub',views.index_fanclub,name='index_fanclub'),
+	path('indexContact',views.indexContact,name='indexContact'),
+	path('indexBand',views.indexBand,name='indexBand'),
+	path('indexFanclub',views.indexFanclub,name='indexFanclub'),
 
 
 #contact
 	path('contact/',views.contact,name='contact'),
-	path('sc_naam/',views.sc_naam,name='sc_naam'),
-	path('sc_adres/',views.sc_adres,name='sc_cadres'),
+	path('scNaam/',views.scNaam,name='scNaam'),
+	path('scVoorNaam/',views.scVoorNaam,name='scVoorNaam'),
+	path('scPostcode/',views.scPostcode,name='scPostcode'),
+	path('scPlaats/',views.scPlaats,name='scPlaats'),
+	path('scSoortLid/',views.scSoortLid,name='scSoortLid'),
+	path('scSoort/',views.scSoort,name='scSoort'),
  	path('c_create/',views.contact_post_create_view,name='c_create'),
 
 #band
