@@ -10,11 +10,11 @@
   {% if contacts %}
   <ol>
     {% for contact in contacts %}
-    <li>{{contact.naam}}  {{contact.adres}} {{contact.postcode}}  {{contact.plaats}}</li>
+    <li>{{contact.naam}}  {{contact.adres}} {{contact.postcode}}  {{contact.plaats}} {{contact.soort_lid}}</li>
     {% endfor %}
   </ol>
   {% else %}
-    <strong>There are no contact(s).</strong>
+    <strong>TEr zijn geen contacten</strong>
   {% endif %}
  </div>
 

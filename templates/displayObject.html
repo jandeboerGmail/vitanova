@@ -3,18 +3,19 @@
 {% block head_title %} {% endblock %}
 
 {% block content %}
+
 <hr>
-<h2>Bands</h2>
+<h2>Objects</h2>
   <hr>
   <div>
-    {% if bands %}
+    {% if objects %}
     <ol>
-      {% for band in bands %}
-      <li>{{band.naam}} </li>
+      {% for object in objects %}
+      <li>{{object.naam}} </li>
       {% endfor %}
     </ol>
     {% else %}
-      <strong>There are no band(s) present.</strong>
+      <strong>There are no objects(s) present.</strong>
     {% endif %}
    </div
 {% endblock %}

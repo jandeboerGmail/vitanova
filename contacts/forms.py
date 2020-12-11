@@ -5,7 +5,8 @@ from .models import Contact, Band, Fanclub, Zaal, Cateraar, Evenement
 class ContactPostModelForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
+        #fields = ['naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
+        fields = ['naam','adres','postcode','plaats','telefoon','mobiel','emailadress',
         'soort','soort_lid','rekening_nr','status','image','memo'] 
 
 class BandPostModelForm(forms.ModelForm):

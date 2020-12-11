@@ -22,7 +22,7 @@ class Page(models.Model):
 class Contact(models.Model):
 
 	class Soorten(models.IntegerChoices):
-		contact =0
+		contact = 0
 		lid = 1
 		donateur = 2
 		erelid = 3
@@ -46,7 +46,8 @@ class Contact(models.Model):
 
 	naam = models.CharField(max_length=50,blank = False)
 	voornaam = models.CharField(max_length=20,blank = True)
-	#group = models.ManyToManyField('Band',through = 'BandLeden')
+	#inband = models.ForeignKey('Band',on_delete=models.CASCADE)
+	#band = models.ManyToManyField('Band')
 	adres = models.CharField(max_length=50,blank = True)
 	postcode = models.CharField(max_length=6,blank = True)
 	plaats = models.CharField(max_length=50,blank = True)
@@ -59,7 +60,7 @@ class Contact(models.Model):
 	status = models.IntegerField(choices=Status.choices,default=0)
 	image = models.ImageField(upload_to ='media',null=True,blank=True)
 	memo = models.TextField(blank = True)
-	#band = models.ManyToManyField(Band)
+
 	#evenement = models.ManyToManyField('models.Evenement')
 	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
@@ -76,7 +77,6 @@ class Contact(models.Model):
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
-
 class Band(models.Model):
 
 	class Overeenkomst(models.IntegerChoices):
@@ -90,7 +90,8 @@ class Band(models.Model):
 		huur = 1
 
 	naam = models.CharField(max_length=50,blank = False,unique=True)
-	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	contact = models.ManyToManyField(Contact)
+	#contact = models.ForeignKey(Contact,on_delete=models.CASCADE,default=0)
 	#leden  = models.ManyToManyField('Contact',through = 'BandLeden')
 	soort = models.CharField(max_length=50,blank=True)
 	aantal_leden = models.DecimalField(max_digits=6,decimal_places = 0,default = 1)
@@ -194,8 +195,8 @@ class Cateraar(models.Model):
 		return self.naam
 
 class BandLeden(models.Model):
-	lid = models.ForeignKey(Contact,on_delete=models.CASCADE)
-	band = models.ForeignKey(Band,on_delete=models.CASCADE)
+	contact = models.ForeignKey('Contact',on_delete=models.CASCADE)
+	band = models.ForeignKey('Band',on_delete=models.CASCADE)
 
 class Evenement(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)

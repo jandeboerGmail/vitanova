@@ -1,4 +1,4 @@
-# Updates slug fields, Move up one directory to run
+# Updates slug fields, Move up one directory(vitaniva) to run python3 update_slug.py
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 
                       'vitanova.settings')

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+
+<hr>
+<h2>Cateraar</h2>
+  <hr>
+  <div>
+    {% if cateraars %}
+    <ol>
+      {% for cateraar in cateraars %}
+      <li>{{cateraar.naam}} </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <strong>Er zijn geen cateraars</strong>
+    {% endif %}
+   </div
+{% endblock %}

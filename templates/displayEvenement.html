@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+
+<hr>
+<h2>Evenementen</h2>
+  <hr>
+  <div>
+    {% if evenementen %}
+    <ol>
+      {% for evenement in evenementen %}
+      <li>{{evenement.naam}} </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+      <strong>Er zijn geen Evenementen</strong>
+    {% endif %}
+   </div
+{% endblock %}

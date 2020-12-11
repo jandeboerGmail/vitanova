@@ -20,12 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '%sqcqf!!vld9pg+3^cx+g=_tf(hnhet%7jp0y08as%xso5ptqr'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '%sqcqf!!vld9pg+3^cx+g=_tf(hnhet%7jp0y08as%xso5ptqr')
+SECRET_KEY = '%sqcqf!!vld9pg+3^cx+g=_tf(hnhet%7jp0y08as%xso5ptqr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.10','berkhout.ddns.net','venus','83.81.10.151'
 ]
@@ -80,7 +78,7 @@ WSGI_APPLICATION = 'vitanova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vitanova',
+        'NAME': 'vitanova_dev',
         'USER': 'django',
         'PASSWORD': 'Django2020Pwd!',
         'HOST': '192.168.1.10',
