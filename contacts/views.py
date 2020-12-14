@@ -84,7 +84,7 @@ def scVoorNaam (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(voornaan__icontains=query)         
+            Q(voornaam__icontains=query)         
         )       
         results = Contact.objects.filter(qset).distinct()
     else:
