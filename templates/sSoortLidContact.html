@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+
+<form action="." method="GET">
+    <label for="q">Soort Lid: </label>
+    <select name="q" id="q" value="{{ query|escape }}">
+        <option value="0">Blanco</option>
+        <option value="1">Brons</option>
+        <option value="2">Zilver</option>
+        <option value="3">Goud</option>
+    </select>
+    <input type="submit" value="Zoek">
+</form>
+
+  {% if query %}
+  <table class="table">
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col">Naam</th>
+        <th scope="col">Plaats</th>
+        <th scope="col">Email</th>
+        <th scope="col">Akties</th>
+      </tr>
+    </thead>
+
+    {% if results %}
+    <tbody>
+      {% for contact in results %}
+         <th scope="row">{{contact.soort_lid}}</th> 
+         <th> {{contact.naam}} </th> 
+         <th> {{contact.plaats}} </th>
+         <th> {{contact.emailadress}} </th>
+         <th><a class="btn btn-sm btn-info" href="{% url 'contactEdit' contact.id %}">Edit</a></th>
+         <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+      </tbody> 
+     {% endfor %}
+    </table>
+    {% else %}
+      <p>Niks gevonden</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

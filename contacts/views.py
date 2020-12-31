@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django import forms
+# from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import get_object_or_404
 from contacts.models import Contact, Category, Band, Fanclub, Zaal, Cateraar, Evenement
-
-from contacts.forms import ContactPostModelForm, BandPostModelForm
+from contacts.forms import ContactForm, BandForm, FanclubForm, ZaalForm, CateraarForm, EvenementForm
 from django.db.models import Q
 import datetime
 
@@ -66,63 +66,105 @@ def contact(request):
     return render(request,'displayContact.html',contact_dict )
 
 # Zoek Contact
-def scNaam (request):
+def sNaamContact (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct()
+        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
     else:
         results = []
-    return render(request,"searchContact.html", {
+    return render(request,"sNaamContact.html", {
         "results": results,
         "query": query
     }) 
     
-def scVoorNaam (request):
+def sVoorNaamContact (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(voornaam__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct()
+        results = Contact.objects.filter(qset).distinct().order_by('voornaam','naam')
     else:
         results = []
-    return render(request,"searchContact.html", {
+    return render(request,"sVoorNaamContact.html", {
         "results": results,
         "query": query
     }) 
 
-def scPostcode(request):
+def sPostcodeContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(postcode__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct()
+        results = Contact.objects.filter(qset).distinct().order_by('postcode','naam')
     else:
         results = []
-    return render(request,"searchContact.html", {
+    return render(request,"sPostcodeContact.html", {
         "results": results,
         "query": query
     }) 
 
-def scPlaats(request):
+def sPlaatsContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(plaats__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct()
+        results = Contact.objects.filter(qset).distinct().order_by('plaats','naam')
     else:
         results = []
-    return render(request,"searchContact.html", {
+    return render(request,"sPlaatsContact.html", {
         "results": results,
         "query": query
     }) 
 
-def scSoortLid(request):
+def sTelefoonContact (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(telefoon__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct().order_by('telefoon','naam')
+    else:
+        results = []
+    return render(request,"sTelefoonContact.html", {
+        "results": results,
+        "query": query
+    }) 
+
+def sSoortContact(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(soort__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+    else:
+        results = []
+    return render(request,"sSoortContact.html", {
+        "results": results,
+        "query": query
+    }) 
+
+def sStatusContact(request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(status__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+    else:
+        results = []
+    return render(request,"sStatusContact.html", {
+        "results": results,
+        "query": query
+    })
+
+def sSoortLidContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
@@ -131,52 +173,47 @@ def scSoortLid(request):
         results = Contact.objects.filter(qset).distinct()
     else:
         results = []
-    return render(request,"searchContact.html", {
+    return render(request,"sSoortLidContact.html", {
         "results": results,
         "query": query
     })
 
-def scSoort(request):
-    query = request.GET.get('q','')
-    if query:
-        qset = (
-            Q(soort__icontains=query)         
-        )       
-        results = Contact.objects.filter(qset).distinct()
-    else:
-        results = []
-    return render(request,"searchContact.html", {
-        "results": results,
-        "query": query
-    }) 
 
 #CRUD contacts
 
+'''
 def contact_post_detail_view(request):
     # 1 object -> detail view
     obj = get_object_or_404(Contact)
     template_name = 'detail.html'
     context = {"object": obj}
     return render(request, template_name, context)
+'''
 
-def contact_post_create_view(request):
-        form = ContactPostModelForm(request.POST or None)
+def contactCreate(request):
+        form = ContactForm(request.POST or None)
         if form.is_valid():
             form.save()
             # obj = Contact.objects.create(**form.cleaned_data)
-            form = ContactPostModelForm()
-        template_name = 'form.html'
-        context = {'form' : form}
+            form = ContactForm()
+        template_name = 'inputForm.html'
+        context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
 
-def band_post_create_view(request):
-        form = BandPostModelForm(request.POST or None)
+def contactEdit(request,pk):
+        
+        try :
+            contact_sel = Contact.objects.get(id=pk)
+        except Contact.DoesNotExist:
+            return redirect('index')
+
+        form = ContactForm(request.POST or None,instance = contact_sel)
         if form.is_valid():
             form.save()
-            # obj = Band.objects.create(**form.cleaned_data)
-            form = BandPostModelForm()
-        template_name = 'form.html'
-        context = {'form' : form}
+            # obj = Contact.objects.create(**form.cleaned_data)
+            form = ContactForm()
+        template_name = 'contactForm.html'
+        context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
 
 #
@@ -213,7 +250,17 @@ def sbgenre (request):
     return render(request,"searchBand.html", {
         "results": results,
         "query": query
-    }) 
+    })
+
+def bandCreate(request):
+        form = BandForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            # obj = Band.objects.create(**form.cleaned_data)
+            form = BandForm()
+        template_name = 'inputForm.html'
+        context = {'form' : form, 'title': 'Band'}
+        return render(request,template_name,context) 
 #    
 # Fanclub
 #
@@ -237,6 +284,16 @@ def sfnaam (request):
         "query": query
     }) 
 
+def fanclubCreate(request):
+    form = FanclubForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Band.objects.create(**form.cleaned_data)
+        form = FanclubForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Fanclub'}
+    return render(request,template_name,context)
+
 #
 # zaal
 #
@@ -258,6 +315,16 @@ def sznaam (request):
         "results": results,
         "query": query
     }) 
+
+def zaalCreate(request):
+    form = ZaalForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Band.objects.create(**form.cleaned_data)
+        form = ZaalForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Zaal'}
+    return render(request,template_name,context)
 
 #
 # Cateraar
@@ -281,6 +348,17 @@ def scanaam (request):
         "results": results,
         "query": query
     }) 
+    
+def cateraarCreate(request):
+    form = CateraarForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Band.objects.create(**form.cleaned_data)
+        form = CateraarForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Cateraar'}
+    return render(request,template_name,context)
+
 #
 # Evenement
 #
@@ -303,6 +381,16 @@ def sevnaam (request):
         "query": query
     }) 
 
+def evenementCreate(request):
+    form = EvenementForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Evenement.objects.create(**form.cleaned_data)
+        form = EvenementForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Evenement'}
+    return render(request,template_name,context)
+  
 #
 # Akties
 #

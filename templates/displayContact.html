@@ -6,13 +6,34 @@
 <hr>
 <h2>Contacten</h2>
 <hr>
-<div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Plaats</th>
+      <th scope="col">Email</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+
   {% if contacts %}
-  <ol>
+  <tbody>
     {% for contact in contacts %}
-    <li>{{contact.naam}}  {{contact.adres}} {{contact.postcode}}  {{contact.plaats}} {{contact.soort_lid}}</li>
-    {% endfor %}
-  </ol>
+       <!-- <th scope="row">{{contact.id}}</th> -->
+       <th> {{contact.naam}} </th>
+       <th> {{contact.plaats}} </th> 
+       <th> {{contact.emailadress}} </th>
+       <th><a class="btn btn-sm btn-info" href="{% url 'contactEdit' contact.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+    </tbody>
+      <!--
+      <a href="{% url 'contactEdit' contact.id %}"> (Edit)</a> </li>
+      -->  
+   {% endfor %}
+  </table>
+  
   {% else %}
     <strong>Er zijn geen contacten</strong>
   {% endif %}

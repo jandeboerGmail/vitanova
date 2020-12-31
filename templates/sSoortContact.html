@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block head_title %} {% endblock %}
+{% block content %}
+<form action="." method="GET">
+  <label for="q">Status: </label>
+  <select name="q" id="q" value="{{ query|escape }}">
+      <option value="0">Contact</option>
+      <option value="1">Lid</option>
+      <option value="2">Erelid</option>
+      <option value="4">Artiest</option>
+      <option value="5">Catering</option>
+      <option value="6">Artiesten Buro</option>
+      <option value="7">Bandleider</option>
+      <option value="8">Techicus</option>
+      <option value="9">Beheerder</option>
+  </select>
+  <input type="submit" value="Zoek">
+</form>
+
+  {% if query %}
+  <table class="table">
+    <thead>
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">Naam</th>
+        <th scope="col">VoorNaam</th>
+        <th scope="col">Plaats</th>
+        <th scope="col">Email</th>
+        <th scope="col">Akties</th>
+      </tr>
+    </thead>
+    <!--- <h3>Resultaat for "{{ query|escape }}":</h3> --->
+
+    {% if results %}
+    <tbody>
+      {% for contact in results %}
+         <!-- <th scope="row">{{contact.id}}</th> -->
+         <th> {{contact.naam}} </th> 
+         <th> {{contact.voornaam}} </th> 
+         <th> {{contact.plaats}} </th>
+         <th> {{contact.emailadress}} </th>
+         <th><a class="btn btn-sm btn-info" href="{% url 'contactEdit' contact.id %}">Edit</a></th>
+         <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+      </tbody> 
+     {% endfor %}
+    </table>
+    {% else %}
+      <p>Niks gevonden</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

@@ -19,40 +19,53 @@ urlpatterns = [
 
 #contact
 	path('contact/',views.contact,name='contact'),
-	path('scNaam/',views.scNaam,name='scNaam'),
-	path('scVoorNaam/',views.scVoorNaam,name='scVoorNaam'),
-	path('scPostcode/',views.scPostcode,name='scPostcode'),
-	path('scPlaats/',views.scPlaats,name='scPlaats'),
-	path('scSoortLid/',views.scSoortLid,name='scSoortLid'),
-	path('scSoort/',views.scSoort,name='scSoort'),
- 	path('c_create/',views.contact_post_create_view,name='c_create'),
+	path('sNaamContact/',views.sNaamContact,name='sNaamContact'),
+	path('sVoorNaamContact/',views.sVoorNaamContact,name='sVoorNaamContact'),
+	path('sPostcodeContact/',views.sPostcodeContact,name='sPostcodeContact'),
+	path('sPlaatsContact/',views.sPlaatsContact,name='sPlaatsContact'),
+	
+	path('sSoortContact/',views.sSoortContact,name='sSoortContact'),
+	path('sStatusContact/',views.sStatusContact,name='sStatusContact'),
+	path('sSoortLidContact/',views.sSoortLidContact,name='sSoortLidContact'),
+	path('sTelefoonContact/',views.sTelefoonContact,name='sTelefoonContact'),
+
+ 	path('contact_create/',views.contactCreate,name='contactCreate'),
+	path('contact/edit/<int:pk>',views.contactEdit,name='contactEdit'),
 
 #band
 	path('band/',views.band,name='band'),
 	path('sbnaam/',views.sbnaam,name='sbnaam'),
 	path('sbgenre/',views.sbgenre,name='sbgenre'),
 	
-	path('b_create/',views.band_post_create_view,name='b_create'),
+	path('band_create/',views.bandCreate,name='bandCreate'),
 
 #fanclub
 	path('fanclub/',views.fanclub,name='fanclub'),
 
 	path('sfnaam/',views.sfnaam,name='sfnaam'),
 
+	path('fanclub_create/',views.fanclubCreate,name='fanclubCreate'),
+
 #zaal
 	path('zaal/',views.zaal,name='zaal'),
 
 	path('sznaam/',views.sznaam,name='sznaam'),
+
+	path('zaal_create/',views.zaalCreate,name='zaalCreate'),
 
 #cateraar
 	path('cateraar/',views.cateraar,name='cateraar'),
 
 	path('scanaam/',views.scanaam,name='scanaam'),
 
+	path('cateraar_create/',views.cateraarCreate,name='cateraarCreate'),
+
 #evenement
 	path('evenement/',views.evenement,name='evenement'),
 
 	path('sevnaam/',views.sevnaam,name='sevnaam'),
+
+	path('evenement_create/',views.evenementCreate,name='evenementCreate'),
 ]
 
 

@@ -7,70 +7,47 @@
 {% block content %}
 {% load static %}
 
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"> --->
-<!--
+<h2 class='container'>Contact </h2>
 
-
- <style type="text/css">
-    h2, h3 {
-      color:blue;
-    }
-    .nav-index, .nav-link {
-      color:green;
-    }
-</style>
--->
-
-<hr>
-    <h2 class='container'>Contact </h2>
-
-<hr>
 <ul>
+  <hr>
+    <div class="nav-index">
+       <a class="nav-index" href="/vitanova/contact_create/">Nieuw</a>
+    </div>
+    <hr>  
     <div class="nav-index">
         <a class="nav-index" href="/vitanova/contact">Alle Contacten</a>
     <hr>
     <div class="nav-index">
-        <a class="nav-index" href="/vitanova/scNaam">Zoek op Naam</a>
+        <a class="nav-index" href="/vitanova/sNaamContact">Zoek op Naam</a>
     </div>
     <div class="nav-Index">
-      <a class="nav-index" href="/vitanova/scVoorNaam">Zoek op Voornaam</a>
+      <a class="nav-index" href="/vitanova/sVoorNaamContact">Zoek op Voornaam</a>
     </div>
     <div class="nav-Index">
-        <a class="nav-index" href="/vitanova/scPostcode">Zoek op Postcode </a>
+        <a class="nav-index" href="/vitanova/sPostcodeContact">Zoek op Postcode </a>
     </div>
     <div class="nav-Index">
-        <a class="nav-index" href="/vitanova/scPlaats">Zoek op Plaats</a>
-    </div>
-      
-    <div class="nav-Index">
-        <a class="nav-index" href="/vitanova/todo">Zoek op Soort (lid)</a>
+        <a class="nav-index" href="/vitanova/sPlaatsContact">Zoek op Plaats</a>
     </div>
 
     <div class="nav-Index">
-      <a class="nav-index" href="/vitanova/todo">Zoek op Soort (contact)</a>
-  </div>
-    <div class="nav-Index">
-      <a class="nav-index" href="/vitanova/todo">Zoek op Status</a>
+      <a class="nav-index" href="/vitanova/sTelefoonContact">Zoek op Telefoon</a>
     </div>
-    <div class="nav-Index">
-      <a class="nav-index" href="/vitanova/todo">Zoek op Telefoon</a>
-    </div>
-    <!--
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown button
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
-  -->
     <hr>
-    <div class="nav-index">
-        <a class="nav-index" href="/vitanova/c_create/">Nieuw</a>
+    <div class="nav-Index">
+      <a class="nav-index" href="/vitanova/sSoortContact">Zoek op Soort</a>
+   </div>
+
+    <div class="nav-Index">
+      <a class="nav-index" href="/vitanova/sStatusContact">Zoek op Status</a>
     </div>
-    <hr>     
+
+    <div class="nav-Index">
+      <a class="nav-index" href="/vitanova/sSoortLidContact">Zoek op Soort Lid</a>
+    </div>
+
+    <hr>
+     
 </ul>
 {% endblock %}
