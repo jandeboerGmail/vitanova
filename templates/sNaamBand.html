@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head_title %} {% endblock %}
+
+{% block content %}
+  <form action="." method="GET">
+    <label for="q">Zoek: </label>
+    <input type="text" name="q" value="{{ query|escape }}">
+    <input type="submit" value="Zoek">
+</form>
+
+  {% if query %}
+  <table class="table">
+    <thead>
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">Naam</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Aantal</th>
+        <th scope="col">Akties</th>
+      </tr>
+    </thead>
+    
+    {% if results %}
+    <tbody>
+      {% for band in results %}
+         <!-- <th scope="row">{{contact.id}}</th> -->
+         <th> {{band.naam}} </th>
+         <th> {{band.genre}} </th> 
+         <th> {{band.aantal_leden}} </th>
+         <th><a class="btn btn-sm btn-info" href="{% url 'bandEdit' band.id %}">Edit</a></th>
+         <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+      </tbody> 
+     {% endfor %}
+    </table>
+    {% else %}
+      <p>Niks gevonden</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

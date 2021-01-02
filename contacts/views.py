@@ -57,7 +57,6 @@ def indexCateraar(request):
 def indexEvenement(request):
     return render(request,'indexEvenement.html', {} )
 
-
 # Contact
 @login_required
 def contact(request):
@@ -66,6 +65,7 @@ def contact(request):
     return render(request,'displayContact.html',contact_dict )
 
 # Zoek Contact
+@login_required
 def sNaamContact (request):
     query = request.GET.get('q','')
     if query:
@@ -79,7 +79,8 @@ def sNaamContact (request):
         "results": results,
         "query": query
     }) 
-    
+
+@login_required    
 def sVoorNaamContact (request):
     query = request.GET.get('q','')
     if query:
@@ -94,6 +95,7 @@ def sVoorNaamContact (request):
         "query": query
     }) 
 
+@login_required
 def sPostcodeContact(request):
     query = request.GET.get('q','')
     if query:
@@ -108,6 +110,7 @@ def sPostcodeContact(request):
         "query": query
     }) 
 
+@login_required
 def sPlaatsContact(request):
     query = request.GET.get('q','')
     if query:
@@ -120,8 +123,9 @@ def sPlaatsContact(request):
     return render(request,"sPlaatsContact.html", {
         "results": results,
         "query": query
-    }) 
-
+    })
+ 
+@login_required
 def sTelefoonContact (request):
     query = request.GET.get('q','')
     if query:
@@ -136,6 +140,7 @@ def sTelefoonContact (request):
         "query": query
     }) 
 
+@login_required
 def sSoortContact(request):
     query = request.GET.get('q','')
     if query:
@@ -150,6 +155,7 @@ def sSoortContact(request):
         "query": query
     }) 
 
+@login_required
 def sStatusContact(request):
     query = request.GET.get('q','')
     if query:
@@ -164,6 +170,7 @@ def sStatusContact(request):
         "query": query
     })
 
+@login_required
 def sSoortLidContact(request):
     query = request.GET.get('q','')
     if query:
@@ -190,32 +197,62 @@ def contact_post_detail_view(request):
     return render(request, template_name, context)
 '''
 
+@login_required
 def contactCreate(request):
-        form = ContactForm(request.POST or None)
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Contact.objects.create(**form.cleaned_data)
+        form = ContactForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Contact'}
+    return render(request,template_name,context)
+'''
+@login_required
+def contactEdit0(request):  
+    form  = ContactForm()
+    if request.method == 'POST':
+        #    print('Printing Post:',request.POST)
+        form = ContactForm(request.POST or None)  
         if form.is_valid():
-            form.save()
-            # obj = Contact.objects.create(**form.cleaned_data)
-            form = ContactForm()
-        template_name = 'inputForm.html'
-        context = {'form' : form, 'title': 'Contact'}
-        return render(request,template_name,context)
+            print('Printing saving:',request.POST)
+        form.save()
+    return redirect('/vitanova/indexContact')
+'''
 
-def contactEdit(request,pk):
-        
+def contactEdit(request,pk):      
         try :
             contact_sel = Contact.objects.get(id=pk)
         except Contact.DoesNotExist:
             return redirect('index')
 
         form = ContactForm(request.POST or None,instance = contact_sel)
-        if form.is_valid():
-            form.save()
+        if request.method == 'POST':
+            print('Printing Post:',request.POST)
+
+        #if form.is_valid():
+            # form.save()
             # obj = Contact.objects.create(**form.cleaned_data)
-            form = ContactForm()
+        #    form = ContactForm()
+
         template_name = 'contactForm.html'
         context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
 
+@login_required
+def contactDelete(request,contact_id):      
+        try :
+            contact_sel = Contact.objects.get(id=contact_id)
+        except Contact.DoesNotExist:
+            return redirect('/vitanova/indexContact')
+
+        if request.method == 'GET':
+            
+            print('Printing Delete')
+            contact_sel.delete()
+            
+        return redirect('/vitanova/indexContact')
+    
 #
 # band
 #
@@ -224,43 +261,75 @@ def band(request):
     content  = {'bands' : band_list}
     return render(request,'displayBand.html',content )
 
-def sbnaam (request):
+def sNaamBand (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Band.objects.filter(qset).distinct()
+        results = Band.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchBand.html", {
+    return render(request,"sNaamBand.html", {
         "results": results,
         "query": query
     }) 
     
-def sbgenre (request):
+def sGenreBand (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(genre__icontains=query)         
         )       
-        results = Band.objects.filter(qset).distinct()
+        results = Band.objects.filter(qset).distinct().order_by('genre','naam')
     else:
         results = []
-    return render(request,"searchBand.html", {
+    return render(request,"sGenreBand.html", {
         "results": results,
         "query": query
     })
 
+def sAantalLedenBand (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(genre__icontains=query)         
+        )       
+        results = Band.objects.filter(qset).distinct().order_by('aantal_leden','naam')
+    else:
+        results = []
+    return render(request,"sAantalLedenBand.html", {
+        "results": results,
+        "query": query
+    })
+
+
+#CRUD
 def bandCreate(request):
-        form = BandForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            # obj = Band.objects.create(**form.cleaned_data)
-            form = BandForm()
-        template_name = 'inputForm.html'
-        context = {'form' : form, 'title': 'Band'}
-        return render(request,template_name,context) 
+    form = BandForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # obj = Band.objects.create(**form.cleaned_data)
+        form = BandForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Band'}
+    return render(request,template_name,context) 
+
+def bandEdit(request,pk):
+        
+    try :
+        band_sel = Band.objects.get(id=pk)
+    except Band.DoesNotExist:
+         return redirect('index')
+
+    form = BandForm(request.POST or None,instance = band_sel)
+    if form.is_valid():
+        form.save()
+        # obj = Band.objects.create(**form.cleaned_data)
+        form = BandForm()
+    template_name = 'bandForm.html'
+    context = {'form' : form, 'title': 'Band'}
+    return render(request,template_name,context)
 #    
 # Fanclub
 #

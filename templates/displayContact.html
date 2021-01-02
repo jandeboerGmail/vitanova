@@ -12,6 +12,7 @@
     <tr>
       <!-- <th scope="col">#</th> -->
       <th scope="col">Naam</th>
+      <th scope="col">VoorNaam</th>
       <th scope="col">Plaats</th>
       <th scope="col">Email</th>
       <th scope="col">Akties</th>
@@ -23,10 +24,11 @@
     {% for contact in contacts %}
        <!-- <th scope="row">{{contact.id}}</th> -->
        <th> {{contact.naam}} </th>
+       <th> {{contact.voornaam}} </th>
        <th> {{contact.plaats}} </th> 
        <th> {{contact.emailadress}} </th>
        <th><a class="btn btn-sm btn-info" href="{% url 'contactEdit' contact.id %}">Edit</a></th>
-       <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+       <th><a class="btn btn-sm btn-danger" href="{% url 'contactDelete' contact.id %}">Delete</a></th>
     </tbody>
       <!--
       <a href="{% url 'contactEdit' contact.id %}"> (Edit)</a> </li>

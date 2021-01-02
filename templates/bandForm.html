@@ -3,14 +3,13 @@
 {% block content %}
 <hr>
 {% if title %}
-    <h2 class='container col text-center'>{{ title }}</h2>
+    <h2 class='container'>{{ title }}</h2>
 {% endif %}
 <hr>
 <div class="form-group">
     <form method='POST' action='.' enctype='multipart/form-data'> 
         {% csrf_token %}
         {{ form.as_p }}
-    
 
     </form>
 </div>

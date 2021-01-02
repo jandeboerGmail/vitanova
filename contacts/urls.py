@@ -31,13 +31,17 @@ urlpatterns = [
 
  	path('contact_create/',views.contactCreate,name='contactCreate'),
 	path('contact/edit/<int:pk>',views.contactEdit,name='contactEdit'),
+	#Spath('contact/edit/',views.contactEdit0,name='contactEdit'),
+	path('contact/delete/<int:pk>',views.contactDelete,name='contactDelete'),
 
 #band
 	path('band/',views.band,name='band'),
-	path('sbnaam/',views.sbnaam,name='sbnaam'),
-	path('sbgenre/',views.sbgenre,name='sbgenre'),
+	path('sNaamBand/',views.sNaamBand,name='sNaamBand'),
+	path('sGenreBand/',views.sGenreBand,name='sGenreBand'),
+	path('sAantalLedenBand/',views.sAantalLedenBand,name='sAantalLedenBand'),
 	
 	path('band_create/',views.bandCreate,name='bandCreate'),
+	path('band/edit/<int:pk>',views.bandEdit,name='bandEdit'),
 
 #fanclub
 	path('fanclub/',views.fanclub,name='fanclub'),

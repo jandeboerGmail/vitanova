@@ -131,6 +131,4 @@ class EvenementForm(forms.ModelForm):
             'website': forms.URLInput(attrs={'class': 'form-control'}),
             'memo': forms.Textarea(attrs={'class': 'form-control'}),
 
-        }
-
-   
+        }   

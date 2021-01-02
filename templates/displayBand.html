@@ -1,20 +1,43 @@
 {% extends 'base.html' %}
-
-{% block head_title %} {% endblock %}
+{% block head_title %} 
+{% endblock %}
 
 {% block content %}
 <hr>
 <h2>Bands</h2>
-  <hr>
-  <div>
-    {% if bands %}
-    <ol>
-      {% for band in bands %}
-      <li>{{band.naam}} </li>
-      {% endfor %}
-    </ol>
-    {% else %}
-      <strong>Er zijn geen bands</strong>
-    {% endif %}
-   </div
+<hr>
+
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Aantal</th>
+      <th scope="col">Website</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+
+  {% if bands %}
+  <tbody>
+    {% for band in bands %}
+       <!-- <th scope="row">{{contact.id}}</th> -->
+       <th> {{band.naam}} </th>
+       <th> {{band.genre}} </th> 
+       <th> {{band.aantal_leden}} </th>
+       <th> {{band.website}} </th>
+       <th><a class="btn btn-sm btn-info" href="{% url 'bandEdit' band.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+       
+    </tbody>
+     
+   {% endfor %}
+  </table>
+  
+  {% else %}
+    <strong>Er zijn geen bands</strong>
+  {% endif %}
+ </div>
+
 {% endblock %}

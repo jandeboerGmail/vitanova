@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
-
 {% block head_title %} {% endblock %}
-
 {% block content %}
-<hr>
-    <h2 class='container'>Band</h2>
-<hr>
+{% load static %}
+<h2 class='container'>Band</h2>
 <ul>
-  <div class="nav-index">
-      <a class="nav-index" href="/vitanova/band">Alle Bands</a>
-  </div>
-  <div class="nav-index">
-      <a class="nav-index" href="/vitanova/sbnaam">Zoek op Naam</a>
-  </div>
-  <div class="nav-Index">
-      <a class="nav-index" href="/vitanova/sbgenre">Zoek op Genre</a>
-  </div>
-  <div class="nav-Index">
-    <a class="nav-index" href="/vitanova/todo">Zoek op Gage</a>
-  </div>
-  <div class="nav-Index">
-    <a class="nav-index" href="/vitanova/todo">Zoek op Aantal leden</a>
-  </div>
-  <hr>
+  <hr> 
   <div class="nav-index">
     <a class="nav-index" href="/vitanova/band_create">Nieuw</a>
   </div>
   <hr> 
+  <div class="nav-index">
+      <a class="nav-index" href="/vitanova/band">Alle Bands</a>
+  </div>
+  <hr>
+  <div class="nav-index">
+      <a class="nav-index" href="/vitanova/sNaamBand">Zoek op Naam</a>
+  </div>
+  <div class="nav-Index">
+      <a class="nav-index" href="/vitanova/sGenreBand">Zoek op Genre</a>
+  </div>
+  <div class="nav-Index">
+    <a class="nav-index" href="/vitanova/sAantalLedenBand">Zoek op Aantal leden</a>
+  </div>
+  <div class="nav-Index">
+    <a class="nav-index" href="/vitanova/todo">Zoek op Gage</a>
+  </div>
+  <hr>
 </ul>
 {% endblock %}
