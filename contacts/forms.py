@@ -30,12 +30,12 @@ class BandForm(forms.ModelForm):
     class Meta:
         model = Band
 
-        fields = ['naam','soort','aantal_leden','genre','instrumenten','technicus','aantal_autos',
+        fields = ['naam','contact','soort','aantal_leden','genre','instrumenten','technicus','aantal_autos',
         'bedrag','rekening_nr','website','memo','image'] 
 
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
-           # 'contact': forms.Select(attrs={'class': 'form-control'}),
+            'contact': forms.Select(attrs={'class': 'form-control'}),
             'soort': forms.TextInput(attrs={'class': 'form-control'}),
             'aantal_leden': forms.NumberInput(attrs={'class': 'form-control'}),  
             'genre': forms.TextInput(attrs={'class': 'form-control'}), 
@@ -49,6 +49,7 @@ class BandForm(forms.ModelForm):
             'image': forms.FileInput(attrs={'class': 'form-control'}), 
             
         }
+        
 
 class FanclubForm(forms.ModelForm):
     class Meta:
