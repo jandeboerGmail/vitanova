@@ -1,31 +1,20 @@
 {% extends 'base.html' %}
-
 {% block head_title %} {% endblock %}
-
 {% block content %}
-<hr>
-    <h2 class='container'>Fanclub</h2>
-<hr>
+{% load static %}
+<h2 class='container'>Fanclubs</h2>
 <ul>
+  <hr> 
+  <div class="nav-index">
+    <a class="nav-index" href="/vitanova/fanclub_create">Nieuw</a>
+  </div>
+  <hr> 
   <div class="nav-index">
       <a class="nav-index" href="/vitanova/fanclub">Alle Fanclubs</a>
   </div>
   <div class="nav-index">
       <a class="nav-index" href="/vitanova/sfnaam">Zoek op Naam</a>
   </div>
-<!--
-  <div class="nav-Index">
-    <a class="nav-index" href="/vitanova/sb_genre">Zoek op Genre</a>
-  </div>
-  <hr>
-  <div class="nav-index">
-      <a class="nav-index" href="/vitanova/b_create">Create</a>
-  </div>
-    --->
-    <hr>
-    <div class="nav-index">
-        <a class="nav-index" href="/vitanova/fanclub_create/">Nieuw</a>
-    </div>
-    <hr>  
+  <hr> 
 </ul>
 {% endblock %}

@@ -185,9 +185,7 @@ def sSoortLidContact(request):
         "query": query
     })
 
-
-#CRUD contacts
-
+#CRUD contact
 '''
 def contact_post_detail_view(request):
     # 1 object -> detail view
@@ -204,10 +202,11 @@ def createContact(request):
         form.save()
         # obj = Contact.objects.create(**form.cleaned_data)
         form = ContactForm()
-    template_name = 'contactForm.html'
+    template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Contact'}
     return render(request,template_name,context)
 
+@login_required
 def editContact(request,pk):      
         try :
             contact = Contact.objects.get(id=pk)
@@ -222,7 +221,7 @@ def editContact(request,pk):
                 form.save()
                 return ( redirect('indexContact')) 
 
-        template_name = 'contactForm.html'
+        template_name = 'inputForm.html'
         context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
 
@@ -245,7 +244,7 @@ def deleteContact(request,pk):
 #
 # band
 #
-def band(request):
+def allBand(request):
     band_list = Band.objects.order_by('naam')
     content  = {'bands' : band_list}
     return render(request,'displayBand.html',content )
@@ -270,7 +269,7 @@ def sGenreBand (request):
         qset = (
             Q(genre__icontains=query)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('genre','naam')
+        results = Band.objects.filter(qset).distinct().order_by('naam','genre')
     else:
         results = []
     return render(request,"sGenreBand.html", {
@@ -282,9 +281,9 @@ def sAantalLedenBand (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(genre__icontains=query)         
+            Q(aantal_leden__gte=query)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('aantal_leden','naam')
+        results = Band.objects.filter(qset).distinct().order_by('aantal_leden','naam',)
     else:
         results = []
     return render(request,"sAantalLedenBand.html", {
@@ -292,9 +291,21 @@ def sAantalLedenBand (request):
         "query": query
     })
 
-
+def sBedragBand (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(bedrag__gte=query)         
+        )       
+        results = Band.objects.filter(qset).distinct().order_by('bedrag','naam')
+    else:
+        results = []
+    return render(request,"sBedragBand.html", {
+        "results": results,
+        "query": query
+    })
 #CRUD
-def bandCreate(request):
+def createBand(request):
     form = BandForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -304,21 +315,35 @@ def bandCreate(request):
     context = {'form' : form, 'title': 'Band'}
     return render(request,template_name,context) 
 
-def bandEdit(request,pk):
-        
+def editBand(request,pk):
     try :
-        band_sel = Band.objects.get(id=pk)
+        band = Band.objects.get(id=pk)
     except Band.DoesNotExist:
          return redirect('index')
 
-    form = BandForm(request.POST or None,instance = band_sel)
+    form = BandForm(request.POST or None,instance = band)
     if form.is_valid():
         form.save()
-        # obj = Band.objects.create(**form.cleaned_data)
         form = BandForm()
-    template_name = 'bandForm.html'
+    template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Band'}
     return render(request,template_name,context)
+
+@login_required
+def deleteBand(request,pk):      
+        try :
+            band = Band.objects.get(id=pk)
+        except Band.DoesNotExist:
+            return redirect('/vitanova/indexBand')
+
+        if request.method == 'POST':
+            print('Printing Post:',request.POST)
+            band.delete()
+            return ( redirect('indexBand')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : band , 'title': 'Band'}
+        return render(request,template_name,context)
 #    
 # Fanclub
 #
@@ -342,6 +367,7 @@ def sfnaam (request):
         "query": query
     }) 
 
+#CRUD
 def fanclubCreate(request):
     form = FanclubForm(request.POST or None)
     if form.is_valid():
@@ -387,7 +413,6 @@ def zaalCreate(request):
 #
 # Cateraar
 #
-
 def cateraar (request):
     cateraar_list = Cateraar.objects.order_by('naam')
     content  = {'cateraars' : cateraar_list}

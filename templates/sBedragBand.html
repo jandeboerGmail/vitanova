@@ -14,9 +14,9 @@
     <thead>
       <tr>
         <!-- <th scope="col">#</th> -->
-        <th scope="col">Genre</th>
         <th scope="col">Naam</th>
-        <th scope="col">Aantal</th>
+        <th scope="col">Bedrag</th>
+        <th scope="col">Overeenkomst</th>
         <th scope="col">Akties</th>
       </tr>
     </thead>
@@ -25,9 +25,9 @@
     <tbody>
       {% for band in results %}
          <!-- <th scope="row">{{contact.id}}</th> -->
-         <th> {{band.genre}} </th>
-         <th> {{band.naam}} </th> 
-         <th> {{band.aantal_leden}} </th>
+         <th> {{band.naam}} </th>
+         <th> {{band.bedrag}} </th> 
+         <th> {{band.overeenkomst}} </th>
          <th><a class="btn btn-sm btn-info" href="{% url 'editBand' band.id %}">Edit</a></th>
          <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>
       </tbody> 

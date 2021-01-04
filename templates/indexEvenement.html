@@ -1,15 +1,18 @@
-{% extends 'base.html' %}
-
+{{% extends 'base.html' %}
 {% block head_title %} {% endblock %}
-
 {% block content %}
-<hr>
-    <h2 class='container'>Evenement</h2>
-<hr>
+{% load static %}
+<h2 class='container'>Evenementen</h2>
 <ul>
+  <hr> 
+    <div class="nav-index">
+      <a class="nav-index" href="/vitanova/evenement_create/">Nieuw</a>
+    </div>
+    <hr>
     <div class="nav-index">
       <a class="nav-index" href="/vitanova/evenement">Alle Evenementen</a>
     </div>
+    <hr>
     <div class="nav-index">
       <a class="nav-index" href="/vitanova/sevnaam">Zoek op Naam</a>
     </div>  
@@ -22,15 +25,6 @@
     <div class="nav-Index">
       <a class="nav-index" href="/vitanova/todo">Zoek op Vergunning</a>
     </div>
-    <!--
-    <div class="nav-index">
-      <a class="nav-index" href="/vitanova/todo">Create</a>
-    </div>
-  --> 
-  <hr>
-  <div class="nav-index">
-      <a class="nav-index" href="/vitanova/evenement_create/">Nieuw</a>
-  </div>
   <hr>  
 </ul>
 {% endblock %}

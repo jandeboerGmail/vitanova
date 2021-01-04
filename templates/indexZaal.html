@@ -1,33 +1,20 @@
-{% extends 'base.html' %}
-
+{{% extends 'base.html' %}
 {% block head_title %} {% endblock %}
-
 {% block content %}
-<hr>
-    <h2 class='container'>Zaal</h2>
-<hr>
+{% load static %}
+<h2 class='container'>Zalen</h2>
 <ul>
+  <hr> 
+  <div class="nav-index">
+    <a class="nav-index" href="/vitanova/zaal_create">Nieuw</a>
+  </div>
+  <hr> 
   <div class="nav-index">
     <a class="nav-index" href="/vitanova/zaal">Alle Zalen</a>
   </div>
-
-  <div class="nav-index">
+<div class="nav-index">
     <a class="nav-index" href="/vitanova/sznaam">Zoek op Naam</a>
   </div>
-  
-  <!--
-  <div class="nav-Index">
-    <a class="nav-index" href="/vitanova/sb_genre">Zoek op Genre</a>
-  </div>
   <hr>
-  <div class="nav-index">
-    <div class="nav-index" href="/vitanova/b_create">Create</a>
-    </div>
-      --->
-  <hr>
-    <div class="nav-index">
-        <a class="nav-index" href="/vitanova/zaal_create/">Nieuw</a>
-    </div>
- <hr>
 </ul>
 {% endblock %}

@@ -33,13 +33,15 @@ urlpatterns = [
 	path('contact/delete/<int:pk>',views.deleteContact,name='deleteContact'),
 
 #band
-	path('band/',views.band,name='band'),
+	path('allBand/',views.allBand,name='allBand'),
 	path('sNaamBand/',views.sNaamBand,name='sNaamBand'),
 	path('sGenreBand/',views.sGenreBand,name='sGenreBand'),
 	path('sAantalLedenBand/',views.sAantalLedenBand,name='sAantalLedenBand'),
+	path('sBedragBand/',views.sBedragBand,name='sBedragBand'),
 	
-	path('band_create/',views.bandCreate,name='bandCreate'),
-	path('band/edit/<int:pk>',views.bandEdit,name='bandEdit'),
+	path('createBand/',views.createBand,name='createBand'),
+	path('band/edit/<int:pk>',views.editBand,name='editBand'),
+	path('band/delete/<int:pk>',views.deleteBand,name='deleteBand'),
 
 #fanclub
 	path('fanclub/',views.fanclub,name='fanclub'),
@@ -60,7 +62,7 @@ urlpatterns = [
 
 	path('scanaam/',views.scanaam,name='scanaam'),
 
-	path('cateraar_create/',views.cateraarCreate,name='cateraarCreate'),
+	path('cateraarCreate/',views.cateraarCreate,name='cateraarCreate'),
 
 #evenement
 	path('evenement/',views.evenement,name='evenement'),

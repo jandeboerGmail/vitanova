@@ -10,11 +10,12 @@
     <form method='POST' action='' > 
         {% csrf_token %}
         {{ form.as_p }}
+        <hr>
         <div class="form-row text-center">
          <input type ="submit" name="Update">
          </div>
     </form>
 </div>
-<hr>
+<br>
 
 {% endblock %}
