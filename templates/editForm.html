@@ -10,8 +10,8 @@
     <form method='POST' action='.' enctype='multipart/form-data'> 
         {% csrf_token %}
         {{ form.as_p }}
-        <button type='submit' class="btn btn-secondary" href="{% url 'bandEdit' band.id %}">Update</button>
-        <button type='submit' class="btn btn-secondary">Update</button>
+        <th><a class="btn btn-sm btn-info" href="{% url 'editContact' contact.id %}">Edit</a></th>
+        <th><a class="btn btn-sm btn-danger" href="{% url 'deleteContact' contact.id %}">Delete</a></th>
     </form>
 </div>
 <hr>

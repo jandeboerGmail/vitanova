@@ -29,8 +29,8 @@
          <th> {{contact.naam}} </th>
          <th> {{contact.plaats}} </th> 
          <th> {{contact.emailadress}} </th>
-         <th><a class="btn btn-sm btn-info" href="{% url 'contactEdit' contact.id %}">Edit</a></th>
-         <th><a class="btn btn-sm btn-danger" href="">Delete</a></th>
+         <th><a class="btn btn-sm btn-info" href="{% url 'editContact' contact.id %}">Edit</a></th>
+         <th><a class="btn btn-sm btn-danger" href="{% url 'deleteContact' contact.id %}">Delete</a></th>
       </tbody> 
      {% endfor %}
     </table>

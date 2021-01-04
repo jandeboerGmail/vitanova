@@ -59,7 +59,7 @@ def indexEvenement(request):
 
 # Contact
 @login_required
-def contact(request):
+def allContact(request):
     contact_list = Contact.objects.order_by('naam')
     contact_dict  = {'contacts' : contact_list}
     return render(request,'displayContact.html',contact_dict )
@@ -102,7 +102,7 @@ def sPostcodeContact(request):
         qset = (
             Q(postcode__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('postcode','naam')
+        results = Contact.objects.filter(qset).distinct().order_by('naam','postcode')
     else:
         results = []
     return render(request,"sPostcodeContact.html", {
@@ -117,7 +117,7 @@ def sPlaatsContact(request):
         qset = (
             Q(plaats__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('plaats','naam')
+        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
     else:
         results = []
     return render(request,"sPlaatsContact.html", {
@@ -132,7 +132,7 @@ def sTelefoonContact (request):
         qset = (
             Q(telefoon__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('telefoon','naam')
+        results = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
     else:
         results = []
     return render(request,"sTelefoonContact.html", {
@@ -177,7 +177,7 @@ def sSoortLidContact(request):
         qset = (
             Q(soort_lid__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct()
+        results = Contact.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
     return render(request,"sSoortLidContact.html", {
@@ -198,60 +198,49 @@ def contact_post_detail_view(request):
 '''
 
 @login_required
-def contactCreate(request):
+def createContact(request):
     form = ContactForm(request.POST or None)
     if form.is_valid():
         form.save()
         # obj = Contact.objects.create(**form.cleaned_data)
         form = ContactForm()
-    template_name = 'inputForm.html'
+    template_name = 'contactForm.html'
     context = {'form' : form, 'title': 'Contact'}
     return render(request,template_name,context)
-'''
-@login_required
-def contactEdit0(request):  
-    form  = ContactForm()
-    if request.method == 'POST':
-        #    print('Printing Post:',request.POST)
-        form = ContactForm(request.POST or None)  
-        if form.is_valid():
-            print('Printing saving:',request.POST)
-        form.save()
-    return redirect('/vitanova/indexContact')
-'''
 
-def contactEdit(request,pk):      
+def editContact(request,pk):      
         try :
-            contact_sel = Contact.objects.get(id=pk)
+            contact = Contact.objects.get(id=pk)
         except Contact.DoesNotExist:
-            return redirect('index')
+            return redirect('indexContact')
 
-        form = ContactForm(request.POST or None,instance = contact_sel)
+        form = ContactForm(request.POST or None,instance = contact)
+        # print('Request Method:',request.method)
         if request.method == 'POST':
             print('Printing Post:',request.POST)
-
-        #if form.is_valid():
-            # form.save()
-            # obj = Contact.objects.create(**form.cleaned_data)
-        #    form = ContactForm()
+            if form.is_valid():
+                form.save()
+                return ( redirect('indexContact')) 
 
         template_name = 'contactForm.html'
         context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
 
 @login_required
-def contactDelete(request,contact_id):      
+def deleteContact(request,pk):      
         try :
-            contact_sel = Contact.objects.get(id=contact_id)
+            contact = Contact.objects.get(id=pk)
         except Contact.DoesNotExist:
             return redirect('/vitanova/indexContact')
 
-        if request.method == 'GET':
-            
-            print('Printing Delete')
-            contact_sel.delete()
-            
-        return redirect('/vitanova/indexContact')
+        if request.method == 'POST':
+            print('Printing Post:',request.POST)
+            contact.delete()
+            return ( redirect('indexContact')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : contact , 'title': 'Contact'}
+        return render(request,template_name,context)
     
 #
 # band

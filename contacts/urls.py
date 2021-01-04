@@ -16,9 +16,8 @@ urlpatterns = [
 	path('indexCateraar',views.indexCateraar,name='indexCateraar'),
 	path('indexEvenement',views.indexEvenement,name='indexEvenement'),
 
-
 #contact
-	path('contact/',views.contact,name='contact'),
+	path('allContact/',views.allContact,name='allContact'),
 	path('sNaamContact/',views.sNaamContact,name='sNaamContact'),
 	path('sVoorNaamContact/',views.sVoorNaamContact,name='sVoorNaamContact'),
 	path('sPostcodeContact/',views.sPostcodeContact,name='sPostcodeContact'),
@@ -29,10 +28,9 @@ urlpatterns = [
 	path('sSoortLidContact/',views.sSoortLidContact,name='sSoortLidContact'),
 	path('sTelefoonContact/',views.sTelefoonContact,name='sTelefoonContact'),
 
- 	path('contact_create/',views.contactCreate,name='contactCreate'),
-	path('contact/edit/<int:pk>',views.contactEdit,name='contactEdit'),
-	#Spath('contact/edit/',views.contactEdit0,name='contactEdit'),
-	path('contact/delete/<int:pk>',views.contactDelete,name='contactDelete'),
+ 	path('createContact/',views.createContact,name='createContact'),
+	path('contact/edit/<int:pk>',views.editContact,name='editContact'),
+	path('contact/delete/<int:pk>',views.deleteContact,name='deleteContact'),
 
 #band
 	path('band/',views.band,name='band'),
