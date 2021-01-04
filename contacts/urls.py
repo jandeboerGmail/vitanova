@@ -44,38 +44,26 @@ urlpatterns = [
 	path('band/delete/<int:pk>',views.deleteBand,name='deleteBand'),
 
 #fanclub
-	path('fanclub/',views.fanclub,name='fanclub'),
-
-	path('sfnaam/',views.sfnaam,name='sfnaam'),
-
-	path('fanclub_create/',views.fanclubCreate,name='fanclubCreate'),
+	path('createFanclub/',views.createFanclub,name='createFanclub'),
+	path('allFanclub/',views.allFanclub,name='allFanclub'),
+	path('sNaamFanclub/',views.sNaamFanclub,name='sNaamFanclub'),
 
 #zaal
-	path('zaal/',views.zaal,name='zaal'),
-
-	path('sznaam/',views.sznaam,name='sznaam'),
-
-	path('zaal_create/',views.zaalCreate,name='zaalCreate'),
+	path('allZaal/',views.allZaal,name='allZaal'),
+	path('sNaamZaal/',views.sNaamZaal,name='sNaamZaal'),
+	path('createZaal/',views.createZaal,name='createZaal'),
 
 #cateraar
-	path('cateraar/',views.cateraar,name='cateraar'),
-
-	path('scanaam/',views.scanaam,name='scanaam'),
-
-	path('cateraarCreate/',views.cateraarCreate,name='cateraarCreate'),
+	path('allCateraar/',views.allCateraar,name='allCateraar'),
+	path('sNaamCateraar/',views.sNaamCateraar,name='sNaamCateraar'),
+	path('createCateraar/',views.createCateraar,name='createCateraar'),
 
 #evenement
-	path('evenement/',views.evenement,name='evenement'),
-
-	path('sevnaam/',views.sevnaam,name='sevnaam'),
-
-	path('evenement_create/',views.evenementCreate,name='evenementCreate'),
+	path('allEvenement/',views.allEvenement,name='allEvenement'),
+	path('sNaamEvenement/',views.sNaamEvenement,name='sNaamEvenement'),
+	path('sEntreePrijsEvenement/',views.sEntreePrijsEvenement,name='sEntreePrijsEvenement'),
+	path('createEvenement/',views.createEvenement,name='createEvenement'),
 ]
-
-
-#Cateraar
-
-#Evenement
 
 #Alties
 #About

@@ -348,19 +348,19 @@ def deleteBand(request,pk):
 #    
 # Fanclub
 #
-def fanclub (request):
+def allFanclub (request):
     fanclub_list = Fanclub.objects.order_by('naam')
     content  = {'fanclubs' : fanclub_list}
     return render(request,'displayFanclub.html',content )
 
 # Zoek
-def sfnaam (request):
+def sNaamFanclub (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results =Fanclub.objects.filter(qset).distinct()
+        results =Fanclub.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
     return render(request,"searchFanclub.html", {
@@ -369,7 +369,7 @@ def sfnaam (request):
     }) 
 
 #CRUD
-def fanclubCreate(request):
+def createFanclub(request):
     form = FanclubForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -382,18 +382,18 @@ def fanclubCreate(request):
 #
 # zaal
 #
-def zaal (request):
+def allZaal (request):
     zaal_list = Zaal.objects.order_by('naam')
     content  = {'zalen' : zaal_list}
     return render(request,'displayZaal.html',content )
 
-def sznaam (request):
+def sNaamZaal (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Zaal.objects.filter(qset).distinct()
+        results = Zaal.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
     return render(request,"searchZaal.html", {
@@ -401,7 +401,8 @@ def sznaam (request):
         "query": query
     }) 
 
-def zaalCreate(request):
+#CRUD
+def createZaal(request):
     form = ZaalForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -414,26 +415,27 @@ def zaalCreate(request):
 #
 # Cateraar
 #
-def cateraar (request):
+def allCateraar (request):
     cateraar_list = Cateraar.objects.order_by('naam')
     content  = {'cateraars' : cateraar_list}
     return render(request,'displayCateraar.html',content )
 
-def scanaam (request):
+def sNaamCateraar (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Cateraar.objects.filter(qset).distinct()
+        results = Cateraar.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
     return render(request,"searchCateraar.html", {
         "results": results,
         "query": query
     }) 
-    
-def cateraarCreate(request):
+
+#CRUD    
+def createCateraar(request):
     form = CateraarForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -446,18 +448,19 @@ def cateraarCreate(request):
 #
 # Evenement
 #
-def evenement (request):
+def allEvenement (request):
     evenement_list = Evenement.objects.order_by('naam')
     content  = {'evenementen' : evenement_list}
     return render(request,'displayEvenement.html',content )
 
-def sevnaam (request):
+#zoek
+def sNaamEvenement (request):
     query = request.GET.get('q','')
     if query:
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Evenement.objects.filter(qset).distinct()
+        results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
     return render(request,"searchEvenement.html", {
@@ -465,7 +468,36 @@ def sevnaam (request):
         "query": query
     }) 
 
-def evenementCreate(request):
+def sLocatieEvenement (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(locatie__icontains=query)         
+        )       
+        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+    else:
+        results = []
+    return render(request,"searchEvenement.html", {
+        "results": results,
+        "query": query
+    }) 
+
+def sEntreePrijsEvenement (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(entree_prijs__gte=query)         
+        )       
+        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+    else:
+        results = []
+    return render(request,"searchEvenement.html", {
+        "results": results,
+        "query": query
+    })  
+
+#CRUD
+def createEvenement(request):
     form = EvenementForm(request.POST or None)
     if form.is_valid():
         form.save()
