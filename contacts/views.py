@@ -216,7 +216,8 @@ def editContact(request,pk):
         form = ContactForm(request.POST or None,instance = contact)
         # print('Request Method:',request.method)
         if request.method == 'POST':
-            #print('Printing Post:',request.POST)
+            #print('
+            # :',request.POST)
             if form.is_valid():
                 form.save()
                 return ( redirect('indexContact')) 
