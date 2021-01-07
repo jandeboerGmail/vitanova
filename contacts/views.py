@@ -99,10 +99,13 @@ def sVoorNaamContact (request):
 def sPostcodeContact(request):
     query = request.GET.get('q','')
     if query:
-        qset = (
-            Q(postcode__icontains=query)         
-        )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','postcode')
+        if query == "all":
+            results = Contact.objects.distinct().order_by('naam','postcode')
+        else:  
+            qset = (
+                Q(postcode__icontains=query)         
+            )       
+            results = Contact.objects.filter(qset).distinct().order_by('naam','postcode')
     else:
         results = []
     return render(request,"sPostcodeContact.html", {
@@ -131,6 +134,21 @@ def sTelefoonContact (request):
     if query:
         qset = (
             Q(telefoon__icontains=query)         
+        )       
+        results = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
+    else:
+        results = []
+    return render(request,"sTelefoonContact.html", {
+        "results": results,
+        "query": query
+    }) 
+
+@login_required
+def sMobielContact (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(mobiel__icontains=query)         
         )       
         results = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
     else:
@@ -186,6 +204,7 @@ def sSoortLidContact(request):
     })
 
 #CRUD contact
+
 '''
 def contact_post_detail_view(request):
     # 1 object -> detail view
@@ -216,15 +235,14 @@ def editContact(request,pk):
         form = ContactForm(request.POST or None,instance = contact)
         # print('Request Method:',request.method)
         if request.method == 'POST':
-            #print('
-            # :',request.POST)
             if form.is_valid():
                 form.save()
                 return ( redirect('indexContact')) 
-
+        
         template_name = 'inputForm.html'
         context = {'form' : form, 'title': 'Contact'}
         return render(request,template_name,context)
+        
 
 @login_required
 def deleteContact(request,pk):      
@@ -240,8 +258,7 @@ def deleteContact(request,pk):
 
         template_name = 'deleteContact.html'
         context = {'item' : contact , 'title': 'Contact'}
-        return render(request,template_name,context)
-    
+        return render(request,template_name,context) 
 #
 # band
 #
@@ -282,7 +299,7 @@ def sAantalLedenBand (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(aantal_leden__gte=query)         
+            Q(aantal_leden__lte=query)         
         )       
         results = Band.objects.filter(qset).distinct().order_by('aantal_leden','naam',)
     else:
@@ -296,7 +313,7 @@ def sBedragBand (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(bedrag__gte=query)         
+            Q(bedrag__lte=query)         
         )       
         results = Band.objects.filter(qset).distinct().order_by('bedrag','naam')
     else:
@@ -310,7 +327,6 @@ def createBand(request):
     form = BandForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Band.objects.create(**form.cleaned_data)
         form = BandForm()
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Band'}
@@ -325,7 +341,8 @@ def editBand(request,pk):
     form = BandForm(request.POST or None,instance = band)
     if form.is_valid():
         form.save()
-        form = BandForm()
+        return ( redirect('indexBand')) 
+
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Band'}
     return render(request,template_name,context)
@@ -379,6 +396,37 @@ def createFanclub(request):
     context = {'form' : form, 'title': 'Fanclub'}
     return render(request,template_name,context)
 
+@login_required
+def editFanclub(request,pk):
+    try :
+        fanclub = Fanclub.objects.get(id=pk)
+    except Fanclub.DoesNotExist:
+         return redirect('index')
+
+    form = FanclubForm(request.POST or None,instance = fanclub)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexFanclub'))
+    
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Fanclub'}
+    return render(request,template_name,context)
+
+@login_required
+def deleteFanclub(request,pk):      
+        try :
+            fanclub = Fanclub.objects.get(id=pk)
+        except Fanclub.DoesNotExist:
+            return redirect('/vitanova/indexFanclub')
+
+        if request.method == 'POST':
+            #print('Printing Post:',request.POST)
+            fanclub.delete()
+            return ( redirect('indexFanclub')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : fanclub , 'title': 'Fanclubs'}
+        return render(request,template_name,context)
 #
 # zaal
 #
@@ -411,6 +459,39 @@ def createZaal(request):
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Zaal'}
     return render(request,template_name,context)
+
+@login_required
+def editZaal(request,pk):
+    try :
+        zaal = Zaal.objects.get(id=pk)
+    except Zaal.DoesNotExist:
+         return redirect('index')
+
+    form = ZaalForm(request.POST or None,instance = zaal)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexZaal')) 
+
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Zaal'}
+    return render(request,template_name,context)
+
+@login_required
+def deleteZaal(request,pk):      
+        try :
+            zaal = Zaal.objects.get(id=pk)
+        except Zaal.DoesNotExist:
+            return redirect('/vitanova/indexZaal')
+
+        if request.method == 'POST':
+            #print('Printing Post:',request.POST)
+            zaal.delete()
+            return ( redirect('indexZaal')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : zaal , 'title': 'Zaal'}
+        return render(request,template_name,context)
+#    
 
 #
 # Cateraar
@@ -445,11 +526,42 @@ def createCateraar(request):
     context = {'form' : form, 'title': 'Cateraar'}
     return render(request,template_name,context)
 
+@login_required
+def editCateraar(request,pk):
+    try :
+        cateraar = Cateraar.objects.get(id=pk)
+    except Cateraar.DoesNotExist:
+         return redirect('index')
+
+    form = CateraarForm(request.POST or None,instance = cateraar)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexCateraar')) 
+
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Cateraar'}
+    return render(request,template_name,context)
+
+@login_required
+def deleteCateraar(request,pk):      
+        try :
+            cateraar = Cateraar.objects.get(id=pk)
+        except Cateraar.DoesNotExist:
+            return redirect('indexCateraar')
+
+        if request.method == 'POST':
+            #print('Printing Post:',request.POST)
+            cateraar.delete()
+            return ( redirect('indexCateraar')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : cateraar , 'title': 'Cateraar'}
+        return render(request,template_name,context)
 #
 # Evenement
 #
 def allEvenement (request):
-    evenement_list = Evenement.objects.order_by('naam')
+    evenement_list = Evenement.objects.order_by('naam','datum')
     content  = {'evenementen' : evenement_list}
     return render(request,'displayEvenement.html',content )
 
@@ -486,7 +598,7 @@ def sEntreePrijsEvenement (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(entree_prijs__gte=query)         
+            Q(entree_prijs__lte=query)         
         )       
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
@@ -506,7 +618,39 @@ def createEvenement(request):
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Evenement'}
     return render(request,template_name,context)
-  
+
+@login_required
+def editEvenement(request,pk):
+    try :
+        evenement = Evenement.objects.get(id=pk)
+    except Evenement.DoesNotExist:
+         return redirect('index')
+
+    form = EvenementForm(request.POST or None,instance = evenement)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexEvenement')) 
+
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Evenement'}
+    return render(request,template_name,context)
+
+@login_required
+def deleteEvenement(request,pk):      
+        try :
+            evenement = Evenement.objects.get(id=pk)
+        except Evenement.DoesNotExist:
+            return redirect('indexEvenement')
+
+        if request.method == 'POST':
+            #print('Printing Post:',request.POST)
+            evenement.delete()
+            return ( redirect('indexEvenement')) 
+
+        template_name = 'deleteContact.html'
+        context = {'item' : evenement , 'title': 'Evenement'}
+        return render(request,template_name,context)
+#
 #
 # Akties
 #

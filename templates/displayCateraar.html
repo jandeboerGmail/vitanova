@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
-
-{% block head_title %} {% endblock %}
-
+{% block head_title %} 
+{% endblock %}
 {% block content %}
-
 <hr>
-<h2>Cateraar</h2>
-  <hr>
-  <div>
-    {% if cateraars %}
-    <ol>
-      {% for cateraar in cateraars %}
-      <li>{{cateraar.naam}} </li>
-      {% endfor %}
-    </ol>
-    {% else %}
-      <strong>Er zijn geen cateraars</strong>
-    {% endif %}
-   </div
+<h2>Cateraars</h2>
+<hr>
+
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Soort</th>
+      <th scope="col">Website</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+
+  {% if cateraars %}
+  <tbody>
+    {% for catering in cateraars %}
+       <!-- <th scope="row">{{zaal.id}}</th> -->
+       <th> {{catering.naam}} </th>
+       <th> {{catering.soort}} </th> 
+       <th> {{catering.website}} </th>
+       <th><a class="btn btn-sm btn-info" href="{% url 'editCateraar' catering.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteCateraar' catering.id %}">Delete</a></th>
+    </tbody>
+   {% endfor %}
+  </table>
+  
+  {% else %}
+    <strong>Er zijn geen cateraars</strong>
+  {% endif %}
+ </div>
 {% endblock %}

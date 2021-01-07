@@ -27,6 +27,7 @@ urlpatterns = [
 	path('sStatusContact/',views.sStatusContact,name='sStatusContact'),
 	path('sSoortLidContact/',views.sSoortLidContact,name='sSoortLidContact'),
 	path('sTelefoonContact/',views.sTelefoonContact,name='sTelefoonContact'),
+	path('sMobielContact/',views.sMobielContact,name='sMobielContact'),
 
  	path('createContact/',views.createContact,name='createContact'),
 	path('contact/edit/<int:pk>',views.editContact,name='editContact'),
@@ -47,22 +48,30 @@ urlpatterns = [
 	path('createFanclub/',views.createFanclub,name='createFanclub'),
 	path('allFanclub/',views.allFanclub,name='allFanclub'),
 	path('sNaamFanclub/',views.sNaamFanclub,name='sNaamFanclub'),
+	path('fanclub/edit/<int:pk>',views.editFanclub,name='editFanclub'),
+	path('fanclub/delete/<int:pk>',views.deleteFanclub,name='deleteFanclub'),
 
 #zaal
 	path('allZaal/',views.allZaal,name='allZaal'),
 	path('sNaamZaal/',views.sNaamZaal,name='sNaamZaal'),
 	path('createZaal/',views.createZaal,name='createZaal'),
+	path('zaal/edit/<int:pk>',views.editZaal,name='editZaal'),
+	path('zaal/delete/<int:pk>',views.deleteZaal,name='deleteZaal'),
 
 #cateraar
 	path('allCateraar/',views.allCateraar,name='allCateraar'),
 	path('sNaamCateraar/',views.sNaamCateraar,name='sNaamCateraar'),
 	path('createCateraar/',views.createCateraar,name='createCateraar'),
+	path('cateraar/edit/<int:pk>',views.editCateraar,name='editCateraar'),
+	path('cateraar/delete/<int:pk>',views.deleteCateraar,name='deleteCateraar'),
 
 #evenement
 	path('allEvenement/',views.allEvenement,name='allEvenement'),
 	path('sNaamEvenement/',views.sNaamEvenement,name='sNaamEvenement'),
 	path('sEntreePrijsEvenement/',views.sEntreePrijsEvenement,name='sEntreePrijsEvenement'),
 	path('createEvenement/',views.createEvenement,name='createEvenement'),
+	path('evenement/edit/<int:pk>',views.editEvenement,name='editEvenement'),
+	path('evenement/delete/<int:pk>',views.deleteEvenement,name='deleteEvenement'),
 ]
 
 #Alties

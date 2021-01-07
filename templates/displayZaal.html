@@ -1,21 +1,41 @@
 {% extends 'base.html' %}
-
-{% block head_title %} {% endblock %}
+{% block head_title %} 
+{% endblock %}
 
 {% block content %}
-
 <hr>
 <h2>Zalen</h2>
-  <hr>
-  <div>
-    {% if zalen %}
-    <ol>
-      {% for zaal in zalen %}
-      <li>{{zaal.naam}} </li>
-      {% endfor %}
-    </ol>
-    {% else %}
-      <strong>Er zijn geen zalen</strong>
-    {% endif %}
-   </div
+<hr>
+
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Plaats</th>
+      <th scope="col">Website</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+
+  {% if zalen %}
+  <tbody>
+    {% for zaal in zalen %}
+       <!-- <th scope="row">{{zaal.id}}</th> -->
+       <th> {{zaal.naam}} </th>
+       <th> {{zaal.plaats}} </th> 
+       <th> {{zaal.website}} </th>
+       <th><a class="btn btn-sm btn-info" href="{% url 'editZaal' zaal.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteZaal' zaal.id %}">Delete</a></th>
+       
+    </tbody>
+     
+   {% endfor %}
+  </table>
+  
+  {% else %}
+    <strong>Er zijn geen zalen</strong>
+  {% endif %}
+ </div>
+
 {% endblock %}
