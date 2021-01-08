@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block head_title %} 
 {% endblock %}
-
 {% block content %}
 <hr>
 <h2>Fanclubs</h2>
 <hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -17,7 +15,6 @@
       <th scope="col">Akties</th>
     </tr>
   </thead>
-
   {% if fanclubs %}
   <tbody>
     {% for fanclub in fanclubs %}
@@ -26,16 +23,12 @@
        <th> {{fanclub.aantal_leden}} </th> 
        <th> {{fanclub.website}} </th>
        <th><a class="btn btn-sm btn-info" href="{% url 'editFanclub' fanclub.id %}">Edit</a></th>
-       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteFanclub' fanclub.id %}">Delete</a></th>
-       
-    </tbody>
-     
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteFanclub' fanclub.id %}">Delete</a></th>  
+    </tbody>  
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen fanclubs</strong>
   {% endif %}
  </div>
-
 {% endblock %}

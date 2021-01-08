@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block head_title %} 
 {% endblock %}
-
 {% block content %}
 <hr>
 <h2>Bands</h2>
 <hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -28,16 +26,12 @@
        <th> {{band.aantal_leden}} </th>
        <th> {{band.website}} </th>
        <th><a class="btn btn-sm btn-info" href="{% url 'editBand' band.id %}">Edit</a></th>
-       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>
-       
-    </tbody>
-     
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>    
+    </tbody>   
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen bands</strong>
   {% endif %}
  </div>
-
 {% endblock %}

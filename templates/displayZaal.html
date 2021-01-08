@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block head_title %} 
 {% endblock %}
-
 {% block content %}
 <hr>
 <h2>Zalen</h2>
 <hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -17,7 +15,6 @@
       <th scope="col">Akties</th>
     </tr>
   </thead>
-
   {% if zalen %}
   <tbody>
     {% for zaal in zalen %}
@@ -26,16 +23,12 @@
        <th> {{zaal.plaats}} </th> 
        <th> {{zaal.website}} </th>
        <th><a class="btn btn-sm btn-info" href="{% url 'editZaal' zaal.id %}">Edit</a></th>
-       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteZaal' zaal.id %}">Delete</a></th>
-       
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteZaal' zaal.id %}">Delete</a></th>  
     </tbody>
-     
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen zalen</strong>
   {% endif %}
  </div>
-
 {% endblock %}

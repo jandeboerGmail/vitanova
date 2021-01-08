@@ -5,7 +5,6 @@
 <hr>
 <h2>Evenementen</h2>
 <hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -13,10 +12,10 @@
       <th scope="col">Naam</th>
       <th scope="col">Locatie</th>
       <th scope="col">Datum</th>
+      <th scope="col">Pijs</th>
       <th scope="col">Akties</th>
     </tr>
   </thead>
-
   {% if evenementen %}
   <tbody>
     {% for evenement in evenementen %}
@@ -24,12 +23,12 @@
        <th> {{evenement.naam}} </th>
        <th> {{evenement.locatie}} </th> 
        <th> {{evenement.datum}} </th> 
+       <th> {{evenement.prijs}} </th> 
        <th><a class="btn btn-sm btn-info" href="{% url 'editEvenement' evenement.id %}">Edit</a></th>
        <th><a class="btn btn-sm btn-danger" href="{% url 'deleteEvenement' evenement.id %}">Delete</a></th>
     </tbody>
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen evenementen</strong>
   {% endif %}

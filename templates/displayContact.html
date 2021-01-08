@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block head_title %} 
 {% endblock %}
-
 {% block content %}
 <hr>
 <h2>Contacten</h2>
 <hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -18,7 +16,6 @@
       <th scope="col">Akties</th>
     </tr>
   </thead>
-
   {% if contacts %}
   <tbody>
     {% for contact in contacts %}
@@ -33,11 +30,8 @@
 
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen contacten</strong>
   {% endif %}
  </div>
-
 {% endblock %}
-

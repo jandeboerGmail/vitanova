@@ -4,8 +4,6 @@
 {% block content %}
 <hr>
 <h2>Cateraars</h2>
-<hr>
-
 <table class="table">
   <thead>
     <tr>
@@ -16,7 +14,6 @@
       <th scope="col">Akties</th>
     </tr>
   </thead>
-
   {% if cateraars %}
   <tbody>
     {% for catering in cateraars %}
@@ -29,7 +26,6 @@
     </tbody>
    {% endfor %}
   </table>
-  
   {% else %}
     <strong>Er zijn geen cateraars</strong>
   {% endif %}

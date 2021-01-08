@@ -13,21 +13,20 @@
       <tr>
         <!-- <th scope="col">#</th> -->
         <th scope="col">Naam</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Aantal</th>
-        <th scope="col">Akties</th>
+        <th scope="col">Soort</th>
+        <th scope="col">Website</th>
       </tr>
     </thead>
     
     {% if results %}
     <tbody>
-      {% for band in results %}
+      {% for cateraar in results %}
          <!-- <th scope="row">{{contact.id}}</th> -->
-         <th> {{band.naam}} </th>
-         <th> {{band.genre}} </th> 
-         <th> {{band.aantal_leden}} </th>
-         <th><a class="btn btn-sm btn-info" href="{% url 'editBand' band.id %}">Edit</a></th>
-         <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>
+         <th> {{cateraar.naam}} </th>
+         <th> {{cateraar.soort}} </th> 
+         <th> {{cateraar.website}} </th> 
+         <th><a class="btn btn-sm btn-info" href="{% url 'editCateraar' cateraar.id %}">Edit</a></th>
+         <th><a class="btn btn-sm btn-danger" href="{% url 'deleteCateraar' cateraar.id %}">Delete</a></th>
       </tbody> 
      {% endfor %}
     </table>

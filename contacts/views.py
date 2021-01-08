@@ -219,8 +219,8 @@ def createContact(request):
     form = ContactForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Contact.objects.create(**form.cleaned_data)
-        form = ContactForm()
+        return ( redirect('indexContact')) 
+        # form = ContactForm()
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Contact'}
     return render(request,template_name,context)
@@ -380,7 +380,7 @@ def sNaamFanclub (request):
         results =Fanclub.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchFanclub.html", {
+    return render(request,"sNaamFanclub.html", {
         "results": results,
         "query": query
     }) 
@@ -390,8 +390,9 @@ def createFanclub(request):
     form = FanclubForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Band.objects.create(**form.cleaned_data)
-        form = FanclubForm()
+        #form = FanclubForm()
+        return ( redirect('indexFanclub'))
+      
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Fanclub'}
     return render(request,template_name,context)
@@ -417,7 +418,7 @@ def deleteFanclub(request,pk):
         try :
             fanclub = Fanclub.objects.get(id=pk)
         except Fanclub.DoesNotExist:
-            return redirect('/vitanova/indexFanclub')
+            return redirect('/indexFanclub')
 
         if request.method == 'POST':
             #print('Printing Post:',request.POST)
@@ -444,7 +445,7 @@ def sNaamZaal (request):
         results = Zaal.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchZaal.html", {
+    return render(request,"sNaamZaal.html", {
         "results": results,
         "query": query
     }) 
@@ -454,8 +455,8 @@ def createZaal(request):
     form = ZaalForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Band.objects.create(**form.cleaned_data)
-        form = ZaalForm()
+        return ( redirect('indexZaal'))
+        
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Zaal'}
     return render(request,template_name,context)
@@ -491,8 +492,6 @@ def deleteZaal(request,pk):
         template_name = 'deleteContact.html'
         context = {'item' : zaal , 'title': 'Zaal'}
         return render(request,template_name,context)
-#    
-
 #
 # Cateraar
 #
@@ -510,7 +509,7 @@ def sNaamCateraar (request):
         results = Cateraar.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchCateraar.html", {
+    return render(request,"sNaamCateraar.html", {
         "results": results,
         "query": query
     }) 
@@ -520,8 +519,8 @@ def createCateraar(request):
     form = CateraarForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Band.objects.create(**form.cleaned_data)
-        form = CateraarForm()
+        return ( redirect('indexCateraar'))
+
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Cateraar'}
     return render(request,template_name,context)
@@ -575,7 +574,7 @@ def sNaamEvenement (request):
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchEvenement.html", {
+    return render(request,"sNaamEvenement.html", {
         "results": results,
         "query": query
     }) 
@@ -589,7 +588,7 @@ def sLocatieEvenement (request):
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchEvenement.html", {
+    return render(request,"sNaamEvenement.html", {
         "results": results,
         "query": query
     }) 
@@ -603,18 +602,32 @@ def sEntreePrijsEvenement (request):
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"searchEvenement.html", {
+    return render(request,"sNaamEvenement.html", {
         "results": results,
         "query": query
     })  
-
+'''
+def sLocatieEvenement (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(entree_prijs__lte=query)         
+        )       
+        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+    else:
+        results = []
+    return render(request,"sNaamEvenement.html", {
+        "results": results,
+        "query": query
+    }) 
+'''
 #CRUD
 def createEvenement(request):
     form = EvenementForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # obj = Evenement.objects.create(**form.cleaned_data)
-        form = EvenementForm()
+        return ( redirect('indexEvenement')) 
+    
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Evenement'}
     return render(request,template_name,context)

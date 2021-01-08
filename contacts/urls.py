@@ -69,6 +69,7 @@ urlpatterns = [
 	path('allEvenement/',views.allEvenement,name='allEvenement'),
 	path('sNaamEvenement/',views.sNaamEvenement,name='sNaamEvenement'),
 	path('sEntreePrijsEvenement/',views.sEntreePrijsEvenement,name='sEntreePrijsEvenement'),
+	path('sLocatieEvenement/',views.sLocatieEvenement,name='sLocatieEvenement'),
 	path('createEvenement/',views.createEvenement,name='createEvenement'),
 	path('evenement/edit/<int:pk>',views.editEvenement,name='editEvenement'),
 	path('evenement/delete/<int:pk>',views.deleteEvenement,name='deleteEvenement'),

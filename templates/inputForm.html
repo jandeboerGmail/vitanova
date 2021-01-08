@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <hr>
 {% if title %}
@@ -7,15 +6,21 @@
 {% endif %}
 <hr>
 <div class="form-group">
+    
     <form method='POST' action='' > 
+        <div class="form-row text-center">
+            <!-- NOT WORKING
+            <input type="button" class="btn btn-primary btn-lg" value="Submit" name="Update">
+            -->
+            <input type ="submit" name="Update">
+        </div>
+        
         {% csrf_token %}
         {{ form.as_p }}
-        <hr>
+    
         <div class="form-row text-center">
-         <input type ="submit" name="Update">
-         </div>
+          <input type ="submit" name="Update">
+        </div>
     </form>
 </div>
-<br>
-
 {% endblock %}
