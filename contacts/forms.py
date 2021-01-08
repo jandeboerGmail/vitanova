@@ -30,18 +30,18 @@ class BandForm(forms.ModelForm):
     class Meta:
         model = Band
 
-        fields = ['naam','contact','soort','aantal_leden','genre','instrumenten','technicus','aantal_autos',
-        'bedrag','rekening_nr','website','memo','image'] 
+        fields = ['naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
+        'soort','bedrag','rekening_nr','website','memo','image']
 
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
             'contact': forms.Select(attrs={'class': 'form-control'}),
-            'soort': forms.TextInput(attrs={'class': 'form-control'}),
             'aantal_leden': forms.NumberInput(attrs={'class': 'form-control'}),  
             'genre': forms.TextInput(attrs={'class': 'form-control'}), 
             'instrumenten': forms.NumberInput(attrs={'class': 'form-control'}), 
             'techicus': forms.CheckboxInput(attrs={'class': 'form-control'}), 
             'aantal_autos': forms.NumberInput(attrs={'class': 'form-control'}), 
+            'soort': forms.Select(attrs={'class': 'form-control'}),
             'bedrag': forms.NumberInput(attrs={'class': 'form-control'}), 
             'rekening_nr': forms.TextInput(attrs={'class': 'form-control'}), 
             'website': forms.URLInput(attrs={'class': 'form-control'}), 

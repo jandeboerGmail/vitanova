@@ -218,9 +218,8 @@ def contact_post_detail_view(request):
 def createContact(request):
     form = ContactForm(request.POST or None)
     if form.is_valid():
-        form.save()
-        return ( redirect('indexContact')) 
-        # form = ContactForm()
+        form.save() 
+        form = ContactForm()
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Contact'}
     return render(request,template_name,context)
@@ -256,7 +255,7 @@ def deleteContact(request,pk):
             contact.delete()
             return ( redirect('indexContact')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : contact , 'title': 'Contact'}
         return render(request,template_name,context) 
 #
@@ -328,6 +327,7 @@ def createBand(request):
     if form.is_valid():
         form.save()
         form = BandForm()
+
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Band'}
     return render(request,template_name,context) 
@@ -359,7 +359,7 @@ def deleteBand(request,pk):
             band.delete()
             return ( redirect('indexBand')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : band , 'title': 'Band'}
         return render(request,template_name,context)
 #    
@@ -390,9 +390,8 @@ def createFanclub(request):
     form = FanclubForm(request.POST or None)
     if form.is_valid():
         form.save()
-        #form = FanclubForm()
-        return ( redirect('indexFanclub'))
-      
+        form = FanclubForm()
+       
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Fanclub'}
     return render(request,template_name,context)
@@ -425,7 +424,7 @@ def deleteFanclub(request,pk):
             fanclub.delete()
             return ( redirect('indexFanclub')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : fanclub , 'title': 'Fanclubs'}
         return render(request,template_name,context)
 #
@@ -455,7 +454,7 @@ def createZaal(request):
     form = ZaalForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return ( redirect('indexZaal'))
+        form = ZaalForm
         
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Zaal'}
@@ -489,7 +488,7 @@ def deleteZaal(request,pk):
             zaal.delete()
             return ( redirect('indexZaal')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : zaal , 'title': 'Zaal'}
         return render(request,template_name,context)
 #
@@ -519,7 +518,7 @@ def createCateraar(request):
     form = CateraarForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return ( redirect('indexCateraar'))
+        form = CateraarForm
 
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Cateraar'}
@@ -553,7 +552,7 @@ def deleteCateraar(request,pk):
             cateraar.delete()
             return ( redirect('indexCateraar')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : cateraar , 'title': 'Cateraar'}
         return render(request,template_name,context)
 #
@@ -606,6 +605,7 @@ def sEntreePrijsEvenement (request):
         "results": results,
         "query": query
     })  
+
 '''
 def sLocatieEvenement (request):
     query = request.GET.get('q','')
@@ -626,7 +626,7 @@ def createEvenement(request):
     form = EvenementForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return ( redirect('indexEvenement')) 
+        form = EvenementForm
     
     template_name = 'inputForm.html'
     context = {'form' : form, 'title': 'Evenement'}
@@ -660,7 +660,7 @@ def deleteEvenement(request,pk):
             evenement.delete()
             return ( redirect('indexEvenement')) 
 
-        template_name = 'deleteContact.html'
+        template_name = 'deleteRecord.html'
         context = {'item' : evenement , 'title': 'Evenement'}
         return render(request,template_name,context)
 #
