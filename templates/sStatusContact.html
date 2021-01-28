@@ -5,13 +5,13 @@
 {% block content %}
 
 <form action="." method="GET">
-    <label for="q">Status: </label>
+    <label for="q">Zoek:</label>
     <select name="q" id="q" value="{{ query|escape }}">
         <option value="0">Nieuw</option>
         <option value="1">Actief</option>
         <option value="2">Verwijderen</option>
     </select>
-    <input type="submit" value="Zoek">
+    <input type="submit" value="Status">
 </form>
 
   {% if query %}

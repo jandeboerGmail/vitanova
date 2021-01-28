@@ -4,7 +4,7 @@
   <form action="." method="GET">
     <label for="q">Zoek: </label>
     <input type="text" name="q" value="{{ query|escape }}">
-    <input type="submit" value="Zoek">
+    <input type="submit" value="Naam">
 </form>
 
   {% if query %}
@@ -13,8 +13,10 @@
       <tr>
         <!-- <th scope="col">#</th> -->
         <th scope="col">Naam</th>
+        <th scope="col">Contact</th>
+        <th scope="col">Telefoon</th>
+        <th scope="col">Mobiel</th>
         <th scope="col">Genre</th>
-        <th scope="col">Aantal</th>
         <th scope="col">Akties</th>
       </tr>
     </thead>
@@ -24,8 +26,10 @@
       {% for band in results %}
          <!-- <th scope="row">{{contact.id}}</th> -->
          <th> {{band.naam}} </th>
+         <th> {{band.contact}} </th>
+         <th> {{band.contact.telefoon}} </th>
+         <th> {{band.contact.mobiel}} </th>
          <th> {{band.genre}} </th> 
-         <th> {{band.aantal_leden}} </th>
          <th><a class="btn btn-sm btn-info" href="{% url 'editBand' band.id %}">Edit</a></th>
          <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>
       </tbody> 

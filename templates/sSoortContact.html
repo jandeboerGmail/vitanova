@@ -2,7 +2,7 @@
 {% block head_title %} {% endblock %}
 {% block content %}
 <form action="." method="GET">
-  <label for="q">Status: </label>
+  <label for="q">Zoek: </label>
   <select name="q" id="q" value="{{ query|escape }}">
       <option value="0">Contact</option>
       <option value="1">Lid</option>
@@ -14,7 +14,7 @@
       <option value="8">Techicus</option>
       <option value="9">Beheerder</option>
   </select>
-  <input type="submit" value="Zoek">
+  <input type="submit" value="Soort">
 </form>
 
   {% if query %}

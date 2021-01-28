@@ -15,7 +15,6 @@ class Page(models.Model):
 	url = models.URLField()
 	views = models.IntegerField(default=0)
 
-
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.title
 
@@ -90,7 +89,9 @@ class Band(models.Model):
 		huur = 1
 
 	naam = models.CharField(max_length=50,blank = False,unique=True)
-	contact = models.ManyToManyField(Contact)
+	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	#contact = models.ForeignKey(Contact,on_delete=models.CASCADE,default=0)
+	#leden = models.ManyToManyField(Contact)
 	#contact = models.ForeignKey(Contact,on_delete=models.CASCADE,default=0)
 	#leden  = models.ManyToManyField('Contact',through = 'BandLeden')
 	#soort = models.CharField(max_length=50,blank=True)
@@ -194,9 +195,9 @@ class Cateraar(models.Model):
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
-class BandLeden(models.Model):
-	contact = models.ForeignKey('Contact',on_delete=models.CASCADE)
-	band = models.ForeignKey('Band',on_delete=models.CASCADE)
+#class BandLeden(models.Model):
+#	contact = models.ForeignKey('Contact',on_delete=models.CASCADE)
+#	band = models.ForeignKey('Band',on_delete=models.CASCADE)
 
 class Evenement(models.Model):
 	naam = models.CharField(max_length=50,blank = False,unique=True)

@@ -10,8 +10,10 @@
     <tr>
       <!-- <th scope="col">#</th> -->
       <th scope="col">Naam</th>
+      <th scope="col">Contact</th>
+      <th scope="col">Telefoon</th>
+      <th scope="col">Mobiel</th>
       <th scope="col">Genre</th>
-      <th scope="col">Aantal</th>
       <th scope="col">Website</th>
       <th scope="col">Akties</th>
     </tr>
@@ -22,8 +24,10 @@
     {% for band in bands %}
        <!-- <th scope="row">{{contact.id}}</th> -->
        <th> {{band.naam}} </th>
+       <th> {{band.contact}} </th>
+       <th> {{band.contact.telefoon}} </th> 
+       <th> {{band.contact.mobiel}} </th> 
        <th> {{band.genre}} </th> 
-       <th> {{band.aantal_leden}} </th>
        <th> {{band.website}} </th>
        <th><a class="btn btn-sm btn-info" href="{% url 'editBand' band.id %}">Edit</a></th>
        <th><a class="btn btn-sm btn-danger" href="{% url 'deleteBand' band.id %}">Delete</a></th>    

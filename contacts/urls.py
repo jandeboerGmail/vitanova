@@ -7,7 +7,7 @@ urlpatterns = [
 	path('about/',views.about,name='about'),
 	path('todo/',views.todo,name='todo'),
 
-#index	
+#Index	
 	path('',views.index,name='index'),
 	path('indexContact',views.indexContact,name='indexContact'),
 	path('indexBand',views.indexBand,name='indexBand'),
@@ -16,7 +16,7 @@ urlpatterns = [
 	path('indexCateraar',views.indexCateraar,name='indexCateraar'),
 	path('indexEvenement',views.indexEvenement,name='indexEvenement'),
 
-#contact
+#Contact
 	path('allContact/',views.allContact,name='allContact'),
 	path('sNaamContact/',views.sNaamContact,name='sNaamContact'),
 	path('sVoorNaamContact/',views.sVoorNaamContact,name='sVoorNaamContact'),
@@ -33,7 +33,7 @@ urlpatterns = [
 	path('contact/edit/<int:pk>',views.editContact,name='editContact'),
 	path('contact/delete/<int:pk>',views.deleteContact,name='deleteContact'),
 
-#band
+#Band
 	path('allBand/',views.allBand,name='allBand'),
 	path('sNaamBand/',views.sNaamBand,name='sNaamBand'),
 	path('sGenreBand/',views.sGenreBand,name='sGenreBand'),
@@ -44,28 +44,28 @@ urlpatterns = [
 	path('band/edit/<int:pk>',views.editBand,name='editBand'),
 	path('band/delete/<int:pk>',views.deleteBand,name='deleteBand'),
 
-#fanclub
+#Fanclub
 	path('createFanclub/',views.createFanclub,name='createFanclub'),
 	path('allFanclub/',views.allFanclub,name='allFanclub'),
 	path('sNaamFanclub/',views.sNaamFanclub,name='sNaamFanclub'),
 	path('fanclub/edit/<int:pk>',views.editFanclub,name='editFanclub'),
 	path('fanclub/delete/<int:pk>',views.deleteFanclub,name='deleteFanclub'),
 
-#zaal
+#Zaal
 	path('allZaal/',views.allZaal,name='allZaal'),
 	path('sNaamZaal/',views.sNaamZaal,name='sNaamZaal'),
 	path('createZaal/',views.createZaal,name='createZaal'),
 	path('zaal/edit/<int:pk>',views.editZaal,name='editZaal'),
 	path('zaal/delete/<int:pk>',views.deleteZaal,name='deleteZaal'),
 
-#cateraar
+#Cateraar
 	path('allCateraar/',views.allCateraar,name='allCateraar'),
 	path('sNaamCateraar/',views.sNaamCateraar,name='sNaamCateraar'),
 	path('createCateraar/',views.createCateraar,name='createCateraar'),
 	path('cateraar/edit/<int:pk>',views.editCateraar,name='editCateraar'),
 	path('cateraar/delete/<int:pk>',views.deleteCateraar,name='deleteCateraar'),
 
-#evenement
+#Evenement
 	path('allEvenement/',views.allEvenement,name='allEvenement'),
 	path('sNaamEvenement/',views.sNaamEvenement,name='sNaamEvenement'),
 	path('sEntreePrijsEvenement/',views.sEntreePrijsEvenement,name='sEntreePrijsEvenement'),
@@ -75,5 +75,5 @@ urlpatterns = [
 	path('evenement/delete/<int:pk>',views.deleteEvenement,name='deleteEvenement'),
 ]
 
-#Alties
+#Akties
 #About

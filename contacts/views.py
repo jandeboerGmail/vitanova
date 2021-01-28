@@ -261,11 +261,14 @@ def deleteContact(request,pk):
 #
 # band
 #
+@login_required
 def allBand(request):
     band_list = Band.objects.order_by('naam')
+    band_list.contact = Contact.objects
     content  = {'bands' : band_list}
     return render(request,'displayBand.html',content )
 
+@login_required
 def sNaamBand (request):
     query = request.GET.get('q','')
     if query:
@@ -273,13 +276,16 @@ def sNaamBand (request):
             Q(naam__icontains=query)         
         )       
         results = Band.objects.filter(qset).distinct().order_by('naam')
+        results.contact = Contact.objects
+        #Contact.objects.get(id=pk)
     else:
         results = []
     return render(request,"sNaamBand.html", {
         "results": results,
         "query": query
     }) 
-    
+
+@login_required   
 def sGenreBand (request):
     query = request.GET.get('q','')
     if query:
@@ -294,6 +300,7 @@ def sGenreBand (request):
         "query": query
     })
 
+@login_required
 def sAantalLedenBand (request):
     query = request.GET.get('q','')
     if query:
@@ -308,6 +315,7 @@ def sAantalLedenBand (request):
         "query": query
     })
 
+@login_required
 def sBedragBand (request):
     query = request.GET.get('q','')
     if query:
@@ -321,7 +329,9 @@ def sBedragBand (request):
         "results": results,
         "query": query
     })
+
 #CRUD
+@login_required
 def createBand(request):
     form = BandForm(request.POST or None)
     if form.is_valid():
@@ -332,6 +342,7 @@ def createBand(request):
     context = {'form' : form, 'title': 'Band'}
     return render(request,template_name,context) 
 
+@login_required
 def editBand(request,pk):
     try :
         band = Band.objects.get(id=pk)
@@ -365,12 +376,14 @@ def deleteBand(request,pk):
 #    
 # Fanclub
 #
+@login_required
 def allFanclub (request):
     fanclub_list = Fanclub.objects.order_by('naam')
     content  = {'fanclubs' : fanclub_list}
     return render(request,'displayFanclub.html',content )
 
 # Zoek
+@login_required
 def sNaamFanclub (request):
     query = request.GET.get('q','')
     if query:
@@ -386,6 +399,7 @@ def sNaamFanclub (request):
     }) 
 
 #CRUD
+@login_required
 def createFanclub(request):
     form = FanclubForm(request.POST or None)
     if form.is_valid():
@@ -430,11 +444,13 @@ def deleteFanclub(request,pk):
 #
 # zaal
 #
+@login_required
 def allZaal (request):
     zaal_list = Zaal.objects.order_by('naam')
     content  = {'zalen' : zaal_list}
     return render(request,'displayZaal.html',content )
 
+@login_required
 def sNaamZaal (request):
     query = request.GET.get('q','')
     if query:
@@ -450,6 +466,7 @@ def sNaamZaal (request):
     }) 
 
 #CRUD
+@login_required
 def createZaal(request):
     form = ZaalForm(request.POST or None)
     if form.is_valid():
@@ -494,11 +511,13 @@ def deleteZaal(request,pk):
 #
 # Cateraar
 #
+@login_required
 def allCateraar (request):
     cateraar_list = Cateraar.objects.order_by('naam')
     content  = {'cateraars' : cateraar_list}
     return render(request,'displayCateraar.html',content )
 
+@login_required
 def sNaamCateraar (request):
     query = request.GET.get('q','')
     if query:
@@ -513,7 +532,8 @@ def sNaamCateraar (request):
         "query": query
     }) 
 
-#CRUD    
+#CRUD
+@login_required    
 def createCateraar(request):
     form = CateraarForm(request.POST or None)
     if form.is_valid():
@@ -558,12 +578,14 @@ def deleteCateraar(request,pk):
 #
 # Evenement
 #
+@login_required
 def allEvenement (request):
     evenement_list = Evenement.objects.order_by('naam','datum')
     content  = {'evenementen' : evenement_list}
     return render(request,'displayEvenement.html',content )
 
 #zoek
+@login_required
 def sNaamEvenement (request):
     query = request.GET.get('q','')
     if query:
@@ -578,20 +600,9 @@ def sNaamEvenement (request):
         "query": query
     }) 
 
-def sLocatieEvenement (request):
-    query = request.GET.get('q','')
-    if query:
-        qset = (
-            Q(locatie__icontains=query)         
-        )       
-        results = Evenement.objects.filter(qset).distinct().order_by('naam')
-    else:
-        results = []
-    return render(request,"sNaamEvenement.html", {
-        "results": results,
-        "query": query
-    }) 
 
+
+@login_required
 def sEntreePrijsEvenement (request):
     query = request.GET.get('q','')
     if query:
@@ -606,12 +617,12 @@ def sEntreePrijsEvenement (request):
         "query": query
     })  
 
-'''
+@login_required
 def sLocatieEvenement (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(entree_prijs__lte=query)         
+            Q(locatie__icontains=query)         
         )       
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
@@ -620,8 +631,26 @@ def sLocatieEvenement (request):
         "results": results,
         "query": query
     }) 
+
 '''
+@login_required
+def sVergunningEvenement (request):
+    query = request.GET.get('q','')
+    if query:
+        qset = (
+            Q(locatie__lte=query)         
+        )       
+        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+    else:
+        results = []
+    return render(request,"sNaamEvenement.html", {
+        "results": results,
+        "query": query
+    })
+'''
+
 #CRUD
+@login_required
 def createEvenement(request):
     form = EvenementForm(request.POST or None)
     if form.is_valid():
@@ -665,5 +694,5 @@ def deleteEvenement(request,pk):
         return render(request,template_name,context)
 #
 #
-# Akties
+# Aktions
 #

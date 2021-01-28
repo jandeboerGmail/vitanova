@@ -55,13 +55,13 @@ class FanclubForm(forms.ModelForm):
     class Meta:
         model = Fanclub
 
-        fields = ['naam','website','aantal_leden','contact','memo']
+        fields = ['naam','contact','website','aantal_leden','memo']
 
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
+            'contact': forms.Select(attrs={'class': 'form-control'}),
             'website': forms.URLInput(attrs={'class': 'form-control'}),
             'aantal_leden': forms.NumberInput(attrs={'class': 'form-control'}),
-            'contact': forms.Select(attrs={'class': 'form-control'}),
             'memo': forms.Textarea(attrs={'class': 'form-control'}),
 
         }
