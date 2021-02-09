@@ -2,11 +2,21 @@
 {% block head_title %} 
 {% endblock %}
 {% block content %}
-
-  <h2>Contacten</h2> 
-  <a class="btn btn-sm btn-primary" href="{% url 'exportContact' %}">Export</a>
-
-<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <h2>Contacten</h2> 
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <a class="btn btn-sm btn-primary" href="{% url 'exportContact' %}">Export </a>
+    </div>
+  </div>
+</div>
+<br>
 <table class="table">
   <thead>
     <tr>

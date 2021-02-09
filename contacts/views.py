@@ -281,7 +281,6 @@ def exportContact(request):
 
         font_style = xlwt.XFStyle()
 
-        #rows = Contact.objects.order_by('naam')
         rows = Contact.objects.order_by('naam').values_list('naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
         'soort','soort_lid','rekening_nr','status','memo')
         for row in rows:
@@ -338,12 +337,16 @@ def sGenreBand (request):
 
 @login_required
 def sAantalLedenBand (request):
-    query = request.GET.get('q','')
+    qfrom = request.GET.get('qf','')
+    qtill = request.GET.get('qt','')
+
+    query = qfrom + qtill
+  
     if query:
         qset = (
-            Q(aantal_leden__lte=query)         
+            Q(aantal_leden__gte=qfrom,aantal_leden__lte=qtill)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('aantal_leden','naam',)
+        results = Band.objects.filter(qset).distinct().order_by('-aantal_leden','naam',)
     else:
         results = []
     return render(request,"sAantalLedenBand.html", {
@@ -353,12 +356,15 @@ def sAantalLedenBand (request):
 
 @login_required
 def sBedragBand (request):
-    query = request.GET.get('q','')
+    qfrom = request.GET.get('qf','')
+    qtill = request.GET.get('qt','')
+    
+    query = qfrom + qtill
     if query:
         qset = (
-            Q(bedrag__lte=query)         
+            Q(bedrag__gte=qfrom,bedrag__lte=qtill)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('bedrag','naam')
+        results = Band.objects.filter(qset).distinct().order_by('-bedrag','naam')
     else:
         results = []
     return render(request,"sBedragBand.html", {
