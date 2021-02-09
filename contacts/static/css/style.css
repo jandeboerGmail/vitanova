@@ -1,9 +1,10 @@
 body {
-    background-color: rgb(190, 240, 8);
+    background-color: rgb(240, 120, 8);
 }
 
 h1, h2, h3 {
     color: blue;
+    text-align: center;
 }
 
 li {
@@ -11,6 +12,7 @@ li {
 }
 
 .about {
+color: rgb(255, 102, 0);
    text-align: center; 
 }
 

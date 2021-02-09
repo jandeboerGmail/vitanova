@@ -8,6 +8,7 @@ from contacts.models import Contact, Category, Band, Fanclub, Zaal, Cateraar, Ev
 from contacts.forms import ContactForm, BandForm, FanclubForm, ZaalForm, CateraarForm, EvenementForm
 from django.db.models import Q
 import datetime
+import xlwt
 
 # Create your views here.
 def current_datetime(request):
@@ -258,6 +259,41 @@ def deleteContact(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : contact , 'title': 'Contact'}
         return render(request,template_name,context) 
+
+
+# Export
+def exportContact(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Contacts' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Contacts')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
+        'soort','soort_lid','rekening_nr','status','memo']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        #rows = Contact.objects.order_by('naam')
+        rows = Contact.objects.order_by('naam').values_list('naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
+        'soort','soort_lid','rekening_nr','status','memo')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+
+        return response
+
 #
 # band
 #

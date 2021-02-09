@@ -33,6 +33,8 @@ urlpatterns = [
 	path('contact/edit/<int:pk>',views.editContact,name='editContact'),
 	path('contact/delete/<int:pk>',views.deleteContact,name='deleteContact'),
 
+	path('exportContact/',views.exportContact,name='exportContact'),
+
 #Band
 	path('allBand/',views.allBand,name='allBand'),
 	path('sNaamBand/',views.sNaamBand,name='sNaamBand'),

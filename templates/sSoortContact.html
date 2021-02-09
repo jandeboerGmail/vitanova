@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-{% block head_title %} {% endblock %}
+{% block head_title %} 
+{% endblock %}
 {% block content %}
+
+<h2>Contacten</h2>
+<hr>
 <form action="." method="GET">
   <label for="q">Zoek: </label>
   <select name="q" id="q" value="{{ query|escape }}">

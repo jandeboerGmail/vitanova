@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-{% block head_title %} {% endblock %}
+{% block head_title %} 
+{% endblock %}
 {% block content %}
+
+<h2>Cateraar</h2>
+<hr>
   <form action="." method="GET">
     <label for="q">Zoek: </label>
     <input type="text" name="q" value="{{ query|escape }}">
