@@ -264,7 +264,7 @@ def deleteContact(request,pk):
 # Export
 def exportContact(request):  
         response = HttpResponse(content_type='application/ms-excel') 
-        response['Content-Disposition']  = 'attachment; filename=Contacts' + \
+        response['Content-Disposition']  = 'attachment; filename=Contacts_' + \
             str(datetime.datetime.now())+'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
@@ -339,10 +339,8 @@ def sGenreBand (request):
 def sAantalLedenBand (request):
     qfrom = request.GET.get('qf','')
     qtill = request.GET.get('qt','')
-
-    query = qfrom + qtill
   
-    if query:
+    if qfrom:
         qset = (
             Q(aantal_leden__gte=qfrom,aantal_leden__lte=qtill)         
         )       
@@ -351,7 +349,8 @@ def sAantalLedenBand (request):
         results = []
     return render(request,"sAantalLedenBand.html", {
         "results": results,
-        "query": query
+        "qfrom": qfrom,
+        "qtill": qtill
     })
 
 @login_required
@@ -359,17 +358,18 @@ def sBedragBand (request):
     qfrom = request.GET.get('qf','')
     qtill = request.GET.get('qt','')
     
-    query = qfrom + qtill
-    if query:
+    if qfrom:
         qset = (
-            Q(bedrag__gte=qfrom,bedrag__lte=qtill)         
+            Q(bedrag__gte=qfrom,bedrag__lte=qtill) 
+            #Q(bedrag__gte=qfrom)          
         )       
         results = Band.objects.filter(qset).distinct().order_by('-bedrag','naam')
     else:
         results = []
     return render(request,"sBedragBand.html", {
         "results": results,
-        "query": query
+        "qfrom": qfrom,
+        "qtill": qtill
     })
 
 #CRUD
@@ -642,21 +642,23 @@ def sNaamEvenement (request):
         "query": query
     }) 
 
-
-
 @login_required
 def sEntreePrijsEvenement (request):
-    query = request.GET.get('q','')
+    qfrom = request.GET.get('qf','')
+    qtill = request.GET.get('qt','')
+
+    query = qfrom
     if query:
         qset = (
-            Q(entree_prijs__lte=query)         
+            Q(entree_prijs__gte=qfrom,entree_prijs__lte=qtill)          
         )       
         results = Evenement.objects.filter(qset).distinct().order_by('naam')
     else:
         results = []
-    return render(request,"sNaamEvenement.html", {
+    return render(request,"sEntreePrijsEvenement.html", {
         "results": results,
-        "query": query
+        "qfrom": qfrom,
+        "qtill": qtill
     })  
 
 @login_required
