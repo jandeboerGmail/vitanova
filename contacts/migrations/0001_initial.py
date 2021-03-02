@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
                 ('telefoon', models.CharField(blank=True, max_length=16)),
                 ('mobiel', models.CharField(blank=True, max_length=16)),
                 ('emailadress', models.EmailField(blank=True, max_length=254)),
-                ('soort', models.IntegerField(choices=[(0, 'Contact'), (1, 'Lid'), (2, 'Donateur'), (3, 'Erelid'), (4, 'Artiest'), (5, 'Catering'), (6, 'Art Buro'), (7, 'Bandleider'), (8, 'Technicus'), (9, 'Beheerder')], default=0)),
+                ('soort', models.IntegerField(choices=[(0, 'Contact'), (1, 'Lid'), (2, 'Donateur'), (3, 'Erelid'), (4, 'Artiest'), (5, 'Catering'), (6, 'Art Buro'), (7, 'Bandleider'), (8, 'Technicus'), (9, 'Beheerder'), 10, 'Media'], default=0)),
                 ('soort_lid', models.IntegerField(choices=[(0, 'Blanco'), (1, 'Brons'), (2, 'Zilver'), (3, 'Goud')], default=0)),
                 ('rekening_nr', models.CharField(blank=True, default='NL', max_length=18)),
                 ('status', models.IntegerField(choices=[(0, 'New'), (1, 'Actief'), (2, 'Verwijderen')], default=0)),

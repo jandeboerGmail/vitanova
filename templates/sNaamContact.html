@@ -2,29 +2,40 @@
 {% block head_title %} 
 {% endblock %}
 {% block content %}
-<h2>Contacten</h2>
-
 <!--
 <form action="." method="GET">
-    <label for="q">Zoek: </label>
-    <input type="text" name="q" value="{{ query|escape }}">
-    <input type="submit" value="Naam">
-</form>
--->
-
-<hr>
-<form action="." method="GET">
     <div class="form-inline">
+      <h2>Contact</h2>
       <div class="form-group">
         <input type="text" class="form-control form-control-sm" name="q"  value="{{ query|escape }}" placeholder="Naam">
       </div>
-
       <div class="form-group col-md-2">
         <button type="submit" class="btn btn-primary btn-sm">Zoek</button>
       </div>
   </div>
 </form>
-<br>
+--->
+
+  <!---
+  <div class="form-inline"></div>
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Contact</h2> 
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <input type="text" class="form-control form-control-sm" name="q"  value="{{ query|escape }}" placeholder="Naam">
+        <button type="submit" class="btn btn-primary btn-sm">Zoek</button>
+      </div>
+      <div class="form-group col-md-2">
+        <button type="submit" class="btn btn-primary btn-sm">Zoek</button>
+    </div>
+    <div class="col-md-2">
+      <input type="button" class="btn btn-primary btn-sm" value="Terug" onclick="history.back()">
+    </div>
+  </div>
+</div>
+-->
 
   {% if query %}
   <table class="table">

@@ -26,24 +26,30 @@
 
   <body>
     {% include 'navbar.html' %}
-    <br>
+   <br>
+    <!--
     <div class='container-fluid'>
       <form>
         <input type="button" class="btn btn-primary btn-lg btn-block" value="Terug" onclick="history.back()">
        </form>
        </div>
        <br>
+      -->
        <div class='container-fluid'>
          {% block content %}
          {% endblock %}
       </div>
       {% include 'js.html' %}
     </body>
-  
+      <div class='container'>
+        <input type="button" class="btn btn-primary btn-sm" value="Terug" onclick="history.back()">
+      </div>
+
+    <!---
     <div class='container-fluid'>
     <form>
       <input type="button" class="btn btn-primary btn-lg btn-block" value="Terug" onclick="history.back()">
     </form>
     </div>
-
+  -->
 </html>

@@ -112,7 +112,7 @@ class EvenementForm(forms.ModelForm):
         model = Evenement
 
         fields = ['naam','datum','aanvang','einde','zaal_open','beheerder','locatie','catering','band','thema',
-        'entree_prijs','voorverkoop_prijs','opbrengst','zitplaatsen','website','memo']
+        'entree_prijs','voorverkoop_prijs','opbrengst','zitplaatsen','website','organisator','organisator_info','catering_info','activiteiten_info','volgende_activiteiten','memo']
 
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
@@ -130,6 +130,11 @@ class EvenementForm(forms.ModelForm):
             'opbrengst': forms.NumberInput(attrs={'class': 'form-control'}),
             'zitplaatsen': forms.NumberInput(attrs={'class': 'form-control'}),
             'website': forms.URLInput(attrs={'class': 'form-control'}),
+            'organisator': forms.TextInput(attrs={'class': 'form-control'}),
+            'organisator_info': forms.TextInput(attrs={'class': 'form-control'}),
+            'catering_info': forms.TextInput(attrs={'class': 'form-control'}),
+            'activiteiten_info': forms.TextInput(attrs={'class': 'form-control'}),
+            'volgende_activiteiten': forms.Textarea(attrs={'class': 'form-control'}),
             'memo': forms.Textarea(attrs={'class': 'form-control'}),
 
         }   

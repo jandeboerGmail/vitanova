@@ -415,6 +415,38 @@ def deleteBand(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : band , 'title': 'Band'}
         return render(request,template_name,context)
+
+        # Export
+def exportBand(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Bands_' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Bands')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
+        'soort','bedrag','rekening_nr','website','memo']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+         #'soort_lid', models.IntegerField(choices=[(0, 'Blanco'), (1, 'Brons'), (2, 'Zilver'), (3, 'Goud')], default=0)),
+        rows = Band.objects.order_by('naam').values_list('naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
+        'soort','bedrag','rekening_nr','website','memo')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+
+        return response
 #    
 # Fanclub
 #

@@ -2,9 +2,22 @@
 {% block head_title %} 
 {% endblock %}
 {% block content %}
-
-<h2>Bands</h2>
-
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <h2>Contact</h2> 
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <a class="btn btn-sm btn-dark" href="{% url 'exportBand' %}">Export </a>
+      <input type="button" class="btn btn-primary btn-sm" value="Terug" onclick="history.back()">
+    </div>
+  </div>
+</div>
+<br>
 <table class="table">
   <thead>
     <tr>

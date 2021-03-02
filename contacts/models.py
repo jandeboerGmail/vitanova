@@ -31,6 +31,7 @@ class Contact(models.Model):
 		bandleider = 7
 		technicus = 8
 		beheerder = 9
+		media = 10
 
 	class Status(models.IntegerChoices):
 		new = 0
@@ -215,6 +216,12 @@ class Evenement(models.Model):
 	opbrengst = models.DecimalField(max_digits=8,decimal_places = 2,default = 0,blank=False)
 	zitplaatsen = models.DecimalField(max_digits=8,decimal_places = 0,default = 0)
 	website = models.URLField(max_length=200,blank=True)
+	organisator = models.CharField(max_length=50,blank=False,default = 'Vita Nova I.O.')
+	organisator_info = models.CharField(max_length=50,blank=False,default = 'Vita Nova Baru Bangkit Dari Abu.')
+	catering_info = models.CharField(max_length=50,blank=False,default = 'Indische catering aanwezig')
+	activiteiten_info = models.CharField(max_length=50,blank=False,default = 'Tombola met mooie prijzen')
+	volgende_activiteiten = models.TextField(blank = True)
+
 	memo = models.TextField(blank = True)
 	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)

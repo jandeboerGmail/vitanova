@@ -46,6 +46,8 @@ urlpatterns = [
 	path('band/edit/<int:pk>',views.editBand,name='editBand'),
 	path('band/delete/<int:pk>',views.deleteBand,name='deleteBand'),
 
+	path('exportBand/',views.exportBand,name='exportBand'),
+
 #Fanclub
 	path('createFanclub/',views.createFanclub,name='createFanclub'),
 	path('allFanclub/',views.allFanclub,name='allFanclub'),
