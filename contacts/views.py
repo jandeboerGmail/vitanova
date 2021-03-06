@@ -416,7 +416,7 @@ def deleteBand(request,pk):
         context = {'item' : band , 'title': 'Band'}
         return render(request,template_name,context)
 
-        # Export
+# Export
 def exportBand(request):  
         response = HttpResponse(content_type='application/ms-excel') 
         response['Content-Disposition']  = 'attachment; filename=Bands_' + \
@@ -515,6 +515,36 @@ def deleteFanclub(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : fanclub , 'title': 'Fanclubs'}
         return render(request,template_name,context)
+
+# Export
+def exportFanclub(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Fanclubs_' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Fanclubs')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','contact','aantal_leden','website','memo']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        rows = Fanclub.objects.order_by('naam').values_list('naam','contact','aantal_leden','website','memo')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+
+        return response
 #
 # zaal
 #
@@ -582,6 +612,38 @@ def deleteZaal(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : zaal , 'title': 'Zaal'}
         return render(request,template_name,context)
+
+# Export
+def exportZaal(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Zalen_' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Zalen')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','contact','postcode','adress','postcode','plaats','telefoon','website', \
+                   'volt440','hulp_nodig','vergunning_vereist','vergunning_aangevraagd','vergunning_datum']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        rows = Zaal.objects.order_by('naam').values_list('naam','contact','postcode','adress','postcode','plaats','telefoon','website', \
+                   'volt440','hulp_nodig','vergunning_vereist','vergunning_aangevraagd','vergunning_datum')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+
+        return response
 #
 # Cateraar
 #
@@ -649,6 +711,36 @@ def deleteCateraar(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : cateraar , 'title': 'Cateraar'}
         return render(request,template_name,context)
+
+# Export
+def exportCateraar(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Cateraar_' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Cateraar')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','contact','soort','catering_prijs','rekening_nr','website','memo']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        rows = Cateraar.objects.order_by('naam').values_list('naam','contact','soort','catering_prijs','rekening_nr','website','memo')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+        
+        return response
 #
 # Evenement
 #
@@ -768,6 +860,40 @@ def deleteEvenement(request,pk):
         template_name = 'deleteRecord.html'
         context = {'item' : evenement , 'title': 'Evenement'}
         return render(request,template_name,context)
+
+# Export
+def exportEvenement(request):  
+        response = HttpResponse(content_type='application/ms-excel') 
+        response['Content-Disposition']  = 'attachment; filename=Evenementen_' + \
+            str(datetime.datetime.now())+'.xls'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Evenement')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        columns = ['naam','datum','aanvang','einde','zaal_open','beheerder','locatie','catering','band','thema','entree_prijs', \
+                   'voorverkoop_prijs','zitplaatsen','website','organisator','organisator_info','catering_info', \
+                   'activiteiten_info','volgende_datum_1','volgende_datum_2','uitverkocht','memo']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        rows = Evenement.objects.order_by('naam').values_list('naam','datum','aanvang','einde','zaal_open','beheerder','locatie','catering','band','thema','entree_prijs', \
+                   'voorverkoop_prijs','zitplaatsen','website','organisator','organisator_info','catering_info', \
+                   'activiteiten_info','volgende_datum_1','volgende_datum_2','uitverkocht','memo')
+        for row in rows:
+            row_num +=1
+
+            for col_num in range(len(columns)):
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+        wb.save(response)
+        
+        return response
 #
 #
 # Aktions

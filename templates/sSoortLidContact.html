@@ -16,31 +16,34 @@
     <input type="submit" value="Soort Lid">
 </form>
 
-  {% if query %}
-  <table class="table">
-    <thead>
-        <th scope="col">#</th>
-        <th scope="col">Naam</th>
-        <th scope="col">Plaats</th>
-        <th scope="col">Email</th>
-        <th scope="col">Akties</th>
-      </tr>
-    </thead>
+{% if query %}
+<table class="table">
+  <thead>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Plaats</th>
+      <th scope="col">Mobiel</th>
+      <th scope="col">Email</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+  <!--- <h3>Resultaat for "{{ query|escape }}":</h3> --->
 
-    {% if results %}
-    <tbody>
-      {% for contact in results %}
-         <th scope="row">{{contact.soort_lid}}</th> 
-         <th> {{contact.naam}} </th> 
-         <th> {{contact.plaats}} </th>
-         <th> {{contact.emailadress}} </th>
-         <th><a class="btn btn-sm btn-info" href="{% url 'editContact' contact.id %}">Edit</a></th>
-         <th><a class="btn btn-sm btn-danger" href="{% url 'deleteContact' contact.id %}">Delete</a></th>
-      </tbody> 
-     {% endfor %}
-    </table>
-    {% else %}
-      <p>Niks gevonden</p>
-    {% endif %}
+  {% if results %}
+  <tbody>
+    {% for contact in results %}
+       <!-- <th scope="row">{{contact.id}}</th> -->
+       <th> {{contact.naam}} </th> 
+       <th> {{contact.plaats}} </th> 
+       <th> {{contact.mobiel}} </th>
+       <th> {{contact.emailadress}} </th>
+       <th><a class="btn btn-sm btn-info" href="{% url 'editContact' contact.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteContact' contact.id %}">Delete</a></th>
+    </tbody> 
+   {% endfor %}
+  </table>
+  {% else %}
+    <p>Niks gevonden</p>
   {% endif %}
+{% endif %}
 {% endblock %}

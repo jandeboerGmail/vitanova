@@ -55,6 +55,8 @@ urlpatterns = [
 	path('fanclub/edit/<int:pk>',views.editFanclub,name='editFanclub'),
 	path('fanclub/delete/<int:pk>',views.deleteFanclub,name='deleteFanclub'),
 
+	path('exportFanclub/',views.exportFanclub,name='exportFanclub'),
+
 #Zaal
 	path('allZaal/',views.allZaal,name='allZaal'),
 	path('sNaamZaal/',views.sNaamZaal,name='sNaamZaal'),
@@ -62,12 +64,16 @@ urlpatterns = [
 	path('zaal/edit/<int:pk>',views.editZaal,name='editZaal'),
 	path('zaal/delete/<int:pk>',views.deleteZaal,name='deleteZaal'),
 
+	path('exportZaal/',views.exportZaal,name='exportZaal'),
+
 #Cateraar
 	path('allCateraar/',views.allCateraar,name='allCateraar'),
 	path('sNaamCateraar/',views.sNaamCateraar,name='sNaamCateraar'),
 	path('createCateraar/',views.createCateraar,name='createCateraar'),
 	path('cateraar/edit/<int:pk>',views.editCateraar,name='editCateraar'),
 	path('cateraar/delete/<int:pk>',views.deleteCateraar,name='deleteCateraar'),
+
+	path('exportCateraar/',views.exportCateraar,name='exportCateraar'),
 
 #Evenement
 	path('allEvenement/',views.allEvenement,name='allEvenement'),
@@ -77,6 +83,9 @@ urlpatterns = [
 	path('createEvenement/',views.createEvenement,name='createEvenement'),
 	path('evenement/edit/<int:pk>',views.editEvenement,name='editEvenement'),
 	path('evenement/delete/<int:pk>',views.deleteEvenement,name='deleteEvenement'),
+
+	path('exportEvenement/',views.exportEvenement,name='exportEvenement'),
+
 ]
 
 #Akties

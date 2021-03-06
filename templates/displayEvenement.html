@@ -2,7 +2,24 @@
 {% block head_title %} 
 {% endblock %}
 {% block content %}
-<h2>Evenement</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <h2>Evenement</h2> 
+    </div>
+    <div class="col-md">
+    </div>
+    <div class="col-md">
+      <a class="btn btn-sm btn-dark" href="{% url 'exportEvenement' %}">Export </a>
+      <!--
+      <input type="button" class="btn btn-primary btn-sm" value="Terug" onclick="history.back()">
+      -->
+    </div>
+  </div>
+</div>
+<br>
 <table class="table">
   <thead>
     <tr>
@@ -10,7 +27,7 @@
       <th scope="col">Naam</th>
       <th scope="col">Locatie</th>
       <th scope="col">Datum</th>
-      <th scope="col">Pijs</th>
+      <th scope="col">Prijs</th>
       <th scope="col">Akties</th>
     </tr>
   </thead>
@@ -21,8 +38,9 @@
        <th> {{evenement.naam}} </th>
        <th> {{evenement.locatie}} </th> 
        <th> {{evenement.datum}} </th> 
-       <th> {{evenement.prijs}} </th> 
+       <th> {{evenement.entree_prijs}} </th> 
        <th><a class="btn btn-sm btn-info" href="{% url 'editEvenement' evenement.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-secondary" href="{% url 'editEvenement' evenement.id %}">Poster</a></th>
        <th><a class="btn btn-sm btn-danger" href="{% url 'deleteEvenement' evenement.id %}">Delete</a></th>
     </tbody>
    {% endfor %}
