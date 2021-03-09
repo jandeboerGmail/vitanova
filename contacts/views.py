@@ -6,9 +6,13 @@ from django import forms
 from django.shortcuts import get_object_or_404
 from contacts.models import Contact, Category, Band, Fanclub, Zaal, Cateraar, Evenement
 from contacts.forms import ContactForm, BandForm, FanclubForm, ZaalForm, CateraarForm, EvenementForm
+from contacts.poster import Poster
 from django.db.models import Q
 import datetime
+
 import xlwt
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 # Create your views here.
 def current_datetime(request):
@@ -264,8 +268,9 @@ def deleteContact(request,pk):
 # Export
 def exportContact(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Contacts_' + \
-            str(datetime.datetime.now())+'.xls'
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Contacts')
@@ -419,8 +424,9 @@ def deleteBand(request,pk):
 # Export
 def exportBand(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Bands_' + \
-            str(datetime.datetime.now())+'.xls'
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Bands')
@@ -519,8 +525,9 @@ def deleteFanclub(request,pk):
 # Export
 def exportFanclub(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Fanclubs_' + \
-            str(datetime.datetime.now())+'.xls'
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Fanclubs')
@@ -616,8 +623,9 @@ def deleteZaal(request,pk):
 # Export
 def exportZaal(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Zalen_' + \
-            str(datetime.datetime.now())+'.xls'
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Zalen')
@@ -715,9 +723,10 @@ def deleteCateraar(request,pk):
 # Export
 def exportCateraar(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Cateraar_' + \
-            str(datetime.datetime.now())+'.xls'
-
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
+    
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Cateraar')
         row_num = 0
@@ -864,8 +873,9 @@ def deleteEvenement(request,pk):
 # Export
 def exportEvenement(request):  
         response = HttpResponse(content_type='application/ms-excel') 
+        now = datetime.datetime.now()
         response['Content-Disposition']  = 'attachment; filename=Evenementen_' + \
-            str(datetime.datetime.now())+'.xls'
+            now.strftime ("%Y%m%d_%H%M%S") +'.xls'
 
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Evenement')
@@ -894,6 +904,19 @@ def exportEvenement(request):
         wb.save(response)
         
         return response
+
+@login_required
+def printEvenement(request,pk):
+        response = HttpResponse(content_type='application/pdf') 
+        now = datetime.datetime.now()
+        response['Content-Disposition']  = 'attachment; filename=Poster_' + \
+            now.strftime ("%Y%m%d_%H%M%S") +'.pdf'
+
+        p = canvas.Canvas(response,pagesize=letter)
+        p = Poster.pdf(pk,p)
+
+        return response
+
 #
 #
 # Aktions

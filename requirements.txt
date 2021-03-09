@@ -3,3 +3,4 @@ mysqlclient
 mysql-connector-python
 Pillow
 xlwt
+reportlab

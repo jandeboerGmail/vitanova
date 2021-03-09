@@ -27,6 +27,7 @@
       <th scope="col">Naam</th>
       <th scope="col">Locatie</th>
       <th scope="col">Datum</th>
+      <th scope="col">Band</th>
       <th scope="col">Prijs</th>
       <th scope="col">Akties</th>
     </tr>
@@ -38,9 +39,10 @@
        <th> {{evenement.naam}} </th>
        <th> {{evenement.locatie}} </th> 
        <th> {{evenement.datum}} </th> 
+       <th> {{evenement.band}} </th> 
        <th> {{evenement.entree_prijs}} </th> 
        <th><a class="btn btn-sm btn-info" href="{% url 'editEvenement' evenement.id %}">Edit</a></th>
-       <th><a class="btn btn-sm btn-secondary" href="{% url 'editEvenement' evenement.id %}">Poster</a></th>
+       <th><a class="btn btn-sm btn-secondary" href="{% url 'printEvenement' evenement.id %}">Poster</a></th>
        <th><a class="btn btn-sm btn-danger" href="{% url 'deleteEvenement' evenement.id %}">Delete</a></th>
     </tbody>
    {% endfor %}

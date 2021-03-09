@@ -85,6 +85,7 @@ urlpatterns = [
 	path('evenement/delete/<int:pk>',views.deleteEvenement,name='deleteEvenement'),
 
 	path('exportEvenement/',views.exportEvenement,name='exportEvenement'),
+	path('printEvenement/<int:pk>',views.printEvenement,name='printEvenement'),
 
 ]
 
