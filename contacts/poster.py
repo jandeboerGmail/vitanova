@@ -37,11 +37,12 @@ class Poster():
             canvas.setFont("Helvetica-Bold", 16)
             canvas.drawString(120,650, row.organisator_info)
             canvas.setFont("Helvetica", 12)
-            organisator                     = 'Organisator van Acara Adoe Adoe'
+            organisator = 'Organisator van Acara Adoe Adoe'
             canvas.drawString(230,615, organisator)
 
             canvas.setFont("Helvetica-Bold", 20)
             band = Band.objects.get(id=row.band_id)
+           
             locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
             datum = "op " +  row.datum.strftime("%A %d %B %Y")  
             metband = "met "  + band.naam

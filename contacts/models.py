@@ -58,7 +58,7 @@ class Contact(models.Model):
 	soort_lid = models.IntegerField(choices=Soortlid.choices,default=0)
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	status = models.IntegerField(choices=Status.choices,default=0)
-	image = models.ImageField(upload_to ='media',null=True,blank=True)
+	image = models.ImageField(upload_to ='media/',null=True,blank=True)
 	memo = models.TextField(blank = True)
 
 	#evenement = models.ManyToManyField('models.Evenement')
@@ -106,7 +106,7 @@ class Band(models.Model):
 	rekening_nr = models.CharField(max_length=18,blank=True,default='NL')
 	website = models.URLField(max_length=200,blank=True)
 	memo = models.TextField(blank = True)
-	image = models.ImageField(upload_to ='media',null=True,blank=True,default = None)
+	image = models.ImageField(upload_to ='media/',null=True,blank=True,default = None)
 	#image2 = models.ImageField(upload_to ='media',null=True,blank=True)
 	slug = models.SlugField(max_length=120,default='slug')
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
