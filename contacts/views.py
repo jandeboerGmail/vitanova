@@ -396,7 +396,10 @@ def editBand(request,pk):
     except Band.DoesNotExist:
          return redirect('index')
 
+
     form = BandForm(request.POST or None,instance = band)
+    if band.image:
+        print(band.image)
     if form.is_valid():
         form.save()
         return ( redirect('indexBand')) 
@@ -435,7 +438,7 @@ def exportBand(request):
         font_style.font.bold = True
 
         columns = ['naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
-        'soort','bedrag','rekening_nr','website','memo']
+        'soort','bedrag','rekening_nr','website','image','memo']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style)
@@ -443,7 +446,7 @@ def exportBand(request):
         font_style = xlwt.XFStyle()
          #'soort_lid', models.IntegerField(choices=[(0, 'Blanco'), (1, 'Brons'), (2, 'Zilver'), (3, 'Goud')], default=0)),
         rows = Band.objects.order_by('naam').values_list('naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
-        'soort','bedrag','rekening_nr','website','memo')
+        'soort','bedrag','rekening_nr','website','image','memo')
         for row in rows:
             row_num +=1
 
@@ -871,6 +874,7 @@ def deleteEvenement(request,pk):
         return render(request,template_name,context)
 
 # Export
+@login_required
 def exportEvenement(request):  
         response = HttpResponse(content_type='application/ms-excel') 
         now = datetime.datetime.now()

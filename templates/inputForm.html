@@ -1,31 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<hr>
+
 {% if title %}
     <h2 class='container col text-center'>{{ title }}</h2>
 {% endif %}
-<hr>
+
 <div class="form-group">
-    
-    <form method='POST' action='' > 
-        <div class="form-row text-center">
-            <!-- NOT WORKING
-            <input type="button" class="btn btn-primary btn-lg" value="Submit" name="Update">
-            -->
-            <button type="submit" class="btn btn-success">Update</button>
-            <!---
-            <input type ="submit" name="Update">
-            -->
-        </div>
+    <form method='POST' enctype='multipart/form-data'> 
+        <button type="submit" class="btn btn-success">Update</button>      
         
         {% csrf_token %}
+        {{ form.media }}
         {{ form.as_p }}
     
         <div class="form-row text-center">
           <button type="submit" class="btn btn-success">Update</button>
-           <!---
-          <input type ="submit" name="Update">
-           -->
         </div>
     </form>
 </div>

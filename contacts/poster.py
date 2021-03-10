@@ -49,10 +49,12 @@ class Poster():
             canvas.drawString(170,540, datum)
             canvas.drawString(170,520, metband)
     
-            image = "media/Beatles.jpg"
+            image = "media/default.jpg"
             if band.image:
                 image = str(band.image)
+            print (str(band.image))
             print ('Band Image==========')
+           
             print (image)
             canvas.drawImage(image,100,300,width=400,height=200)
 
