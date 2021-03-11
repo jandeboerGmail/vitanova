@@ -279,7 +279,7 @@ def exportContact(request):
         font_style.font.bold = True
 
         columns = ['naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
-        'soort','soort_lid','rekening_nr','status','memo']
+        'soort','soort_lid','rekening_nr','status','contact_image','memo']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style)
@@ -287,7 +287,7 @@ def exportContact(request):
         font_style = xlwt.XFStyle()
 
         rows = Contact.objects.order_by('naam').values_list('naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
-        'soort','soort_lid','rekening_nr','status','memo')
+        'soort','soort_lid','rekening_nr','contact_image','status','memo')
         for row in rows:
             row_num +=1
 
@@ -396,12 +396,13 @@ def editBand(request,pk):
     except Band.DoesNotExist:
          return redirect('index')
 
+    form = BandForm(instance = band)
+ 
+    if request.method == 'POST':
+        form = BandForm(request.POST,request.FILES,instance = band)
+        if form.is_valid():
+            form.save()
 
-    form = BandForm(request.POST or None,instance = band)
-    if band.image:
-        print(band.image)
-    if form.is_valid():
-        form.save()
         return ( redirect('indexBand')) 
 
     template_name = 'inputForm.html'
@@ -446,7 +447,7 @@ def exportBand(request):
         font_style = xlwt.XFStyle()
          #'soort_lid', models.IntegerField(choices=[(0, 'Blanco'), (1, 'Brons'), (2, 'Zilver'), (3, 'Goud')], default=0)),
         rows = Band.objects.order_by('naam').values_list('naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
-        'soort','bedrag','rekening_nr','website','image','memo')
+        'soort','bedrag','rekening_nr','website','band_image','memo')
         for row in rows:
             row_num +=1
 

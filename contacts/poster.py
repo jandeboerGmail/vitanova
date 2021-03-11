@@ -2,6 +2,9 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from contacts.models import Evenement, Zaal, Band
 
+from django.conf import settings
+#from django.conf.urls.static import static
+
 import locale
 import sys
 import datetime
@@ -10,8 +13,15 @@ class Poster():
 
     def pdf(pk,canvas):
 
+        # ccenter line
+        def start_point(inStr,size):
+            middle = 295
+            length = len(inStr)
+            x = middle - (length * size * 0.4 ) / 2
+            return x
+
         def printCanvas(row,canvas): 
-              
+            
             #canvas.drawImage("logo_stichting_adelaar.png",30,600,width=100,height=100)
             #canvas.drawImage("logo_wapenurbajw.png",500,600,width=100,height=100)
 
@@ -23,22 +33,25 @@ class Poster():
             canvas.line(10,10,10,747)
             canvas.line(600,10,600,747)
 
+            #canvas.line(295,10,295,747)
+
             if row.uitverkocht:
                 canvas.setLineWidth(10.0)
                 canvas.line(10,747,600,10)
                 canvas.line(10,10,600,747)
                 canvas.setFont("Helvetica-Bold", 40)
                 uitverkocht = "Uitverkocht /  Vervallen"
-                canvas.drawString(95,570, uitverkocht)
+                canvas.drawString(95,600, uitverkocht)
 
             canvas.setFont("Helvetica-Bold", 24)
-            canvas.drawString(240,700, row.organisator)
+            canvas.drawString(start_point(row.organisator,24) ,700, row.organisator)
 
             canvas.setFont("Helvetica-Bold", 16)
-            canvas.drawString(120,650, row.organisator_info)
-            canvas.setFont("Helvetica", 12)
-            organisator = 'Organisator van Acara Adoe Adoe'
-            canvas.drawString(230,615, organisator)
+            canvas.drawString(start_point(row.organisator_info,16),670, row.organisator_info)
+
+            canvas.setFont("Helvetica", 14)
+            organisator = 'Organisator Acara Adoe Adoe Team'
+            canvas.drawString(start_point(row.organisator,30),645, organisator)
 
             canvas.setFont("Helvetica-Bold", 20)
             band = Band.objects.get(id=row.band_id)
@@ -46,16 +59,13 @@ class Poster():
             locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
             datum = "op " +  row.datum.strftime("%A %d %B %Y")  
             metband = "met "  + band.naam
-            canvas.drawString(170,540, datum)
-            canvas.drawString(170,520, metband)
+            canvas.drawString(start_point(datum,24),560, datum)
+            canvas.drawString(start_point(metband,24),535, metband)
     
-            image = "media/default.jpg"
-            if band.image:
-                image = str(band.image)
-            print (str(band.image))
-            print ('Band Image==========')
-           
-            print (image)
+            # print(settings.MEDIA_ROOT)
+            image = settings.MEDIA_ROOT + "/image/default.jpg"
+            if band.band_image:
+                image = settings.MEDIA_ROOT  + "/" +  str(band.band_image) 
             canvas.drawImage(image,100,300,width=400,height=200)
 
             aanvang   = "Aanvang:   " + str(row.aanvang)[0:5] + " uur"
@@ -75,10 +85,10 @@ class Poster():
 
             canvas.setFont("Helvetica-Bold", 10)
             volgende_data = "Volgende data:"
-            canvas.drawString(100,190, volgende_data)
+            canvas.drawString(100,200, volgende_data)
             canvas.setFont("Helvetica", 10)
-            canvas.drawString(100,175, row.volgende_datum_1)
-            canvas.drawString(100,160, row.volgende_datum_2)
+            canvas.drawString(100,185, row.volgende_datum_1)
+            canvas.drawString(100,170, row.volgende_datum_2)
 
             zaal = Zaal.objects.get(id=row.locatie_id)
             canvas.setFont("Helvetica-Bold", 10)
@@ -95,10 +105,10 @@ class Poster():
 
             canvas.setFont("Helvetica-Bold", 14)
             stichtig = 'Stichting'
-            canvas.drawString(205,40, stichtig)
+            canvas.drawString(270,60, stichtig)
             canvas.setFont("Helvetica-Bold", 18)
             vitanova = 'Vita Nova'
-            canvas.drawString(270,40, vitanova)
+            canvas.drawString(260,40, vitanova)
             
             canvas.save()
             return (canvas)

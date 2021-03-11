@@ -90,7 +90,7 @@ urlpatterns = [
 	path('exportEvenement/',views.exportEvenement,name='exportEvenement'),
 	path('printEvenement/<int:pk>',views.printEvenement,name='printEvenement'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
 #Akties
 #About

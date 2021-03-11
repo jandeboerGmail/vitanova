@@ -7,7 +7,7 @@ class ContactForm(forms.ModelForm):
         model = Contact
 
         fields = ['naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
-        'soort','soort_lid','rekening_nr','status','image','memo'] 
+        'soort','soort_lid','rekening_nr','status','contact_image','memo'] 
         
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
@@ -23,7 +23,7 @@ class ContactForm(forms.ModelForm):
             'rekening_nr': forms.TextInput(attrs={'class': 'form-control'}), 
             'status': forms.Select(attrs={'class': 'form-control'}), 
             'memo': forms.Textarea(attrs={'class': 'form-control'}), 
-            'image': forms.FileInput(attrs={'class': 'form-control'}),  
+            'contact_image': forms.FileInput(attrs={'class': 'form-control'}),  
         }
 
 class BandForm(forms.ModelForm):
@@ -31,7 +31,7 @@ class BandForm(forms.ModelForm):
         model = Band
 
         fields = ['naam','contact','aantal_leden','genre','instrumenten','technicus','aantal_autos',
-        'soort','bedrag','rekening_nr','website','memo','image']
+        'soort','bedrag','rekening_nr','website','band_image','memo']
 
         widgets = {
             'naam': forms.TextInput(attrs={'class': 'form-control'}),
@@ -45,8 +45,8 @@ class BandForm(forms.ModelForm):
             'bedrag': forms.NumberInput(attrs={'class': 'form-control'}), 
             'rekening_nr': forms.TextInput(attrs={'class': 'form-control'}), 
             'website': forms.URLInput(attrs={'class': 'form-control'}), 
+            'band_image': forms.FileInput(attrs={'class': 'form-control'}),  
             'memo': forms.Textarea(attrs={'class': 'form-control'}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}), 
             
         }
         

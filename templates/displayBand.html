@@ -39,11 +39,11 @@
     {% for band in bands %}
        <!-- <th scope="row">{{contact.id}}</th> -->
        <th>
-        {% if band.image %}
-        {{band.image.url}}
-        <!--- 
-        <img src={{band.image.url}} width="50" height="50">
+        {% if band.band_image %}
+        <!---
+        {{band.band_image.url}}
         -->
+        <img src={{band.band_image.url}} width="50" height="50">
         {% endif %}
         {{band.naam}}
        </th>
