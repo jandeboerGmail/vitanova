@@ -3,7 +3,6 @@ from reportlab.pdfgen import canvas
 from contacts.models import Evenement, Zaal, Band
 
 from django.conf import settings
-#from django.conf.urls.static import static
 
 import locale
 import sys
@@ -33,15 +32,27 @@ class Poster():
             canvas.line(10,10,10,747)
             canvas.line(600,10,600,747)
 
+            # Middle line
             #canvas.line(295,10,295,747)
 
             if row.uitverkocht:
-                canvas.setLineWidth(10.0)
-                canvas.line(10,747,600,10)
-                canvas.line(10,10,600,747)
-                canvas.setFont("Helvetica-Bold", 40)
-                uitverkocht = "Uitverkocht /  Vervallen"
-                canvas.drawString(95,600, uitverkocht)
+                #canvas.setFillColorRGB(1,0.8,0.8)
+                 #canvas.rect(5,5,652,792,fill=1)
+                #canvas.setFillColor(HexColor("#99b0e7"))
+                canvas.setLineWidth(5.0)
+
+                #cross
+                #canvas.line(10,747,600,10)
+                #anvas.line(10,10,600,747)
+
+                # banner line
+                canvas.line(50,300,560,547)
+        
+                canvas.setFont("Helvetica-Bold", 30)
+                canvas.setFillColorRGB(1,0,0)
+                uitverkocht = "-- Cancelled --"
+                canvas.drawString(start_point(row.organisator,30),605, uitverkocht)
+                canvas.setFillColorRGB(0,0,0)
 
             canvas.setFont("Helvetica-Bold", 24)
             canvas.drawString(start_point(row.organisator,24) ,700, row.organisator)
@@ -51,52 +62,52 @@ class Poster():
 
             canvas.setFont("Helvetica", 14)
             organisator = 'Organisator Acara Adoe Adoe Team'
-            canvas.drawString(start_point(row.organisator,30),645, organisator)
+            canvas.drawString(start_point(row.organisator,40),645, organisator)
 
-            canvas.setFont("Helvetica-Bold", 20)
+            canvas.setFont("Helvetica-Bold", 24)
             band = Band.objects.get(id=row.band_id)
            
             locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
-            datum = "op " +  row.datum.strftime("%A %d %B %Y")  
+            datum = "Op " +  row.datum.strftime("%A %d %B %Y")  
             metband = "met "  + band.naam
-            canvas.drawString(start_point(datum,24),560, datum)
-            canvas.drawString(start_point(metband,24),535, metband)
+            canvas.drawString(start_point(datum,28),570, datum)
+            canvas.drawString(start_point(metband,28),540, metband)
     
             # print(settings.MEDIA_ROOT)
-            image = settings.MEDIA_ROOT + "/image/default.jpg"
+            image = settings.MEDIA_ROOT + "/images/default.jpg"
             if band.band_image:
                 image = settings.MEDIA_ROOT  + "/" +  str(band.band_image) 
-            canvas.drawImage(image,100,300,width=400,height=200)
+            canvas.drawImage(image,100,310,width=400,height=200)
 
             aanvang   = "Aanvang:   " + str(row.aanvang)[0:5] + " uur"
             zaal_open = "Zaal open: " + str(row.zaal_open)[0:5] + " uur"
             canvas.setFont("Helvetica-Bold", 12)
-            canvas.drawString(100,280, aanvang)
-            canvas.drawString(100,265, zaal_open)
+            canvas.drawString(100,290, aanvang)
+            canvas.drawString(100,275, zaal_open)
 
             Einde  = "Einde:   " + str(row.einde)[0:5] + " uur"
             Entree = "Entree: " + "  € " + str(row.entree_prijs)
-            canvas.drawString(395,280, Einde)
-            canvas.drawString(395,265, Entree)
+            canvas.drawString(395,290, Einde)
+            canvas.drawString(395,275, Entree)
 
             canvas.setFont("Helvetica", 12)
-            canvas.drawString(100,240, row.catering_info)
-            canvas.drawString(350,240, row.activiteiten_info)
+            canvas.drawString(100,250, row.catering_info)
+            canvas.drawString(350,250, row.activiteiten_info)
 
             canvas.setFont("Helvetica-Bold", 10)
             volgende_data = "Volgende data:"
-            canvas.drawString(100,200, volgende_data)
+            canvas.drawString(100,210, volgende_data)
             canvas.setFont("Helvetica", 10)
-            canvas.drawString(100,185, row.volgende_datum_1)
-            canvas.drawString(100,170, row.volgende_datum_2)
+            canvas.drawString(100,195, row.volgende_datum_1)
+            canvas.drawString(100,180, row.volgende_datum_2)
 
             zaal = Zaal.objects.get(id=row.locatie_id)
             canvas.setFont("Helvetica-Bold", 10)
-            canvas.drawString(100,120, zaal.naam)
-            canvas.drawString(100,105, zaal.adress)
-            canvas.drawString(100,90,  zaal.postcode)
-            canvas.drawString(145,90,  zaal.plaats)
-            canvas.drawString(100,75,  zaal.telefoon)
+            canvas.drawString(100,130, zaal.naam)
+            canvas.drawString(100,115, zaal.adress)
+            canvas.drawString(100,100,  zaal.postcode)
+            canvas.drawString(145,100,  zaal.plaats)
+            canvas.drawString(100,85,  zaal.telefoon)
 
             #canvas.drawImage("pictures/logo_stichting_adelaar.png",30,30,width=100,height=100)
             canvas.drawImage("pictures/logo_stichting_adelaar.png",320,110,width=100,height=100)
