@@ -110,7 +110,7 @@ class Poster():
             canvas.drawString(100,85,  zaal.telefoon)
 
             #canvas.drawImage("pictures/logo_stichting_adelaar.png",30,30,width=100,height=100)
-            canvas.drawImage("pictures/logo_stichting_adelaar.png",320,110,width=100,height=100)
+            canvas.drawImage("pictures/wapenschild.png",320,110,width=100,height=100)
             #canvas.drawImage("pictures/logo_wapenurbajw.png",500,30,width=100,height=100)
             canvas.drawImage("pictures/logo_wapenurbajw.png",445,15,width=100,height=100)
 
