@@ -44,15 +44,16 @@ class Poster():
                 #cross
                 #canvas.line(10,747,600,10)
                 #anvas.line(10,10,600,747)
-
-                # banner line
-                canvas.line(50,300,560,547)
         
                 canvas.setFont("Helvetica-Bold", 30)
-                canvas.setFillColorRGB(1,0,0)
-                uitverkocht = "-- Cancelled --"
-                canvas.drawString(start_point(row.organisator,30),605, uitverkocht)
-                canvas.setFillColorRGB(0,0,0)
+                canvas.setFillColorRGB(1,0,0) # red
+                uitverkocht = "== Cancelled =="
+                canvas.drawString(start_point(row.organisator,35),605, uitverkocht)
+                # banner line
+                canvas.setStrokeColorRGB(1,0,0) # red
+                canvas.line(50,300,560,547)
+
+                canvas.setFillColorRGB(0,0,0) # black
 
             canvas.setFont("Helvetica-Bold", 24)
             canvas.drawString(start_point(row.organisator,24) ,700, row.organisator)
@@ -86,8 +87,10 @@ class Poster():
             canvas.drawString(100,275, zaal_open)
 
             Einde  = "Einde:   " + str(row.einde)[0:5] + " uur"
+            Voorverkoop = "Voor verkoop: " + "  € " + str(row.voorverkoop_prijs)
             Entree = "Entree: " + "  € " + str(row.entree_prijs)
             canvas.drawString(395,290, Einde)
+            canvas.drawString(240,275, Voorverkoop)
             canvas.drawString(395,275, Entree)
 
             canvas.setFont("Helvetica", 12)
@@ -110,9 +113,9 @@ class Poster():
             canvas.drawString(100,85,  zaal.telefoon)
 
             #canvas.drawImage("pictures/logo_stichting_adelaar.png",30,30,width=100,height=100)
-            canvas.drawImage("pictures/wapenschild.png",320,110,width=100,height=100)
+            canvas.drawImage("pictures/wapenschild.png",380,160,width=38,height=50)
             #canvas.drawImage("pictures/logo_wapenurbajw.png",500,30,width=100,height=100)
-            canvas.drawImage("pictures/logo_wapenurbajw.png",445,15,width=100,height=100)
+            canvas.drawImage("pictures/logo_wapenurbajw.png",445,95,width=50,height=51)
 
             canvas.setFont("Helvetica-Bold", 14)
             stichtig = 'Stichting'
