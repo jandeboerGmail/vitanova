@@ -32,6 +32,11 @@ class Contact(models.Model):
 		technicus = 8
 		beheerder = 9
 		media = 10
+		DJ = 11
+		vereniging = 12
+		stichting = 13
+		firma = 14
+
 
 	class Status(models.IntegerChoices):
 		new = 0
@@ -66,6 +71,9 @@ class Contact(models.Model):
 	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
 	datum_updated = models.DateTimeField(default=timezone.now, blank =False)
 
+	#list_display=('naam','plaats')
+
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.naam)
 		self.datum_updated = timezone.now()
@@ -73,7 +81,9 @@ class Contact(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'contacts'
-
+		ordering = ['naam']
+		
+		
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
 
@@ -118,6 +128,7 @@ class Band(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'bands'
+		ordering = ['naam']
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -168,6 +179,7 @@ class Zaal(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'zalen'
+		ordering = ['naam']
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -191,6 +203,7 @@ class Cateraar(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'cateraars'
+		ordering = ['naam']
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
@@ -235,6 +248,7 @@ class Evenement(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'evenementen'
+		ordering = ['naam']
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
