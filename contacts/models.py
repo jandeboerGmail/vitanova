@@ -36,7 +36,11 @@ class Contact(models.Model):
 		vereniging = 12
 		stichting = 13
 		firma = 14
-
+		oosterkerk = 15
+		dansen = 16
+		acara_kampalan = 17
+		line_Dance = 18
+		rock_pop = 19
 
 	class Status(models.IntegerChoices):
 		new = 0

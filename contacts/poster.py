@@ -115,7 +115,7 @@ class Poster():
             #canvas.drawImage("pictures/logo_stichting_adelaar.png",30,30,width=100,height=100)
             canvas.drawImage("pictures/wapenschild.png",380,160,width=38,height=50)
             #canvas.drawImage("pictures/logo_wapenurbajw.png",500,30,width=100,height=100)
-            canvas.drawImage("pictures/flag-of-surabaya-indonesia.jpg",445,95,width=100,height=51)
+            canvas.drawImage("pictures/flag-of-surabaya-indonesia.jpg",445,95,width=100,height=68)
 
             canvas.setFont("Helvetica-Bold", 14)
             stichtig = 'Stichting'

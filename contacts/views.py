@@ -66,7 +66,8 @@ def indexEvenement(request):
 @login_required
 def allContact(request):
     contact_list = Contact.objects.order_by('naam')
-    contact_dict  = {'contacts' : contact_list}
+    aantal =  contact_list.count
+    contact_dict  = {'contacts' : contact_list , 'aantal' : aantal}
     return render(request,'displayContact.html',contact_dict )
 
 # Zoek Contact
@@ -77,13 +78,12 @@ def sNaamContact (request):
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamContact.html", {
-        "results": results,
-        "query": query
-    }) 
+        contact_dict = {}
+    return render(request,"sNaamContact.html", contact_dict ) 
 
 @login_required    
 def sVoorNaamContact (request):
@@ -92,31 +92,30 @@ def sVoorNaamContact (request):
         qset = (
             Q(voornaam__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('voornaam','naam')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('voornaam','naam')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sVoorNaamContact.html", {
-        "results": results,
-        "query": query
-    }) 
+        contact_dict = {}
+    return render(request,"sVoorNaamContact.html", contact_dict)
 
 @login_required
 def sPostcodeContact(request):
     query = request.GET.get('q','')
     if query:
         if query == "all":
-            results = Contact.objects.distinct().order_by('naam','postcode')
+            contact_list = Contact.objects.distinct().order_by('naam','postcode')
+            aantal = contact_list.count
         else:  
             qset = (
                 Q(postcode__icontains=query)         
             )       
-            results = Contact.objects.filter(qset).distinct().order_by('naam','postcode')
+            contact_list = Contact.objects.filter(qset).distinct().order_by('naam','postcode')
+            aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sPostcodeContact.html", {
-        "results": results,
-        "query": query
-    }) 
+        contact_dict = {}
+    return render(request,"sPostcodeContact.html",contact_dict)
 
 @login_required
 def sPlaatsContact(request):
@@ -125,13 +124,12 @@ def sPlaatsContact(request):
         qset = (
             Q(plaats__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sPlaatsContact.html", {
-        "results": results,
-        "query": query
-    })
+        contact_dict = {}
+    return render(request,"sPlaatsContact.html", contact_dict)
  
 @login_required
 def sTelefoonContact (request):
@@ -140,13 +138,12 @@ def sTelefoonContact (request):
         qset = (
             Q(telefoon__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sTelefoonContact.html", {
-        "results": results,
-        "query": query
-    }) 
+         contact_dict = {}
+    return render(request,"sTelefoonContact.html", contact_dict)
 
 @login_required
 def sMobielContact (request):
@@ -155,13 +152,12 @@ def sMobielContact (request):
         qset = (
             Q(mobiel__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','telefoon')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sTelefoonContact.html", {
-        "results": results,
-        "query": query
-    }) 
+        contact_dict = {}
+    return render(request,"sTelefoonContact.html",  contact_dict)
 
 @login_required
 def sSoortContact(request):
@@ -170,13 +166,12 @@ def sSoortContact(request):
         qset = (
             Q(soort__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sSoortContact.html", {
-        "results": results,
-        "query": query
-    }) 
+        contact_dict = {}
+    return render(request,"sSoortContact.html", contact_dict)
 
 @login_required
 def sStatusContact(request):
@@ -185,14 +180,13 @@ def sStatusContact(request):
         qset = (
             Q(status__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sStatusContact.html", {
-        "results": results,
-        "query": query
-    })
-
+        contact_dict = {}
+    return render(request,"sStatusContact.html", contact_dict)
+  
 @login_required
 def sSoortLidContact(request):
     query = request.GET.get('q','')
@@ -200,14 +194,13 @@ def sSoortLidContact(request):
         qset = (
             Q(soort_lid__icontains=query)         
         )       
-        results = Contact.objects.filter(qset).distinct().order_by('naam')
+        contact_list = Contact.objects.filter(qset).distinct().order_by('naam')
+        aantal = contact_list.count
+        contact_dict  = {'results' : contact_list , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sSoortLidContact.html", {
-        "results": results,
-        "query": query
-    })
-
+        contact_dict = {}
+    return render(request,"sSoortLidContact.html",  contact_dict)
+    
 #CRUD contact
 
 '''
