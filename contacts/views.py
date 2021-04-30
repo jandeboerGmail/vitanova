@@ -298,9 +298,10 @@ def exportContact(request):
 def allBand(request):
     band_list = Band.objects.order_by('naam')
     band_list.contact = Contact.objects
-    content  = {'bands' : band_list}
-    return render(request,'displayBand.html',content )
-
+    aantal = band_list.count
+    band_dict  = {'bands' : band_list,'aantal' : aantal}
+    return render(request,'displayBand.html',band_dict )
+1
 @login_required
 def sNaamBand (request):
     query = request.GET.get('q','')
@@ -308,15 +309,13 @@ def sNaamBand (request):
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('naam')
-        results.contact = Contact.objects
-        #Contact.objects.get(id=pk)
+        band_list = Band.objects.filter(qset).distinct().order_by('naam')
+        band_list.contact = Contact.objects
+        aantal = band_list.count
+        band_dict = { "results": band_list, 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamBand.html", {
-        "results": results,
-        "query": query
-    }) 
+        band_dict = {}
+    return render(request,"sNaamBand.html",band_dict)
 
 @login_required   
 def sGenreBand (request):
@@ -325,13 +324,12 @@ def sGenreBand (request):
         qset = (
             Q(genre__icontains=query)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('naam','genre')
+        band_list = Band.objects.filter(qset).distinct().order_by('naam','genre')
+        aantal = band_list.count
+        band_dict = { "results": band_list, 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sGenreBand.html", {
-        "results": results,
-        "query": query
-    })
+        band_dict = {}
+    return render(request,"sGenreBand.html",band_dict)
 
 @login_required
 def sAantalLedenBand (request):
@@ -342,14 +340,12 @@ def sAantalLedenBand (request):
         qset = (
             Q(aantal_leden__gte=qfrom,aantal_leden__lte=qtill)         
         )       
-        results = Band.objects.filter(qset).distinct().order_by('-aantal_leden','naam',)
+        band_list = Band.objects.filter(qset).distinct().order_by('-aantal_leden','naam',)
+        aantal = band_list.count
+        band_dict = { "results": band_list, 'aantal' : aantal,  "qfrom": qfrom, "qtill": qtill }
     else:
-        results = []
-    return render(request,"sAantalLedenBand.html", {
-        "results": results,
-        "qfrom": qfrom,
-        "qtill": qtill
-    })
+        band_dict = {}
+    return render(request,"sAantalLedenBand.html",band_dict)
 
 @login_required
 def sBedragBand (request):
@@ -358,17 +354,14 @@ def sBedragBand (request):
     
     if qfrom:
         qset = (
-            Q(bedrag__gte=qfrom,bedrag__lte=qtill) 
-            #Q(bedrag__gte=qfrom)          
+            Q(bedrag__gte=qfrom,bedrag__lte=qtill)          
         )       
-        results = Band.objects.filter(qset).distinct().order_by('-bedrag','naam')
+        band_list = Band.objects.filter(qset).distinct().order_by('-bedrag','naam')
+        aantal = band_list.count
+        band_dict = { "results": band_list, 'aantal' : aantal,  "qfrom": qfrom, "qtill": qtill }
     else:
-        results = []
-    return render(request,"sBedragBand.html", {
-        "results": results,
-        "qfrom": qfrom,
-        "qtill": qtill
-    })
+        band_dict = {}
+    return render(request,"sBedragBand.html",band_dict)
 
 #CRUD
 @login_required
@@ -456,7 +449,8 @@ def exportBand(request):
 @login_required
 def allFanclub (request):
     fanclub_list = Fanclub.objects.order_by('naam')
-    content  = {'fanclubs' : fanclub_list}
+    aantal =  fanclub_list.count
+    content  = {'fanclubs' : fanclub_list,'aantal' : aantal}
     return render(request,'displayFanclub.html',content )
 
 # Zoek
@@ -468,12 +462,11 @@ def sNaamFanclub (request):
             Q(naam__icontains=query)         
         )       
         results =Fanclub.objects.filter(qset).distinct().order_by('naam')
+        aantal =  results.count
+        fanclub_dict  = {'results' : results , 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamFanclub.html", {
-        "results": results,
-        "query": query
-    }) 
+         fanclub_dict = {}
+    return render(request,"sNaamFanclub.html", fanclub_dict)
 
 #CRUD
 @login_required
@@ -555,8 +548,9 @@ def exportFanclub(request):
 @login_required
 def allZaal (request):
     zaal_list = Zaal.objects.order_by('naam')
-    content  = {'zalen' : zaal_list}
-    return render(request,'displayZaal.html',content )
+    aantal = zaal_list.count
+    zaal_dict  = {'zalen' : zaal_list, 'aantal' : aantal}
+    return render(request,'displayZaal.html',zaal_dict)
 
 @login_required
 def sNaamZaal (request):
@@ -565,13 +559,12 @@ def sNaamZaal (request):
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Zaal.objects.filter(qset).distinct().order_by('naam')
+        zaal_list = Zaal.objects.filter(qset).distinct().order_by('naam')
+        aantal = zaal_list.count
+        zaal_dict =  {'results' : zaal_list, 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamZaal.html", {
-        "results": results,
-        "query": query
-    }) 
+          zaal_dict = {}
+    return render(request,"sNaamZaal.html",zaal_dict)
 
 #CRUD
 @login_required
@@ -655,8 +648,9 @@ def exportZaal(request):
 @login_required
 def allCateraar (request):
     cateraar_list = Cateraar.objects.order_by('naam')
-    content  = {'cateraars' : cateraar_list}
-    return render(request,'displayCateraar.html',content )
+    aantal = cateraar_list.count
+    cateraar_dict  = {'cateraars' : cateraar_list, 'aantal' : aantal}
+    return render(request,'displayCateraar.html',cateraar_dict )
 
 @login_required
 def sNaamCateraar (request):
@@ -665,13 +659,12 @@ def sNaamCateraar (request):
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Cateraar.objects.filter(qset).distinct().order_by('naam')
+        cateraar_list = Cateraar.objects.filter(qset).distinct().order_by('naam')
+        aantal = cateraar_list.count
+        cateraar_dict = { "results": cateraar_list,'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamCateraar.html", {
-        "results": results,
-        "query": query
-    }) 
+        cateraar_dict = {}
+    return render(request, "sNaamCateraar.html", cateraar_dict)
 
 #CRUD
 @login_required    
@@ -753,7 +746,9 @@ def exportCateraar(request):
 @login_required
 def allEvenement (request):
     evenement_list = Evenement.objects.order_by('naam','datum')
-    content  = {'evenementen' : evenement_list}
+    aantal = evenement_list.count
+    content  = {'evenementen' : evenement_list, 'aantal' : aantal}
+    
     return render(request,'displayEvenement.html',content )
 
 #zoek
@@ -764,13 +759,12 @@ def sNaamEvenement (request):
         qset = (
             Q(naam__icontains=query)         
         )       
-        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+        evenement_list = Evenement.objects.filter(qset).distinct().order_by('naam')
+        aantal = evenement_list.count
+        evenement_dict =  {"results" : evenement_list, 'aantal' : aantal, "query": query}
     else:
-        results = []
-    return render(request,"sNaamEvenement.html", {
-        "results": results,
-        "query": query
-    }) 
+        evenement_dict = {}
+    return render(request,"sNaamEvenement.html",  evenement_dict)
 
 @login_required
 def sEntreePrijsEvenement (request):
@@ -782,14 +776,13 @@ def sEntreePrijsEvenement (request):
         qset = (
             Q(entree_prijs__gte=qfrom,entree_prijs__lte=qtill)          
         )       
-        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+        evenement_list = Evenement.objects.filter(qset).distinct().order_by('naam')
+        aantal = evenement_list.count
+        evenement_dict = {"results": evenement_list, "aantal" : aantal , "qfrom": qfrom, "qtill": qtill}
     else:
-        results = []
-    return render(request,"sEntreePrijsEvenement.html", {
-        "results": results,
-        "qfrom": qfrom,
-        "qtill": qtill
-    })  
+        evenement_dict = {}
+    return render(request,"sEntreePrijsEvenement.html", evenement_dict)
+  
 
 @login_required
 def sLocatieEvenement (request):
@@ -798,14 +791,13 @@ def sLocatieEvenement (request):
         qset = (
             Q(locatie__icontains=query)         
         )       
-        results = Evenement.objects.filter(qset).distinct().order_by('naam')
+        evenement_list = Evenement.objects.filter(qset).distinct().order_by('naam')
+        aantal = evenement_list.count
+        evenement_dict = {  "results": evenement_list, "aantal" : aantal , "query": query}
     else:
-        results = []
-    return render(request,"sNaamEvenement.html", {
-        "results": results,
-        "query": query
-    }) 
-
+        evenement_dict = {}
+    return render(request,"sNaamEvenement.html", evenement_dict)
+      
 '''
 @login_required
 def sVergunningEvenement (request):

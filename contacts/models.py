@@ -36,11 +36,7 @@ class Contact(models.Model):
 		vereniging = 12
 		stichting = 13
 		firma = 14
-		oosterkerk = 15
-		dansen = 16
-		acara_kampalan = 17
-		line_Dance = 18
-		rock_pop = 19
+		
 
 	class Status(models.IntegerChoices):
 		new = 0
@@ -52,7 +48,12 @@ class Contact(models.Model):
 		brons	= 1
 		zilver = 2
 		goud = 3
-
+		acara_kampalan = 4
+		dansen = 5
+		line_Dance = 6
+		oosterkerk = 7 
+		rock_pop = 8
+	
 	naam = models.CharField(max_length=50,blank = False)
 	voornaam = models.CharField(max_length=20,blank = True)
 	#inband = models.ForeignKey('Band',on_delete=models.CASCADE)
