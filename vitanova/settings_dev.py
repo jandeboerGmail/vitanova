@@ -25,7 +25,7 @@ SECRET_KEY = '%sqcqf!!vld9pg+3^cx+g=_tf(hnhet%7jp0y08as%xso5ptqr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.10','berkhout.ddns.net','venus','83.81.10.151'
+ALLOWED_HOSTS = ['192.168.1.10','berkhout.ddns.net','venus','86.107.186.215'
 ]
 
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contact, Band, Fanclub, Zaal, Cateraar, Evenement 
+from .models import Contact, Band, Fanclub, Zaal, Cateraar, Evenement, Ticket 
 
 #Contact
 class ContactForm(forms.ModelForm):
@@ -141,3 +141,34 @@ class EvenementForm(forms.ModelForm):
             'memo': forms.Textarea(attrs={'class': 'form-control'}),
 
         }   
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+
+        fields = ['evenement','contact','aantal','voorverkoop','betaald','memo']
+
+        widgets = {
+            'evenement': forms.Select(attrs={'class': 'form-control'}),
+            'contact': forms.Select(attrs={'class': 'form-control'}),
+            'aantal': forms.NumberInput(attrs={'class': 'form-control'}),
+            'voorverkoop': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'betaald': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'memo': forms.Textarea(attrs={'class': 'form-control'}),
+
+        }
+
+class AddTicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+
+        fields = ['contact','aantal','voorverkoop','betaald','memo']
+
+        widgets = {
+            'contact': forms.Select(attrs={'class': 'form-control'}),
+            'aantal': forms.NumberInput(attrs={'class': 'form-control'}),
+            'voorverkoop': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'betaald': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'memo': forms.Textarea(attrs={'class': 'form-control'}),
+
+        }

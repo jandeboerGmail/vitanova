@@ -257,3 +257,26 @@ class Evenement(models.Model):
 
 	def __str__(self): # For Python 2, use __unicode__ too
 		return self.naam
+
+
+class Ticket(models.Model):
+	evenement = models.ForeignKey(Evenement,on_delete=models.CASCADE)
+	contact = models.ForeignKey(Contact,on_delete=models.CASCADE)
+	aantal = models.DecimalField(max_digits=3,decimal_places = 0,default = 2)
+	voorverkoop =  models.BooleanField(blank=False,default=False)
+	betaald =  models.BooleanField(blank=False,default=False)
+	memo = models.TextField(blank = True)
+	#slug = models.SlugField(max_length=120,default='slug')
+	datum_inserted = models.DateTimeField(default=timezone.now, blank=False)
+	datum_updated = models.DateTimeField(default=timezone.now, blank=False)
+
+	def save(self, *args, **kwargs):
+		#self.slug = slugify(self.naam) 
+		self.datum_updated = timezone.now()
+		super(Ticket, self).save(*args, **kwargs)
+
+	class Meta:
+		verbose_name_plural = 'tickets'
+
+	#def __str__(self): # For Python 2, use __unicode__ too
+	#	return self.evenement

@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '%sqcqf!!vld9pg+3^cx+g=_tf(hnhe
 #DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['192.168.1.10','berkhout.ddns.net','venus','83.81.10.151'
+ALLOWED_HOSTS = ['192.168.1.10','berkhout.ddns.net','venus','86.107.168.215'
 ]
 
 

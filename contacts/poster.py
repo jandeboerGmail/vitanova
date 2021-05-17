@@ -1,5 +1,6 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from PIL  import Image
 from contacts.models import Evenement, Zaal, Band
 
 from django.conf import settings
@@ -12,7 +13,7 @@ class Poster():
 
     def pdf(pk,canvas):
 
-        # ccenter line
+        # center line
         def start_point(inStr,size):
             middle = 295
             length = len(inStr)
@@ -76,9 +77,18 @@ class Poster():
     
             # print(settings.MEDIA_ROOT)
             image = settings.MEDIA_ROOT + "/images/default.jpg"
+            
             if band.band_image:
                 image = settings.MEDIA_ROOT  + "/" +  str(band.band_image) 
-            canvas.drawImage(image,100,310,width=400,height=200)
+                im = Image.open(image)
+                width = im.size[0]
+                heigth = im.size[1]
+                if width < heigth:
+                     # portrait
+                     canvas.drawImage(image,240,310,width=150,height=210)
+                else:
+                    #landscape
+                     canvas.drawImage(image,100,310,width=400,height=200)       
 
             aanvang   = "Aanvang:   " + str(row.aanvang)[0:5] + " uur"
             zaal_open = "Zaal open: " + str(row.zaal_open)[0:5] + " uur"

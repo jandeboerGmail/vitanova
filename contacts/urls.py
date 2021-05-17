@@ -18,6 +18,7 @@ urlpatterns = [
 	path('indexZaal',views.indexZaal,name='indexZaal'),
 	path('indexCateraar',views.indexCateraar,name='indexCateraar'),
 	path('indexEvenement',views.indexEvenement,name='indexEvenement'),
+	path('indexAkties',views.indexAkties,name='indexAkties'),
 
 #Contact
 	path('allContact/',views.allContact,name='allContact'),
@@ -90,7 +91,14 @@ urlpatterns = [
 	path('exportEvenement/',views.exportEvenement,name='exportEvenement'),
 	path('printEvenement/<int:pk>',views.printEvenement,name='printEvenement'),
 
-] 
+	path('ticketsEvenement/<int:pk>',views.ticketsEvenement,name='ticketsEvenement'),
 
 #Akties
+	path('createTicket/',views.createTicket,name='createTicket'),
+	path('ticket/add/<int:pk>',views.addTicket,name='addTicket'),
+	path('ticket/edit/<int:pk>',views.editTicket,name='editTicket'),
+	path('ticket/delete/<int:pk>',views.deleteTicket,name='deleteTicket'),	
+
 #About
+
+] 

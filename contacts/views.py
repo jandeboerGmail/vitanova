@@ -4,8 +4,8 @@ from django.http import HttpResponse, Http404
 from django import forms
 # from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import get_object_or_404
-from contacts.models import Contact, Category, Band, Fanclub, Zaal, Cateraar, Evenement
-from contacts.forms import ContactForm, BandForm, FanclubForm, ZaalForm, CateraarForm, EvenementForm
+from contacts.models import Contact, Category, Band, Fanclub, Zaal, Cateraar, Evenement, Ticket
+from contacts.forms import ContactForm, BandForm, FanclubForm, ZaalForm, CateraarForm, EvenementForm, TicketForm, AddTicketForm
 from contacts.poster import Poster
 from django.db.models import Q
 import datetime
@@ -61,6 +61,10 @@ def indexCateraar(request):
 @login_required
 def indexEvenement(request):
     return render(request,'indexEvenement.html', {} )
+
+@login_required
+def indexAkties(request):
+    return render(request,'indexAkties.html', {} )
 
 # Contact
 @login_required
@@ -164,7 +168,8 @@ def sSoortContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(soort__icontains=query)         
+            #  Q(soort__icontains=query)
+            Q(soort__exact=query)         
         )       
         contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
         aantal = contact_list.count
@@ -178,7 +183,8 @@ def sStatusContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(status__icontains=query)         
+            # Q(status__icontains=query)  
+            Q(status__exact=query)         
         )       
         contact_list = Contact.objects.filter(qset).distinct().order_by('naam','plaats')
         aantal = contact_list.count
@@ -192,7 +198,8 @@ def sSoortLidContact(request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(soort_lid__icontains=query)         
+            #Q(soort_lid__icontains=query)
+            Q(soort_lid__exact=query)         
         )       
         contact_list = Contact.objects.filter(qset).distinct().order_by('naam')
         aantal = contact_list.count
@@ -907,7 +914,110 @@ def printEvenement(request,pk):
 
         return response
 
+@login_required
+def ticketsEvenement(request,pk):
+    try :
+        evenement = Evenement.objects.get(id=pk)
+    except Evenement.DoesNotExist:
+        return redirect('indexEvenement')
+
+    ticket_list = Ticket.objects.filter(evenement=evenement.id)
+    aantal_contacts = ticket_list.count
+
+    if ticket_list:
+        opbrengst = 0
+        aantal_tickets = 0
+
+        for ticket in ticket_list:
+            aantal_tickets = aantal_tickets + ticket.aantal
+
+            if ticket.voorverkoop:
+                opbrengst = opbrengst + evenement.voorverkoop_prijs
+            else:
+                opbrengst = opbrengst + evenement.entree_prijs
+
+        result = { "evenement" : evenement, "result": ticket_list, 
+                   "aantal_contacts": aantal_contacts, "aantal_tickets":  aantal_tickets,
+                   "opbrengst":  opbrengst  }
+    else:
+        result = {}
+    return render(request,"ticketsEvenement.html", result)
+      
+
 #
 #
 # Aktions
 #
+
+#Tickets
+@login_required
+def createTicket(request):
+    form = TicketForm(request.POST or None)
+    if form.is_valid():
+        form.save() 
+        form = TicketForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Ticket'}
+    return render(request,template_name,context)
+
+'''
+@login_required
+def addTicket(request,pk):
+    
+    evenement = Evenement.objects.get(id=pk)
+
+    form = AddTicketForm(request.POST or None)
+    
+    if form.is_valid():
+        form.evenement = evenement.id
+        form.save() 
+        form = AddTicketForm()
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Ticket'}
+    return render(request,template_name,context)
+'''
+
+@login_required
+def addTicket(request,pk):
+    
+    try :
+        evenement = Evenement.objects.get(id=pk)
+    except Evenement.DoesNotExist:
+        return redirect('indexEvenement')
+
+    ticket = Ticket
+    ticket.evenement = evenement.id
+
+    return render(request,"addTicketEvenement.html", result)
+
+@login_required
+def editTicket(request,pk):
+    try :
+        ticket = Ticket.objects.get(id=pk)
+    except Ticket.DoesNotExist:
+         return redirect('index')
+
+    form = TicketForm(request.POST or None,instance = ticket)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexEvenement')) 
+
+    template_name = 'inputForm.html'
+    context = {'form' : form, 'title': 'Ticket'}
+    return render(request,template_name,context)
+
+@login_required
+def deleteTicket(request,pk):      
+        try :
+            ticket= Ticket.objects.get(id=pk)
+        except Ticket.DoesNotExist:
+            return redirect('indexEvenement')
+
+        if request.method == 'POST':
+            #print('Printing Post:',request.POST)
+            ticket.delete()
+            return ( redirect('indexEvenement')) 
+
+        template_name = 'deleteRecord.html'
+        context = {'item' : ticket , 'title': 'Ticket'}
+        return render(request,template_name,context)

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block head_title %} 
+{% endblock %}
+{% block content %}
+
+  <div class="row font-weight-bold">
+    <div class="col-md">
+      Tickets voor : {{evenement.naam}}
+    </div>
+    <div class="col">
+      Personen : {{aantal_contacts}}
+    </div>
+    <div class="col">
+      Tickets : {{aantal_tickets}}
+    </div>
+    <div class="col">
+      Opbrengst : {{opbrengst}} 
+    </div>
+  
+    <div class="col"><div class="col">
+      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Add Ticket</a>
+    </div>
+    </div>
+</div>
+
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Naam</th>
+      <th scope="col">Aantal</th>
+      <th scope="col">Voorverkoop</th>
+      <th scope="col">Betaald</th>
+      <th scope="col">Akties</th>
+    </tr>
+  </thead>
+  {% if result %}
+  <tbody>
+    {% for ticket in result %}
+       <th> {{ticket.contact}} </th>
+       <th> {{ticket.aantal}} </th> 
+       <th> {{ticket.voorverkoop}} 
+        <label class="form-check-label" for="{{ticket.voorverkoop}} ">
+        </label>
+       </th> 
+       <th> {{ticket.betaald}} </th>  
+       <th><a class="btn btn-sm btn-info" href="{% url 'editTicket' ticket.id %}">Edit</a></th>
+       <th><a class="btn btn-sm btn-danger" href="{% url 'deleteTicket' ticket.id %}">Delete</a></th>
+    
+    </tbody>
+   {% endfor %}
+  </table>
+  {% else %}
+    <strong>Er zijn geen tickets verkocht</strong>
+  {% endif %}
+ </div>
+{% endblock %}
