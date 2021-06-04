@@ -5,30 +5,16 @@
 
   <div class="row font-weight-bold">
     <div class="col-md">
-      Tickets voor : {{evenement.naam}}
-    </div>
-  
-    <div class="col">
-      Aantal : {{aantal_tickets}}
-    </div>
-    <div class="col">
-      Gereserveerd : {{voorverkoop}}
-    </div>
-    <div class="col">
-      Opbrengst : {{opbrengst}} 
-    </div>
-  
-   <div class="col"><div class="col">
-      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Ticket toevoegen</a>
-    </div>
+      Tickets toevoegen voor : {{evenement.naam}}
     </div>
 </div>
 
 <br>
+<!--
 <table class="table">
   <thead>
     <tr>
-      <!-- <th scope="col">#</th> -->
+     
       <th scope="col">Naam</th>
       <th scope="col">Aantal</th>
       <th scope="col">Voorverkoop</th>
@@ -56,4 +42,5 @@
     <strong>Er zijn geen tickets verkocht</strong>
   {% endif %}
  </div>
+-->
 {% endblock %}

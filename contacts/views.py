@@ -926,19 +926,23 @@ def ticketsEvenement(request,pk):
 
     if ticket_list:
         opbrengst = 0
+        voorverkoop = 0
         aantal_tickets = 0
 
         for ticket in ticket_list:
             aantal_tickets = aantal_tickets + ticket.aantal
 
-            if ticket.voorverkoop:
-                opbrengst = opbrengst + evenement.voorverkoop_prijs
-            else:
-                opbrengst = opbrengst + evenement.entree_prijs
+            if ticket.voorverkoop and not ticket.betaald:
+                voorverkoop = voorverkoop + (evenement.voorverkoop_prijs * ticket.aantal)
+            if ticket.betaald:
+                if ticket.voorverkoop:
+                    opbrengst = opbrengst + (evenement.voorverkoop_prijs * ticket.aantal)
+                else:
+                    opbrengst = opbrengst + (evenement.entree_prijs * ticket.aantal)
 
         result = { "evenement" : evenement, "result": ticket_list, 
                    "aantal_contacts": aantal_contacts, "aantal_tickets":  aantal_tickets,
-                   "opbrengst":  opbrengst  }
+                   "voorverkoop":voorverkoop, "opbrengst":  opbrengst  }
     else:
         result = {}
     return render(request,"ticketsEvenement.html", result)
@@ -988,7 +992,21 @@ def addTicket(request,pk):
     ticket = Ticket
     ticket.evenement = evenement.id
 
-    return render(request,"addTicketEvenement.html", result)
+    '''
+    form = TicketForm(request.POST or None,instance = ticket)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexEvenement')) 
+
+    template_name = "addTicketEvenement.html"
+    form = TicketForm(request.POST or None,instance = ticket)
+    if form.is_valid():
+        form.save()
+        return ( redirect('indexEvenement')) 
+    '''
+    template_name = "addTicketEvenement.html"
+    context = {'evenement': evenement, 'title': 'Ticket'}
+    return render(request,template_name, context)
 
 @login_required
 def editTicket(request,pk):
