@@ -3,27 +3,38 @@
 {% endblock %}
 {% block content %}
 
-  <div class="row font-weight-bold">
+<div class="row font-weight-bold">
     <div class="col-md">
       Tickets voor : {{evenement.naam}}
     </div>
-  
+
+    {% if aantal_tickets == 0 %}
+    <div class="col">
+      <strong>Er zijn geen tickets verkocht</strong>
+    </div>
+
+    {% else %}
     <div class="col">
       Aantal : {{aantal_tickets}}
     </div>
+
     <div class="col">
       Gereserveerd : {{voorverkoop}}
     </div>
+
     <div class="col">
       Opbrengst : {{opbrengst}} 
     </div>
   
-   <div class="col"><div class="col">
+    {% endif %}
+    <div class="col"><div class="col">
       <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Ticket toevoegen</a>
     </div>
-    </div>
 </div>
+<hr>
 
+{% if aantal_tickets > 0 %}
+<span class="border border-primary"></span>
 <br>
 <table class="table">
   <thead>
@@ -36,7 +47,7 @@
       <th scope="col">Akties</th>
     </tr>
   </thead>
-  {% if result %}
+ 
   <tbody>
     {% for ticket in result %}
        <th> {{ticket.contact}} </th>
@@ -52,8 +63,6 @@
     </tbody>
    {% endfor %}
   </table>
-  {% else %}
-    <strong>Er zijn geen tickets verkocht</strong>
   {% endif %}
  </div>
 {% endblock %}

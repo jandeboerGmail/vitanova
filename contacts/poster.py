@@ -1,6 +1,6 @@
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-from PIL  import Image
+from PIL import Image #, ExifTags
 from contacts.models import Evenement, Zaal, Band
 
 from django.conf import settings
@@ -77,25 +77,68 @@ class Poster():
     
             # print(settings.MEDIA_ROOT)
             image = settings.MEDIA_ROOT + "/images/default.jpg"
-            
+
             if band.band_image:
                 image = settings.MEDIA_ROOT  + "/" +  str(band.band_image) 
                 im = Image.open(image)
+                '''
                 width = im.size[0]
                 heigth = im.size[1]
+                print('1-> width, heigth',width,heigth )
+                exif = im.getexif()
+
+                if exif is None:
+                    orientation = 0
+                else:
+                    orientation = 0
+                    for key, val in exif.items():
+                        # print('Key',ExifTags.TAGS[key])
+                        # print(f'{ExifTags.TAGS[key]}:{val}')
+                
+                        if ExifTags.TAGS[key] == 'Orientation':
+                            orientation = val
+                            print(f'found Orientation',val) 
+                            break
+                            #print(f'{ExifTags.TAGS[key]}:{val}')
+                            # ExifVersion:b'0230'
+                            # ...
+                            # FocalLength:(2300, 100)
+                            # ColorSpace:1
+                            # ...
+                            # Model:'X-T2'
+                            # Make:'FUJIFILM'
+                            # LensSpecification:(18.0, 55.0, 2.8, 4.0)
+                            # ...
+                            # DateTime:'2019:12:01 21:30:07'
+                            # ...
+
+                        if orientation== 3:
+                            im=im.rotate(180, expand=True)
+                        elif orientation == 6:
+                            im=im.rotate(270, expand=True)
+                        elif orientation == 8:
+                            im=im.rotate(90, expand=True)
+                '''
+                width = im.size[0]
+                heigth = im.size[1]
+                # print('2 -> width, heigth',width,heigth )
                 if width < heigth:
+                # if orientation == 6 :
                      # portrait
                      canvas.drawImage(image,240,310,width=150,height=210)
                 else:
                     #landscape
-                     canvas.drawImage(image,100,310,width=400,height=200)       
-
+                     canvas.drawImage(image,100,310,width=400,height=200)   
+        
+            #aanvang   = "Width:   " + str(width)[0:5] 
+            #zaal_open = "Heigth: " + str(heigth)[0:5] 
             aanvang   = "Aanvang:   " + str(row.aanvang)[0:5] + " uur"
             zaal_open = "Zaal open: " + str(row.zaal_open)[0:5] + " uur"
             canvas.setFont("Helvetica-Bold", 12)
             canvas.drawString(100,290, aanvang)
             canvas.drawString(100,275, zaal_open)
 
+            #Einde  = "Exif:   " + str(orientation)[0:5] + " oriontation"
             Einde  = "Einde:   " + str(row.einde)[0:5] + " uur"
             Voorverkoop = "Voor verkoop: " + "  € " + str(row.voorverkoop_prijs)
             Entree = "Entree: " + "  € " + str(row.entree_prijs)

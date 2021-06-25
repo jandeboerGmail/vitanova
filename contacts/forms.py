@@ -158,7 +158,7 @@ class TicketForm(forms.ModelForm):
 
         }
 
-class AddTicketForm(forms.ModelForm):
+class  AddTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
 

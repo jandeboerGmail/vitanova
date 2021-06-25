@@ -737,7 +737,7 @@ def exportCateraar(request):
 
         font_style = xlwt.XFStyle()
 
-        rows = Cateraar.objects.order_by('naam').values_list('naam','contact','soort','catering_prijs','rekening_nr','website','memo')
+        rows = Cateraar.objects.order_by('maam').values_list('naam','contact','soort','catering_prijs','rekening_nr','website','memo')
         for row in rows:
             row_num +=1
 
@@ -752,7 +752,7 @@ def exportCateraar(request):
 #
 @login_required
 def allEvenement (request):
-    evenement_list = Evenement.objects.order_by('naam','datum')
+    evenement_list = Evenement.objects.order_by('datum')
     aantal = evenement_list.count
     content  = {'evenementen' : evenement_list, 'aantal' : aantal}
     
@@ -783,7 +783,7 @@ def sEntreePrijsEvenement (request):
         qset = (
             Q(entree_prijs__gte=qfrom,entree_prijs__lte=qtill)          
         )       
-        evenement_list = Evenement.objects.filter(qset).distinct().order_by('naam')
+        evenement_list = Evenement.objects.filter(qset).distinct().order_by('datum')
         aantal = evenement_list.count
         evenement_dict = {"results": evenement_list, "aantal" : aantal , "qfrom": qfrom, "qtill": qtill}
     else:
@@ -798,7 +798,7 @@ def sLocatieEvenement (request):
         qset = (
             Q(locatie__icontains=query)         
         )       
-        evenement_list = Evenement.objects.filter(qset).distinct().order_by('naam')
+        evenement_list = Evenement.objects.filter(qset).distinct().order_by('datum')
         aantal = evenement_list.count
         evenement_dict = {  "results": evenement_list, "aantal" : aantal , "query": query}
     else:
@@ -889,7 +889,7 @@ def exportEvenement(request):
 
         font_style = xlwt.XFStyle()
 
-        rows = Evenement.objects.order_by('naam').values_list('naam','datum','aanvang','einde','zaal_open','beheerder','locatie','catering','band','thema','entree_prijs', \
+        rows = Evenement.objects.order_by('datum').values_list('naam','datum','aanvang','einde','zaal_open','beheerder','locatie','catering','band','thema','entree_prijs', \
                    'voorverkoop_prijs','zitplaatsen','website','organisator','organisator_info','catering_info', \
                    'activiteiten_info','volgende_datum_1','volgende_datum_2','uitverkocht','memo')
         for row in rows:
@@ -923,12 +923,12 @@ def ticketsEvenement(request,pk):
 
     ticket_list = Ticket.objects.filter(evenement=evenement.id)
     aantal_contacts = ticket_list.count
+    opbrengst = 0
+    voorverkoop = 0
+    aantal_tickets = 0
 
     if ticket_list:
-        opbrengst = 0
-        voorverkoop = 0
-        aantal_tickets = 0
-
+        
         for ticket in ticket_list:
             aantal_tickets = aantal_tickets + ticket.aantal
 
@@ -939,12 +939,14 @@ def ticketsEvenement(request,pk):
                     opbrengst = opbrengst + (evenement.voorverkoop_prijs * ticket.aantal)
                 else:
                     opbrengst = opbrengst + (evenement.entree_prijs * ticket.aantal)
-
-        result = { "evenement" : evenement, "result": ticket_list, 
-                   "aantal_contacts": aantal_contacts, "aantal_tickets":  aantal_tickets,
-                   "voorverkoop":voorverkoop, "opbrengst":  opbrengst  }
+    '''   
     else:
         result = {}
+    '''
+    result = { "evenement" : evenement, "result": ticket_list, 
+                   "aantal_contacts": aantal_contacts, "aantal_tickets":  aantal_tickets,
+                   "voorverkoop":voorverkoop, "opbrengst":  opbrengst  }
+    
     return render(request,"ticketsEvenement.html", result)
       
 
@@ -985,27 +987,56 @@ def addTicket(request,pk):
 def addTicket(request,pk):
     
     try :
-        evenement = Evenement.objects.get(id=pk)
+        aEvenement = Evenement.objects.get(id=pk)
     except Evenement.DoesNotExist:
         return redirect('indexEvenement')
 
-    ticket = Ticket
-    ticket.evenement = evenement.id
+    
+
+ 
+
+    #
+    #print('Ticket evenement',ticket.evenement )
+    #form = AddTicketForm(request.POST or None)
+
+    form = AddTicketForm(request.POST or None)
+
+    
+    print('form valid ?')
+    if form.is_valid():
+        print('form is valid ')
+        aTicket = Ticket
+        #aTicket = Ticket.objects.create
+        aTicket.evenement = aEvenement.id
+        #Sprint('Ticket evenement',aTicket.evenement )
+        print('Ticket form',form.cleaned_data)
+
+        aTicket.contact = form.cleaned_data['contact']
+        aTicket.aantal = form.cleaned_data['aantal']
+        aTicket.voorverkoop = form.cleaned_data['voorverkoop']
+        aTicket.betaald = form.cleaned_data['betaald']
+        aTicket.memo = form.cleaned_data['memo']
+
+        #Sprint('Ticket evenement',aTicket.evenement )
+        print('Ticket contact',aTicket.contact )
+        print('Ticket aantal',aTicket.aantal )
+        print('Ticket voorverkoop',aTicket.voorverkoop ) 
+
+        #aTicket.save()  
+    
+        #form = TicketForm()
+        return ( redirect('indexEvenement'))
 
     '''
     form = TicketForm(request.POST or None,instance = ticket)
     if form.is_valid():
         form.save()
         return ( redirect('indexEvenement')) 
-
-    template_name = "addTicketEvenement.html"
-    form = TicketForm(request.POST or None,instance = ticket)
-    if form.is_valid():
-        form.save()
-        return ( redirect('indexEvenement')) 
     '''
-    template_name = "addTicketEvenement.html"
-    context = {'evenement': evenement, 'title': 'Ticket'}
+    
+    template_name = 'inputForm.html'
+    #template_name = "addTicketEvenement.html"
+    context = {'form' : form, 'title': 'Ticket', 'evenement': pk, 'ticket': 'ticket'}
     return render(request,template_name, context)
 
 @login_required
@@ -1016,7 +1047,9 @@ def editTicket(request,pk):
          return redirect('index')
 
     form = TicketForm(request.POST or None,instance = ticket)
+    print('First  Ticket')
     if form.is_valid():
+        print('First  Ticket save')
         form.save()
         return ( redirect('indexEvenement')) 
 
