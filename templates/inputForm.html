@@ -2,19 +2,27 @@
 {% block content %}
 
 {% if title %}
-    <h2 class='container col text-center'>{{ title }}</h2>
+     <h2 class='container col text-center'>{{ title }}</h2>     
 {% endif %}
 
 <div class="form-group">
     <form method='POST' action ="" enctype='multipart/form-data'> 
-        <button type="submit" class="btn btn-success">Update</button>      
-        
+        {% if title == 'Ticket Toevoegen' %}
+            <button type="submit" class="btn btn-success">Ticket Toevoegen</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Update</button>
+        {% endif %}
+        <hr>
         {% csrf_token %}
         <!--- {{ form.media }} --->
         {{ form.as_p }}
-    
+        <hr>
         <div class="form-row text-center">
-          <button type="submit" class="btn btn-success">Update</button>
+        {% if title == 'Ticket Toevoegen' %}
+            <button type="submit" class="btn btn-success">Ticket Toevoegen</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Update</button>
+        {% endif %}
         </div>
     </form>
 </div>

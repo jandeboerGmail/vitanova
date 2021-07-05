@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django import forms
 # from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import get_object_or_404
@@ -226,7 +226,7 @@ def createContact(request):
         form.save() 
         form = ContactForm()
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Contact'}
+    context = {'form' : form, 'title': 'Creer Contact'}
     return render(request,template_name,context)
 
 @login_required
@@ -244,7 +244,7 @@ def editContact(request,pk):
                 return ( redirect('indexContact')) 
         
         template_name = 'inputForm.html'
-        context = {'form' : form, 'title': 'Contact'}
+        context = {'form' : form, 'title': 'Wijzig Contact'}
         return render(request,template_name,context)
         
 
@@ -261,7 +261,7 @@ def deleteContact(request,pk):
             return ( redirect('indexContact')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : contact , 'title': 'Contact'}
+        context = {'item' : contact , 'title': 'Verwijder Contact'}
         return render(request,template_name,context) 
 
 
@@ -379,7 +379,7 @@ def createBand(request):
         form = BandForm()
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Band'}
+    context = {'form' : form, 'title': 'Creeer Band'}
     return render(request,template_name,context) 
 
 @login_required
@@ -399,7 +399,7 @@ def editBand(request,pk):
         return ( redirect('indexBand')) 
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Band'}
+    context = {'form' : form, 'title': 'Wijzig Band'}
     return render(request,template_name,context)
 
 @login_required
@@ -415,7 +415,7 @@ def deleteBand(request,pk):
             return ( redirect('indexBand')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : band , 'title': 'Band'}
+        context = {'item' : band , 'title': 'Verwijder Band'}
         return render(request,template_name,context)
 
 # Export
@@ -484,7 +484,7 @@ def createFanclub(request):
         form = FanclubForm()
        
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Fanclub'}
+    context = {'form' : form, 'title': 'Creeer Fanclub'}
     return render(request,template_name,context)
 
 @login_required
@@ -500,7 +500,7 @@ def editFanclub(request,pk):
         return ( redirect('indexFanclub'))
     
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Fanclub'}
+    context = {'form' : form, 'title': 'Wijzig Fanclub'}
     return render(request,template_name,context)
 
 @login_required
@@ -516,7 +516,7 @@ def deleteFanclub(request,pk):
             return ( redirect('indexFanclub')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : fanclub , 'title': 'Fanclubs'}
+        context = {'item' : fanclub , 'title': 'Verwijder Fanclubs'}
         return render(request,template_name,context)
 
 # Export
@@ -582,7 +582,7 @@ def createZaal(request):
         form = ZaalForm
         
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Zaal'}
+    context = {'form' : form, 'title': 'Creeer Zaal'}
     return render(request,template_name,context)
 
 @login_required
@@ -598,7 +598,7 @@ def editZaal(request,pk):
         return ( redirect('indexZaal')) 
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Zaal'}
+    context = {'form' : form, 'title': 'Wijzig Zaal'}
     return render(request,template_name,context)
 
 @login_required
@@ -614,7 +614,7 @@ def deleteZaal(request,pk):
             return ( redirect('indexZaal')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : zaal , 'title': 'Zaal'}
+        context = {'item' : zaal , 'title': 'Verwijder Zaal'}
         return render(request,template_name,context)
 
 # Export
@@ -682,7 +682,7 @@ def createCateraar(request):
         form = CateraarForm
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Cateraar'}
+    context = {'form' : form, 'title': 'Creeer Cateraar'}
     return render(request,template_name,context)
 
 @login_required
@@ -698,7 +698,7 @@ def editCateraar(request,pk):
         return ( redirect('indexCateraar')) 
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Cateraar'}
+    context = {'form' : form, 'title': 'Wijzig Cateraar'}
     return render(request,template_name,context)
 
 @login_required
@@ -714,7 +714,7 @@ def deleteCateraar(request,pk):
             return ( redirect('indexCateraar')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : cateraar , 'title': 'Cateraar'}
+        context = {'item' : cateraar , 'title': 'Verwijder Cateraar'}
         return render(request,template_name,context)
 
 # Export
@@ -831,7 +831,7 @@ def createEvenement(request):
         form = EvenementForm
     
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Evenement'}
+    context = {'form' : form, 'title': 'Creeer Evenement'}
     return render(request,template_name,context)
 
 @login_required
@@ -847,7 +847,7 @@ def editEvenement(request,pk):
         return ( redirect('indexEvenement')) 
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Evenement'}
+    context = {'form' : form, 'title': 'Wijzig Evenement'}
     return render(request,template_name,context)
 
 @login_required
@@ -863,7 +863,7 @@ def deleteEvenement(request,pk):
             return ( redirect('indexEvenement')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : evenement , 'title': 'Evenement'}
+        context = {'item' : evenement , 'title': 'Verwijder Evenement'}
         return render(request,template_name,context)
 
 # Export
@@ -949,7 +949,6 @@ def ticketsEvenement(request,pk):
     
     return render(request,"ticketsEvenement.html", result)
       
-
 #
 #
 # Aktions
@@ -963,81 +962,45 @@ def createTicket(request):
         form.save() 
         form = TicketForm()
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Ticket'}
+    context = {'form' : form, 'title': 'Creeer Ticket'}
     return render(request,template_name,context)
 
-'''
+
 @login_required
 def addTicket(request,pk):
-    
     evenement = Evenement.objects.get(id=pk)
-
+    #evenementNaam = evenement.naam
     form = AddTicketForm(request.POST or None)
     
-    if form.is_valid():
-        form.evenement = evenement.id
-        form.save() 
+    if request.method == 'POST':
+        
+        if form.is_valid():
+            aTicket = Ticket()
+            #print('save form' ,form.cleaned_data)
+            aTicket.evenement = evenement
+            aTicket.contact = form.cleaned_data['contact']
+            aTicket.aantal = form.cleaned_data['aantal']
+            aTicket.voorverkoop = form.cleaned_data['voorverkoop']
+            aTicket.betaald = form.cleaned_data['betaald']
+            aTicket.memo = form.cleaned_data['memo'] 
+            '''
+            print('Evenement naam',aTicket.evenement.naam )
+            print('Ticket contact',aTicket.contact )
+            print('Ticket aantal',aTicket.aantal )
+            print('Ticket voorverkoop',aTicket.voorverkoop )
+            print(request.get_full_path())
+            '''
+
+            aTicket.save()
+            return redirect(request.get_full_path())
+    
+    else:
         form = AddTicketForm()
+
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Ticket'}
+    context = {'form' : form, 'title': 'Ticket Toevoegen'}
     return render(request,template_name,context)
-'''
 
-@login_required
-def addTicket(request,pk):
-    
-    try :
-        aEvenement = Evenement.objects.get(id=pk)
-    except Evenement.DoesNotExist:
-        return redirect('indexEvenement')
-
-    
-
- 
-
-    #
-    #print('Ticket evenement',ticket.evenement )
-    #form = AddTicketForm(request.POST or None)
-
-    form = AddTicketForm(request.POST or None)
-
-    
-    print('form valid ?')
-    if form.is_valid():
-        print('form is valid ')
-        aTicket = Ticket
-        #aTicket = Ticket.objects.create
-        aTicket.evenement = aEvenement.id
-        #Sprint('Ticket evenement',aTicket.evenement )
-        print('Ticket form',form.cleaned_data)
-
-        aTicket.contact = form.cleaned_data['contact']
-        aTicket.aantal = form.cleaned_data['aantal']
-        aTicket.voorverkoop = form.cleaned_data['voorverkoop']
-        aTicket.betaald = form.cleaned_data['betaald']
-        aTicket.memo = form.cleaned_data['memo']
-
-        #Sprint('Ticket evenement',aTicket.evenement )
-        print('Ticket contact',aTicket.contact )
-        print('Ticket aantal',aTicket.aantal )
-        print('Ticket voorverkoop',aTicket.voorverkoop ) 
-
-        #aTicket.save()  
-    
-        #form = TicketForm()
-        return ( redirect('indexEvenement'))
-
-    '''
-    form = TicketForm(request.POST or None,instance = ticket)
-    if form.is_valid():
-        form.save()
-        return ( redirect('indexEvenement')) 
-    '''
-    
-    template_name = 'inputForm.html'
-    #template_name = "addTicketEvenement.html"
-    context = {'form' : form, 'title': 'Ticket', 'evenement': pk, 'ticket': 'ticket'}
-    return render(request,template_name, context)
 
 @login_required
 def editTicket(request,pk):
@@ -1054,7 +1017,7 @@ def editTicket(request,pk):
         return ( redirect('indexEvenement')) 
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Ticket'}
+    context = {'form' : form, 'title': 'Edit Ticket'}
     return render(request,template_name,context)
 
 @login_required
@@ -1070,5 +1033,5 @@ def deleteTicket(request,pk):
             return ( redirect('indexEvenement')) 
 
         template_name = 'deleteRecord.html'
-        context = {'item' : ticket , 'title': 'Ticket'}
+        context = {'item' : ticket , 'title': 'Delete Ticket'}
         return render(request,template_name,context)

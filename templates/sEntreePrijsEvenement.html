@@ -47,6 +47,8 @@
          <th> {{evenement.locatie}} </th> 
          <th> {{evenement.datum}} </th> 
          <th> {{evenement.entree_prijs}} </th> 
+         <th><a class="btn btn-sm btn-success" href="{% url 'ticketsEvenement' evenement.id %}">Tickets</a></th>
+         <th><a class="btn btn-sm btn-secondary" href="{% url 'printEvenement' evenement.id %}">Poster</a></th>
          <th><a class="btn btn-sm btn-info" href="{% url 'editEvenement' evenement.id %}">Edit</a></th>
          <th><a class="btn btn-sm btn-danger" href="{% url 'deleteEvenement' evenement.id %}">Delete</a></th>
       </tbody>

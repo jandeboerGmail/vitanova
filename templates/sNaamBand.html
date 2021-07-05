@@ -41,7 +41,12 @@
     <tbody>
       {% for band in results %}
          <!-- <th scope="row">{{contact.id}}</th> -->
-         <th> {{band.naam}} </th>
+         <th>
+          {% if band.band_image %}
+              <img src={{band.band_image.url}} width="50" height="50">
+          {% endif %}
+          {{band.naam}}
+         </th>
          <th> {{band.contact}} </th>
          <th> {{band.contact.telefoon}} </th>
          <th> {{band.contact.mobiel}} </th>
