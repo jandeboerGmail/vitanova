@@ -11,6 +11,7 @@ from django.db.models import Q
 import datetime
 
 import xlwt
+import locale
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
@@ -737,7 +738,7 @@ def exportCateraar(request):
 
         font_style = xlwt.XFStyle()
 
-        rows = Cateraar.objects.order_by('maam').values_list('naam','contact','soort','catering_prijs','rekening_nr','website','memo')
+        rows = Cateraar.objects.order_by('naam').values_list('naam','contact','soort','catering_prijs','rekening_nr','website','memo')
         for row in rows:
             row_num +=1
 
@@ -796,10 +797,17 @@ def sLocatieEvenement (request):
     query = request.GET.get('q','')
     if query:
         qset = (
-            Q(locatie__icontains=query)         
-        )       
+           Q(locatie__icontains=query)   
+           #Q(naam__icontains=query)     
+        )   
+        #qs1 = Evenement.objects.distinct()
+        #qs2 = Zaal.objects.filter(qset)
+
+           
         evenement_list = Evenement.objects.filter(qset).distinct().order_by('datum')
         aantal = evenement_list.count
+        print('Count')
+        print(aantal) 
         evenement_dict = {  "results": evenement_list, "aantal" : aantal , "query": query}
     else:
         evenement_dict = {}
@@ -939,16 +947,54 @@ def ticketsEvenement(request,pk):
                     opbrengst = opbrengst + (evenement.voorverkoop_prijs * ticket.aantal)
                 else:
                     opbrengst = opbrengst + (evenement.entree_prijs * ticket.aantal)
-    '''   
-    else:
-        result = {}
-    '''
+    
     result = { "evenement" : evenement, "result": ticket_list, 
                    "aantal_contacts": aantal_contacts, "aantal_tickets":  aantal_tickets,
                    "voorverkoop":voorverkoop, "opbrengst":  opbrengst  }
     
     return render(request,"ticketsEvenement.html", result)
-      
+
+@login_required
+def printTicketsEvenement(request,pk):
+    try :
+        evenement = Evenement.objects.get(id=pk)
+    except Evenement.DoesNotExist:
+        return redirect('indexEvenement')
+    
+    # Initialze Excel
+    response = HttpResponse(content_type='application/ms-excel') 
+    locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
+    now = datetime.datetime.now()
+    response['Content-Disposition']  = 'attachment; filename=Tickets_Evenement_'+ evenement.naam + \
+        '_' + evenement.datum.strftime("%A %d %B %Y") + \
+        '_' + now.strftime ("%Y%m%d_%H%M%S") +'.xls'
+    
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet(evenement.naam + '_' + evenement.datum.strftime("%A%d%m%y"))
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    
+    # Heading
+    font_style.font.bold = True
+    columns = ['contact','memo','aantal','voorverkoop','betaald']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Lines
+    font_style = xlwt.XFStyle()
+    rows = Ticket.objects.filter(evenement=evenement.id).order_by('datum_updated').values_list('contact','memo','aantal','voorverkoop','betaald')
+    for row in rows:
+        row_num +=1
+
+        for col_num in range(len(columns)):
+            if col_num == 0: 
+                aContact= Contact.objects.get(id=row[col_num])
+                ws.write(row_num, col_num, aContact.naam, font_style)
+            else:
+                ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+    wb.save(response)
+    return response  
 #
 #
 # Aktions

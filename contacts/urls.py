@@ -92,6 +92,7 @@ urlpatterns = [
 	path('printEvenement/<int:pk>',views.printEvenement,name='printEvenement'),
 
 	path('ticketsEvenement/<int:pk>',views.ticketsEvenement,name='ticketsEvenement'),
+	path('printTicketsEvenement/<int:pk>',views.printTicketsEvenement,name='printTicketsEvenement'),
 
 #Akties
 	path('createTicket/',views.createTicket,name='createTicket'),
