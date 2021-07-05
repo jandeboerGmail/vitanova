@@ -27,9 +27,14 @@
     </div>
   
     {% endif %}
-    <div class="col"><div class="col">
-      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Ticket toevoegen</a>
+    <div class="col-md"><div class="col-md"></div>
+      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Toevoegen Ticket </a>
     </div>
+    
+    <div class="col-md"><div class="col-md">
+      <a class="btn-sm btn-dark" href="{% url 'printTicketsEvenement' evenement.id %}">Printen Tickets </a>
+    </div>
+  
 </div>
 <hr>
 

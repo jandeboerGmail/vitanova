@@ -7,8 +7,8 @@
 
 <div class="form-group">
     <form method='POST' action ="" enctype='multipart/form-data'> 
-        {% if title == 'Ticket Toevoegen' %}
-            <button type="submit" class="btn btn-success">Ticket Toevoegen</button>
+        {% if title == 'Toevoegen Ticket' %}
+            <button type="submit" class="btn btn-success">Toevoegen Ticket</button>
         {% else %}
             <button type="submit" class="btn btn-success">Update</button>
         {% endif %}
@@ -18,8 +18,8 @@
         {{ form.as_p }}
         <hr>
         <div class="form-row text-center">
-        {% if title == 'Ticket Toevoegen' %}
-            <button type="submit" class="btn btn-success">Ticket Toevoegen</button>
+        {% if title == 'Toevoegen Ticket' %}
+            <button type="submit" class="btn btn-success">Toevoegen Ticket</button>
         {% else %}
             <button type="submit" class="btn btn-success">Update</button>
         {% endif %}

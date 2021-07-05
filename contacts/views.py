@@ -966,11 +966,11 @@ def printTicketsEvenement(request,pk):
     locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
     now = datetime.datetime.now()
     response['Content-Disposition']  = 'attachment; filename=Tickets_Evenement_'+ evenement.naam + \
-        '_' + evenement.datum.strftime("%A %d %B %Y") + \
+        '_' + evenement.datum.strftime("%A_%d%B%Y") + \
         '_' + now.strftime ("%Y%m%d_%H%M%S") +'.xls'
     
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet(evenement.naam + '_' + evenement.datum.strftime("%A%d%m%y"))
+    ws = wb.add_sheet(evenement.naam + '_' + evenement.datum.strftime("%A_%d%m%y"))
     row_num = 0
     font_style = xlwt.XFStyle()
     
@@ -1044,7 +1044,7 @@ def addTicket(request,pk):
         form = AddTicketForm()
 
     template_name = 'inputForm.html'
-    context = {'form' : form, 'title': 'Ticket Toevoegen'}
+    context = {'form' : form, 'title': 'Toevoegen Ticket'}
     return render(request,template_name,context)
 
 
