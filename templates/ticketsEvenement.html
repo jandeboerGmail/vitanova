@@ -2,10 +2,12 @@
 {% block head_title %} 
 {% endblock %}
 {% block content %}
+<h2 class='container'>Tickets</h2>
+<hr>
 
 <div class="row font-weight-bold">
     <div class="col-md">
-      Tickets voor : {{evenement.naam}}
+      {{evenement.naam}}
     </div>
 
     {% if aantal_tickets == 0 %}
@@ -28,11 +30,11 @@
   
     {% endif %}
     <div class="col-md"><div class="col-md"></div>
-      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Toevoegen Ticket </a>
+      <a class="btn-sm btn-success" href="{% url 'addTicket' evenement.id %}">Toevoegen</a>
     </div>
     
     <div class="col-md"><div class="col-md">
-      <a class="btn-sm btn-dark" href="{% url 'printTicketsEvenement' evenement.id %}">Printen Tickets </a>
+      <a class="btn-sm btn-dark" href="{% url 'printTicketsEvenement' evenement.id %}">Printen</a>
     </div>
   
 </div>

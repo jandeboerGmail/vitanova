@@ -29,6 +29,76 @@ def todo(request):
     context  = {}
     return render(request,'todo.html',context )
 
+def decodeContactSoort(id):
+    if id == 0:
+        result = "contact"
+    elif id== 1:
+        result = "lid"
+    elif id == 2:
+        result = "donateur"
+    elif id == 3:
+        result = "erelid"
+    elif id == 4:
+        result = "artiest"
+    elif id == 5:
+        result = "catering"
+    elif id == 6:
+        result = "art_buro"
+    elif id == 7:
+        result = "bandleider"
+    elif id == 8:
+        result = "technicus"
+    elif id == 9:
+        result = "beheerder"
+    elif id == 10:
+        result = "media"
+    elif id == 11:
+        result = "DJ"
+    elif id == 12:
+        result = "vereniging"
+    elif id == 13:
+        result = "stichting"
+    elif id == 14:
+        result = "firma"
+    else:
+        result = "Onbekend"
+    #print(id,result)
+    return result
+
+def decodeContactSoortLid(id):
+    if id == 0:
+        result = "blanco"
+    elif id== 1:
+        result = "brons"
+    elif id == 2:
+        result = "zilver"
+    elif id == 3:
+        result = "goud"
+    elif id == 4:
+        result = "acara_kampalan"
+    elif id == 5:
+        result = "dansen"
+    elif id == 6:
+        result = "line_dance"
+    elif id == 7:
+        result = "oosterkerk"
+    elif id == 8:
+        result = "rock_pop"
+    else:
+        result = "Onbekend"
+    return result
+
+def decodeContactStatus(id):  
+    if id == 0:
+        result = "New"
+    elif id==1:
+        result = "Actief"
+    elif id ==2:
+        result = "Verwijderen"
+    else:
+        result = "Onbekend"
+    return result
+
 #def index(request):
 #	return HttpResponse("Hello world. You're at the contacts index.")
 # Contact
@@ -288,17 +358,22 @@ def exportContact(request):
         font_style = xlwt.XFStyle()
 
         rows = Contact.objects.order_by('naam').values_list('naam','voornaam','adres','postcode','plaats','telefoon','mobiel','emailadress',
-        'soort','soort_lid','rekening_nr','contact_image','status','memo')
+        'soort','soort_lid','rekening_nr','status','contact_image','memo')
         for row in rows:
             row_num +=1
 
             for col_num in range(len(columns)):
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                if col_num == 8:
+                    ws.write(row_num, col_num, decodeContactSoort(row[col_num]), font_style)
+                elif col_num == 9:
+                    ws.write(row_num, col_num, decodeContactSoortLid(row[col_num]), font_style)
+                elif col_num == 11:
+                    ws.write(row_num, col_num, decodeContactStatus(row[col_num]), font_style)
+                else:
+                    ws.write(row_num, col_num, str(row[col_num]), font_style)
 
         wb.save(response)
-
         return response
-
 #
 # band
 #
@@ -446,7 +521,11 @@ def exportBand(request):
             row_num +=1
 
             for col_num in range(len(columns)):
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                if col_num == 1:
+                    aContact= Contact.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aContact.naam, font_style)
+                else:
+                    ws.write(row_num, col_num, str(row[col_num]), font_style)
 
         wb.save(response)
 
@@ -545,10 +624,13 @@ def exportFanclub(request):
             row_num +=1
 
             for col_num in range(len(columns)):
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                if col_num == 1:
+                    aContact= Contact.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aContact.naam, font_style)
+                else:
+                    ws.write(row_num, col_num, str(row[col_num]), font_style)
 
         wb.save(response)
-
         return response
 #
 # zaal
@@ -743,10 +825,13 @@ def exportCateraar(request):
             row_num +=1
 
             for col_num in range(len(columns)):
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                if col_num == 1:
+                    aContact= Contact.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aContact.naam, font_style)
+                else:
+                    ws.write(row_num, col_num, str(row[col_num]), font_style)
 
         wb.save(response)
-        
         return response
 #
 # Evenement
@@ -904,7 +989,20 @@ def exportEvenement(request):
             row_num +=1
 
             for col_num in range(len(columns)):
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                if col_num == 5:
+                    aContact= Contact.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aContact.naam, font_style)
+                elif col_num == 6:
+                    aZaal= Zaal.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aZaal.naam, font_style)
+                elif col_num == 7:
+                    aCateraar= Cateraar.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aCateraar.naam, font_style)
+                elif col_num == 8:
+                    aBand= Band.objects.get(id=row[col_num])
+                    ws.write(row_num, col_num, aBand.naam, font_style)
+                else:
+                    ws.write(row_num, col_num, str(row[col_num]), font_style)
 
         wb.save(response)
         
@@ -964,34 +1062,43 @@ def printTicketsEvenement(request,pk):
     # Initialze Excel
     response = HttpResponse(content_type='application/ms-excel') 
     locale.setlocale(locale.LC_TIME,'nl_NL.utf8')
-    now = datetime.datetime.now()
+    now = datetime.datetime.now()  
     response['Content-Disposition']  = 'attachment; filename=Tickets_Evenement_'+ evenement.naam + \
         '_' + evenement.datum.strftime("%A_%d%B%Y") + \
         '_' + now.strftime ("%Y%m%d_%H%M%S") +'.xls'
     
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet(evenement.naam + '_' + evenement.datum.strftime("%A_%d%m%y"))
+    aSheetName = evenement.naam + '_' + evenement.datum.strftime("%A_%d%m%y")
+    # Excel sheetnames has max size of 31 characters
+    if len(aSheetName) >=  30:
+        aSheetName = aSheetName[0:30]
+    ws = wb.add_sheet(aSheetName)
     row_num = 0
     font_style = xlwt.XFStyle()
     
     # Heading
     font_style.font.bold = True
-    columns = ['contact','memo','aantal','voorverkoop','betaald']
+    columns = ['Contact','Email','Memo','Aantal','Voorverkoop','Betaald']
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
     # Lines
     font_style = xlwt.XFStyle()
-    rows = Ticket.objects.filter(evenement=evenement.id).order_by('datum_updated').values_list('contact','memo','aantal','voorverkoop','betaald')
-    for row in rows:
+    tickets = Ticket.objects.filter(evenement=evenement.id).order_by('datum_updated').values_list('contact','memo','aantal','voorverkoop','betaald')
+    
+    for row in tickets:
         row_num +=1
 
         for col_num in range(len(columns)):
+        
             if col_num == 0: 
                 aContact= Contact.objects.get(id=row[col_num])
                 ws.write(row_num, col_num, aContact.naam, font_style)
+            elif col_num == 1: 
+                ws.write(row_num, col_num, aContact.emailadress, font_style)
             else:
-                ws.write(row_num, col_num, str(row[col_num]), font_style)
+                ws.write(row_num, col_num, row[col_num - 1], font_style)
+              
 
     wb.save(response)
     return response  
