@@ -384,7 +384,7 @@ def allBand(request):
     aantal = band_list.count
     band_dict  = {'bands' : band_list,'aantal' : aantal}
     return render(request,'displayBand.html',band_dict )
-1
+
 @login_required
 def sNaamBand (request):
     query = request.GET.get('q','')

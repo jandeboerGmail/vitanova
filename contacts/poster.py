@@ -64,7 +64,7 @@ class Poster():
 
             canvas.setFont("Helvetica", 14)
             organisator = 'Organisator Acara Adoe Adoe Team'
-            canvas.drawString(start_point(row.organisator,40),645, organisator)
+            canvas.drawString(start_point(row.organisator,30),640, organisator)
 
             canvas.setFont("Helvetica-Bold", 24)
             band = Band.objects.get(id=row.band_id)
@@ -101,6 +101,10 @@ class Poster():
                             break
                             #print(f'{ExifTags.TAGS[key]}:{val}')
                             # ExifVersion:b'0230'
+
+
+
+
                             # ...
                             # FocalLength:(2300, 100)
                             # ColorSpace:1
@@ -133,22 +137,27 @@ class Poster():
             #aanvang   = "Width:   " + str(width)[0:5] 
             #zaal_open = "Heigth: " + str(heigth)[0:5] 
             aanvang   = "Aanvang:   " + str(row.aanvang)[0:5] + " uur"
+            einde     = "Einde:        " + str(row.einde)[0:5] + " uur"
             zaal_open = "Zaal open: " + str(row.zaal_open)[0:5] + " uur"
+          
             canvas.setFont("Helvetica-Bold", 12)
             canvas.drawString(100,290, aanvang)
-            canvas.drawString(100,275, zaal_open)
+            canvas.drawString(100,275, einde)
+            #canvas.drawString(100,260, zaal_open)
 
             #Einde  = "Exif:   " + str(orientation)[0:5] + " oriontation"
-            Einde  = "Einde:   " + str(row.einde)[0:5] + " uur"
+           
             Voorverkoop = "Voor verkoop: " + "  € " + str(row.voorverkoop_prijs)
             Entree = "Entree: " + "  € " + str(row.entree_prijs)
-            canvas.drawString(395,290, Einde)
+            #canvas.drawString(395,290, einde)
+            canvas.drawString(395,290, zaal_open)
             canvas.drawString(240,275, Voorverkoop)
             canvas.drawString(395,275, Entree)
 
             canvas.setFont("Helvetica", 12)
             canvas.drawString(100,250, row.catering_info)
             canvas.drawString(350,250, row.activiteiten_info)
+            canvas.drawString(350,235, row.activiteiten_info_2)
 
             canvas.setFont("Helvetica-Bold", 10)
             volgende_data = "Volgende data:"
@@ -174,8 +183,8 @@ class Poster():
             stichtig = 'Stichting'
             canvas.drawString(270,60, stichtig)
             canvas.setFont("Helvetica-Bold", 18)
-            vitanova = 'Vita Nova'
-            canvas.drawString(260,40, vitanova)
+            vitanova = 'Vita Nova i.o.'
+            canvas.drawString(250,40, vitanova)
             
             canvas.save()
             return (canvas)
