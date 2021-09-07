@@ -36,6 +36,7 @@ class Contact(models.Model):
 		vereniging = 12
 		stichting = 13
 		firma = 14
+		bezoeker = 15
 		
 
 	class Status(models.IntegerChoices):
@@ -53,6 +54,9 @@ class Contact(models.Model):
 		line_Dance = 6
 		oosterkerk = 7 
 		rock_pop = 8
+		angklung_concert = 9
+		indische_dansen = 10
+
 	
 	naam = models.CharField(max_length=50,blank = False)
 	voornaam = models.CharField(max_length=20,blank = True)

@@ -28,11 +28,13 @@ class Poster():
             canvas.setLineWidth(.3)
             canvas.setFont('Helvetica', 12)
             # Border
+            '''
             canvas.line(10,747,600,747)
             canvas.line(10,10,600,10)
             canvas.line(10,10,10,747)
             canvas.line(600,10,600,747)
-
+            '''
+            
             # Middle line
             #canvas.line(295,10,295,747)
 
@@ -179,13 +181,15 @@ class Poster():
             #canvas.drawImage("pictures/logo_wapenurbajw.png",500,30,width=100,height=100)
             canvas.drawImage("pictures/flag-of-surabaya-indonesia.jpg",445,95,width=100,height=68)
 
-            canvas.setFont("Helvetica-Bold", 14)
-            stichtig = 'Stichting'
-            canvas.drawString(270,60, stichtig)
-            canvas.setFont("Helvetica-Bold", 18)
-            vitanova = 'Vita Nova i.o.'
-            canvas.drawString(250,40, vitanova)
-            
+            #canvas.setFont("Helvetica-Bold", 14)
+            #stichtig = 'Stichting'
+            #canvas.drawString(270,60, stichtig)
+            #canvas.setFont("Helvetica-Bold", 18)
+            #vitanova = 'Vita Nova i.o.'
+            #canvas.drawString(250,40, vitanova)
+            canvas.setFont("Helvetica", 16)
+            verkoopKaarten = 'Toegangskaarten zijn te bestellen via www.podiumplein.nl'
+            canvas.drawString(start_point(verkoopKaarten,16) ,40,verkoopKaarten)
             canvas.save()
             return (canvas)
     

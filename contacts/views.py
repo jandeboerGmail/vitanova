@@ -43,7 +43,7 @@ def decodeContactSoort(id):
     elif id == 5:
         result = "catering"
     elif id == 6:
-        result = "art_buro"
+        result = "art buro"
     elif id == 7:
         result = "bandleider"
     elif id == 8:
@@ -60,6 +60,8 @@ def decodeContactSoort(id):
         result = "stichting"
     elif id == 14:
         result = "firma"
+    elif id == 15:
+        result = 'bezoeker'
     else:
         result = "Onbekend"
     #print(id,result)
@@ -75,15 +77,19 @@ def decodeContactSoortLid(id):
     elif id == 3:
         result = "goud"
     elif id == 4:
-        result = "acara_kampalan"
+        result = "acara kampalan"
     elif id == 5:
         result = "dansen"
     elif id == 6:
-        result = "line_dance"
+        result = "line dance"
     elif id == 7:
         result = "oosterkerk"
     elif id == 8:
-        result = "rock_pop"
+        result = "rock pop"
+    elif id == 9:
+        result = "angklung concert"
+    elif id == 10:
+        result = "indische dansen"
     else:
         result = "Onbekend"
     return result
