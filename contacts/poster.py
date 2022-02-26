@@ -65,8 +65,9 @@ class Poster():
             canvas.drawString(start_point(row.organisator_info,16),670, row.organisator_info)
 
             canvas.setFont("Helvetica", 14)
-            organisator = 'Organisator Acara Adoe Adoe Team'
-            canvas.drawString(start_point(row.organisator,30),640, organisator)
+           
+            localOrganisator = 'Organisator Acara Adoe Adoe Team'
+            canvas.drawString(start_point(localOrganisator,14),640, localOrganisator)
 
             canvas.setFont("Helvetica-Bold", 24)
             band = Band.objects.get(id=row.band_id)
@@ -79,7 +80,7 @@ class Poster():
     
             # print(settings.MEDIA_ROOT)
             image = settings.MEDIA_ROOT + "/images/default.jpg"
-
+            print('Image :',image)
             if band.band_image:
                 image = settings.MEDIA_ROOT  + "/" +  str(band.band_image) 
                 im = Image.open(image)
