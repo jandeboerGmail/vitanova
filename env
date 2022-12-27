@@ -1,8 +1,0 @@
-SECRET_KEY=%sqcqf!!vld9pg+3^cx+g=_tf(hnhet%7jp0y08as%xso5ptqr
-DEBUG=0
-ALLOWED_HOSTS=192.168.1.11,jupiter
-DB_NAME=vitanova
-DB_USER=django
-DB_PASSWORD=Django2020Pwd!
-DB_HOST=192.168.1.11
-DB_PORT=3306

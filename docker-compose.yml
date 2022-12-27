@@ -10,8 +10,9 @@ services:
       - ./contacts:/app
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
-      - DEBUG=0
+      - DEBUG=1
       - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
